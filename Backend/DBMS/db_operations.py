@@ -4,15 +4,20 @@ from db import get_connection
 
 
 def get_all_requests():
-    """Retrieve all flood-relief requests from PostgreSQL."""
+    """Retrieve all flood-relief requests."""
     with get_connection() as conn:
         with conn.cursor(row_factory=dict_row) as cur:
             cur.execute("""
-                SELECT request_id, location, need,
-                       urgency_score, people_affected,
-                       arrival_time, status
+                SELECT
+                    request_id,
+                    location,
+                    need,
+                    urgency_score,
+                    people_affected,
+                    arrival_time,
+                    status
                 FROM relief_requests
-                ORDER BY arrival_time;
+                ORDER BY arrival_time ASC;
             """)
             return cur.fetchall()
 
@@ -26,7 +31,7 @@ def add_relief_request(
     arrival_time,
     source_text=None
 ):
-    """Insert a new flood-relief request into PostgreSQL."""
+    """Insert a new flood-relief request."""
     with get_connection() as conn:
         with conn.cursor() as cur:
             cur.execute("""
@@ -55,27 +60,38 @@ def add_relief_request(
 
 
 def get_resource_inventory():
-    """Retrieve available relief resources from PostgreSQL."""
+    """Retrieve the available resource inventory."""
     with get_connection() as conn:
         with conn.cursor(row_factory=dict_row) as cur:
             cur.execute("""
-                SELECT resource_id, resource_name,
-                       available_quantity, unit,
-                       warehouse_location
+                SELECT
+                    resource_id,
+                    resource_name,
+                    available_quantity,
+                    unit,
+                    warehouse_location
                 FROM resource_inventory
-                ORDER BY resource_name;
+                ORDER BY resource_name ASC;
             """)
             return cur.fetchall()
 
 
 def allocate_resource(request_id, resource_name, quantity):
-    """Allocate resources and reduce stock safely."""
+    """
+    Allocate a resource to a relief request.
+    Record the allocation and deduct available stock.
+    """
+    if not isinstance(quantity, int) or isinstance(quantity, bool):
+        raise ValueError("Quantity must be a whole number.")
+
     if quantity <= 0:
         raise ValueError("Quantity must be greater than zero.")
 
     with get_connection() as conn:
         with conn.cursor() as cur:
-            # Lock the inventory row to prevent overspending stock.
+
+            # Lock the resource row to protect stock from
+            # simultaneous allocation attempts.
             cur.execute("""
                 SELECT resource_id, available_quantity
                 FROM resource_inventory
@@ -95,23 +111,29 @@ def allocate_resource(request_id, resource_name, quantity):
                     f"Insufficient stock. Available: {available}"
                 )
 
-            # Confirm the relief request exists.
+            # Verify that the request exists.
             cur.execute("""
-                SELECT 1 FROM relief_requests
+                SELECT status
+                FROM relief_requests
                 WHERE request_id = %s;
             """, (request_id,))
 
-            if cur.fetchone() is None:
+            request = cur.fetchone()
+
+            if request is None:
                 raise ValueError("Relief request not found.")
 
             # Record the allocation.
             cur.execute("""
-                INSERT INTO resource_allocations
-                    (request_id, resource_id, quantity)
+                INSERT INTO resource_allocations (
+                    request_id,
+                    resource_id,
+                    quantity
+                )
                 VALUES (%s, %s, %s);
             """, (request_id, resource_id, quantity))
 
-            # Reduce the available stock.
+            # Deduct stock.
             cur.execute("""
                 UPDATE resource_inventory
                 SET available_quantity = available_quantity - %s
@@ -130,24 +152,96 @@ def allocate_resource(request_id, resource_name, quantity):
                 "resource": resource_name,
                 "quantity_allocated": quantity
             }
-   
 
-   
+
+def get_pending_requests():
+    """Retrieve pending requests, highest urgency first."""
+    with get_connection() as conn:
+        with conn.cursor(row_factory=dict_row) as cur:
+            cur.execute("""
+                SELECT
+                    request_id,
+                    location,
+                    need,
+                    urgency_score,
+                    people_affected,
+                    arrival_time,
+                    status
+                FROM relief_requests
+                WHERE status = 'pending'
+                ORDER BY urgency_score DESC, arrival_time ASC;
+            """)
+            return cur.fetchall()
+
+
+def update_request_status(request_id, new_status):
+    """Update a request's status and report whether it exists."""
+    allowed_statuses = {
+        "pending",
+        "allocated",
+        "completed"
+    }
+
+    if new_status not in allowed_statuses:
+        raise ValueError(
+            "Status must be pending, allocated, or completed."
+        )
+
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute("""
+                UPDATE relief_requests
+                SET status = %s
+                WHERE request_id = %s;
+            """, (new_status, request_id))
+
+            return cur.rowcount > 0
+
+
+def get_allocation_history():
+    """Retrieve allocation history with request and resource details."""
+    with get_connection() as conn:
+        with conn.cursor(row_factory=dict_row) as cur:
+            cur.execute("""
+                SELECT
+                    ra.allocation_id,
+                    ra.request_id,
+                    rr.location,
+                    rr.need,
+                    ri.resource_name,
+                    ra.quantity,
+                    ri.unit,
+                    ri.warehouse_location,
+                    ra.allocated_at
+                FROM resource_allocations AS ra
+                JOIN relief_requests AS rr
+                    ON ra.request_id = rr.request_id
+                JOIN resource_inventory AS ri
+                    ON ra.resource_id = ri.resource_id
+                ORDER BY ra.allocated_at DESC;
+            """)
+            return cur.fetchall()
+
+
 if __name__ == "__main__":
+    # Read-only smoke test: this does not allocate resources.
     try:
-        result = allocate_resource("REQ001", "water", 10)
-        print("Allocation successful!")
-        print(result)
+        print("All relief requests:")
+        for request in get_all_requests():
+            print(request)
 
-        print("\nUpdated inventory:")
+        print("\nPending requests:")
+        for request in get_pending_requests():
+            print(request)
+
+        print("\nResource inventory:")
         for resource in get_resource_inventory():
             print(resource)
 
-        print("\nUpdated request:")
-        for request in get_all_requests():
-            if request["request_id"] == "REQ001":
-                print(request)
+        print("\nAllocation history:")
+        for allocation in get_allocation_history():
+            print(allocation)
 
-    except Exception as e:
-        print("Allocation failed:")
-        print(e)
+    except Exception as error:
+        print("Database operation failed:")
+        print(error)

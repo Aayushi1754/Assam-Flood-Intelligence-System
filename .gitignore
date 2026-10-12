@@ -7,3 +7,8 @@ data/*
 !data/.gitkeep
 output/*
 !output/.gitkeep
+
+.env
+**/.env
+__pycache__/
+*.py[cod]

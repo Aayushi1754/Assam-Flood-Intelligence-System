@@ -6,6 +6,7 @@ Uses predefined category weights and critical-emergency overrides.
 """
 
 import re
+from keyword_extraction import extract_keywords_independent
 
 
 # ==================================================
@@ -14,7 +15,7 @@ import re
 
 URGENCY_CATEGORIES = {
     "rescue_emergency": {
-        "weight": 5,
+        "weight": 4,
         "keywords": [
             # English
             "trapped", "stranded", "stuck at home",
@@ -22,7 +23,7 @@ URGENCY_CATEGORIES = {
 
             # Hindi
             "फँसे हुए", "फँसे", "फंसे हुए", "फंसे",
-            "बचाव दल", "मदद कीजिए",
+            "बचाव दल",
 
             # Assamese
             "আবদ্ধ", "আৱদ্ধ", "উদ্ধাৰ দল",
@@ -35,7 +36,7 @@ URGENCY_CATEGORIES = {
     },
 
     "medical_emergency": {
-        "weight": 5,
+        "weight": 4,
         "keywords": [
             # English
             "pregnant woman", "in labour", "in labor",
@@ -48,8 +49,7 @@ URGENCY_CATEGORIES = {
             "घायल", "डॉक्टर चाहिए", "चिकित्सा सहायता",
 
             # Assamese
-            "আহত", "চিকিৎসা", "চিকিৎসক",
-            "এম্বুলেন্স", "জৰুৰী চিকিৎসা",
+            "আহত","এম্বুলেন্স", "জৰুৰী চিকিৎসা",
 
             # Roman Hindi
             "garbhvati mahila", "tez bukhar",
@@ -99,7 +99,7 @@ URGENCY_CATEGORIES = {
 
             # Assamese
             "খোৱাপানী", "খাদ্যৰ পেকেট",
-            "খাদ্য", "পানী", "শেষ হৈছে",
+            "খাদ্য", "শেষ হৈছে",
 
             # Roman Hindi
             "paani", "khana", "food packets",
@@ -216,12 +216,7 @@ def detect_urgency_categories(text):
 # ==================================================
 
 def calculate_urgency(text):
-    """
-    Calculate a score from 1 to 5.
-
-    Critical rescue or medical keywords trigger score 5.
-    Otherwise, calculate the average weight of matched categories.
-    """
+    """Calculate urgency from 1 to 5 using categories and message context."""
 
     if not isinstance(text, str) or not text.strip():
         return {
@@ -231,31 +226,149 @@ def calculate_urgency(text):
         }
 
     matched_categories = detect_urgency_categories(text)
+    normalized_text = text.casefold()
 
-    critical_keywords = (
-        CRITICAL_RESCUE_KEYWORDS
-        + CRITICAL_MEDICAL_KEYWORDS
+    # Start with the average weight of matched categories.
+    if matched_categories:
+        normalized_text = text.casefold()
+
+    planned_phrases = [
+        # English
+        "will be distributed",
+        "distribution on saturday",
+        "scheduled relief distribution",
+        "relief distribution",
+        "relief camp will be held",
+        "medical camp",
+
+        # Hindi
+        "बाँटे जाएँगे",
+        "बांटे जाएंगे",
+        "राहत शिविर सूचना",
+        "शनिवार सुबह",
+
+        # Assamese
+        "বিতৰণ কৰা হ'ব",
+        "ত্ৰাণ বিতৰণৰ বিজ্ঞপ্তি",
+    ]
+
+    is_planned = any(
+        phrase in normalized_text
+        for phrase in planned_phrases
     )
 
-    critical_match = any(
-        contains_phrase(text, keyword)
-        for keyword in critical_keywords
-    )
-
-    if critical_match:
-        score = 5.0
-
-    elif matched_categories:
+    if matched_categories:
         weights = [
             URGENCY_CATEGORIES[category]["weight"]
             for category in matched_categories
         ]
 
-        score = sum(weights) / len(weights)
+        priority_categories = {
+            "rescue_emergency",
+            "medical_emergency",
+            "evacuation",
+        }
 
+        has_priority_category = any(
+            category in priority_categories
+            for category in matched_categories
+        )
+
+        if is_planned:
+            score=2.0
+        elif has_priority_category:
+            score = max(weights)
+        else:
+            score = sum(weights) / len(weights)
     else:
         score = 1.0
 
+    # Context indicating that the situation is currently safe.
+    safe_phrases = [
+        "everyone is safe",
+        "everyone safe",
+        "no ambulance is needed",
+        "no ambulance needed",
+        "no one is injured",
+        "no injuries",
+        "sab safe hain",
+        "koi injured nahi",
+        "koi ghayal nahi",
+    ]
+
+    # Context indicating a planned activity rather than an active emergency.
+    planned_phrases = [
+        "scheduled relief distribution",
+        "relief distribution on saturday",
+        "planned relief distribution",
+        "scheduled medical camp",
+        "free medical camp",
+        "distribution will take place",
+        "relief camp will be held",
+    ]
+
+    # Context indicating an immediate emergency.
+    immediate_phrases = [
+        "trapped",
+        "stranded",
+        "needs immediate rescue",
+        "urgent rescue",
+        "ambulance needed",
+        "medical emergency",
+        "evacuate immediately",
+        "mandatory evacuation",
+        "evacuate before",
+        "rescue by",
+        "boat needed immediately"
+        "must evacaute",
+        "must leave",
+        "danger mark",
+        "water level above danger"
+        # Hindi
+        "निकासी सूचना",
+        "खतरे के निशान से ऊपर",
+        "स्थानांतरित होना होगा",
+        "सुरक्षित स्थान पर पहुँचें",
+        "नावों से निकाला जाएगा",
+
+        # Assamese
+        "বিপদসীমাৰ ওপৰত",
+        "স্থানান্তৰৰ নিৰ্দেশ",
+        "নিৰাপদ স্থানলৈ স্থানান্তৰ",
+        "নাৱেৰে উদ্ধাৰ কৰা হ'ব",
+
+        # Roman Hindi
+        "turant evacuation",
+        "danger mark se upar",
+        "sabhi log",
+        "pehle boats se nikala jayega",
+        "boat bhejiye",
+    ]
+
+    is_safe = any(
+        phrase in normalized_text for phrase in safe_phrases
+    )
+
+    is_planned = any(
+        phrase in normalized_text for phrase in planned_phrases
+    )
+
+    is_immediate = any(
+        phrase in normalized_text for phrase in immediate_phrases
+    )
+
+    # Planned activities should not be classified as emergencies
+    # merely because they mention relief, food, or medical services.
+    if is_planned and not is_immediate:
+        score = min(score, 2.0)
+
+    # When everyone is safe and no immediate emergency is reported,
+    # reduce urgency slightly rather than treating supply requests
+    # as active rescue emergencies.
+    elif is_safe and not is_immediate:
+        score = min(score, 3.0)
+
+    # Convert the numerical score to an urgency level.
     if score >= 4.5:
         level = "Critical"
     elif score >= 3.5:
@@ -277,6 +390,23 @@ def calculate_urgency(text):
 # ==================================================
 # 6. BASIC MULTILINGUAL TESTS
 # ==================================================
+def analyze_flood_message(text):
+    if not isinstance(text, str) or not text.strip():
+        return{
+            "extracted_keywords":[],
+            "urgency_score": 1.0,
+            "urgency_level": "Informational",
+            "matched_categories": [],
+        }
+    extracted_keywords=extract_keywords_independent(text)
+    urgency_result=calculate_urgency(text)
+
+    return {
+        "extracted_keywords": extracted_keywords,
+        "urgency_score": urgency_result["urgency_score"],
+        "urgency_level": urgency_result["urgency_level"],
+        "matched_categories": urgency_result["matched_categories"],
+    }
 
 if __name__ == "__main__":
 
@@ -291,13 +421,14 @@ if __name__ == "__main__":
         "The river level is being monitored.",
     ]
 
-    print("\nFloodSense Multilingual Urgency Tests")
+    print("\nFloodSense Integrated Analysis")
     print("=" * 55)
 
     for message in test_messages:
-        result = calculate_urgency(message)
+        result = analyze_flood_message(message)
 
         print(f"\nMessage: {message}")
-        print(f"Score: {result['urgency_score']}")
-        print(f"Level: {result['urgency_level']}")
-        print(f"Categories: {result['matched_categories']}")
+        print(f"Extracted Keywords: {result['extracted_keywords']}")
+        print(f"Urgency Score: {result['urgency_score']}")
+        print(f"Urgency Level: {result['urgency_level']}")
+        print(f"Matched Categories: {result['matched_categories']}")

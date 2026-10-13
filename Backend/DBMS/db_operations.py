@@ -196,7 +196,7 @@ def update_request_status(request_id, new_status):
             """, (new_status, request_id))
 
             return cur.rowcount > 0
-
+# function of history
 
 def get_allocation_history():
     """Retrieve allocation history with request and resource details."""

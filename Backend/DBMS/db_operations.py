@@ -1,4 +1,4 @@
-
+#updated
 from psycopg.rows import dict_row
 try:
     from .db import get_connection
@@ -6,8 +6,23 @@ except ImportError:
     from db import get_connection
 
 
+ALLOWED_RESOURCE_CATEGORIES = {
+    "Medical",
+    "Food",
+    "Water",
+    "Rescue",
+    "Shelter",
+}
+
+ALLOWED_REQUEST_STATUSES = {
+    "pending",
+    "allocated",
+    "completed",
+}
+
+
 def get_all_requests():
-    """Retrieve all flood-relief requests."""
+    """Retrieve all relief requests, including NLP results."""
     with get_connection() as conn:
         with conn.cursor(row_factory=dict_row) as cur:
             cur.execute("""
@@ -18,7 +33,10 @@ def get_all_requests():
                     urgency_score,
                     people_affected,
                     arrival_time,
-                    status
+                    status,
+                    source_text,
+                    extracted_keywords,
+                    urgency_level
                 FROM relief_requests
                 ORDER BY arrival_time ASC;
             """)
@@ -32,9 +50,22 @@ def add_relief_request(
     urgency_score,
     people_affected,
     arrival_time,
-    source_text=None
+    source_text=None,
+    extracted_keywords=None,
+    urgency_level=None,
 ):
-    """Insert a new flood-relief request."""
+    """Insert a relief request and its NLP results."""
+    if extracted_keywords is not None and not isinstance(
+        extracted_keywords, (list, tuple)
+    ):
+        raise ValueError("extracted_keywords must be a list or tuple.")
+
+    keywords = (
+        list(extracted_keywords)
+        if extracted_keywords is not None
+        else None
+    )
+
     with get_connection() as conn:
         with conn.cursor() as cur:
             cur.execute("""
@@ -45,9 +76,11 @@ def add_relief_request(
                     urgency_score,
                     people_affected,
                     arrival_time,
-                    source_text
+                    source_text,
+                    extracted_keywords,
+                    urgency_level
                 )
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
                 RETURNING request_id;
             """, (
                 request_id,
@@ -56,20 +89,24 @@ def add_relief_request(
                 urgency_score,
                 people_affected,
                 arrival_time,
-                source_text
+                source_text,
+                keywords,
+                urgency_level,
             ))
 
-            return cur.fetchone()[0]
+            result = cur.fetchone()
+            return result[0]
 
 
 def get_resource_inventory():
-    """Retrieve the available resource inventory."""
+    """Retrieve all resources in the inventory."""
     with get_connection() as conn:
         with conn.cursor(row_factory=dict_row) as cur:
             cur.execute("""
                 SELECT
                     resource_id,
                     resource_name,
+                    resource_category,
                     available_quantity,
                     unit,
                     warehouse_location
@@ -79,22 +116,43 @@ def get_resource_inventory():
             return cur.fetchall()
 
 
-def allocate_resource(request_id, resource_name, quantity):
-    """
-    Allocate a resource to a relief request.
-    Record the allocation and deduct available stock.
-    """
-    if not isinstance(quantity, int) or isinstance(quantity, bool):
-        raise ValueError("Quantity must be a whole number.")
+def get_resources_by_category(category):
+    """Retrieve available resources belonging to a category."""
+    if not isinstance(category, str) or category not in ALLOWED_RESOURCE_CATEGORIES:
+        raise ValueError(
+            "Category must be Medical, Food, Water, Rescue, or Shelter."
+        )
 
-    if quantity <= 0:
-        raise ValueError("Quantity must be greater than zero.")
+    with get_connection() as conn:
+        with conn.cursor(row_factory=dict_row) as cur:
+            cur.execute("""
+                SELECT
+                    resource_id,
+                    resource_name,
+                    resource_category,
+                    available_quantity,
+                    unit,
+                    warehouse_location
+                FROM resource_inventory
+                WHERE resource_category = %s
+                  AND available_quantity > 0
+                ORDER BY resource_name ASC;
+            """, (category,))
+            return cur.fetchall()
+
+
+def allocate_resource(request_id, resource_name, quantity):
+    """Allocate a resource, record the allocation, and deduct stock."""
+    if (
+        not isinstance(quantity, int)
+        or isinstance(quantity, bool)
+        or quantity <= 0
+    ):
+        raise ValueError("Quantity must be a positive whole number.")
 
     with get_connection() as conn:
         with conn.cursor() as cur:
-
-            # Lock the resource row to protect stock from
-            # simultaneous allocation attempts.
+            # Lock the inventory row to prevent concurrent over-allocation.
             cur.execute("""
                 SELECT resource_id, available_quantity
                 FROM resource_inventory
@@ -114,17 +172,23 @@ def allocate_resource(request_id, resource_name, quantity):
                     f"Insufficient stock. Available: {available}"
                 )
 
-            # Verify that the request exists.
+            # Check that the request exists and is eligible for allocation.
             cur.execute("""
                 SELECT status
                 FROM relief_requests
-                WHERE request_id = %s;
+                WHERE request_id = %s
+                FOR UPDATE;
             """, (request_id,))
 
             request = cur.fetchone()
 
             if request is None:
                 raise ValueError("Relief request not found.")
+
+            if request[0] == "completed":
+                raise ValueError(
+                    "Cannot allocate resources to a completed request."
+                )
 
             # Record the allocation.
             cur.execute("""
@@ -136,14 +200,14 @@ def allocate_resource(request_id, resource_name, quantity):
                 VALUES (%s, %s, %s);
             """, (request_id, resource_id, quantity))
 
-            # Deduct stock.
+            # Deduct allocated stock.
             cur.execute("""
                 UPDATE resource_inventory
                 SET available_quantity = available_quantity - %s
                 WHERE resource_id = %s;
             """, (quantity, resource_id))
 
-            # Mark the request as allocated.
+            # Update the request status.
             cur.execute("""
                 UPDATE relief_requests
                 SET status = 'allocated'
@@ -153,7 +217,7 @@ def allocate_resource(request_id, resource_name, quantity):
             return {
                 "request_id": request_id,
                 "resource": resource_name,
-                "quantity_allocated": quantity
+                "quantity_allocated": quantity,
             }
 
 
@@ -169,7 +233,9 @@ def get_pending_requests():
                     urgency_score,
                     people_affected,
                     arrival_time,
-                    status
+                    status,
+                    extracted_keywords,
+                    urgency_level
                 FROM relief_requests
                 WHERE status = 'pending'
                 ORDER BY urgency_score DESC, arrival_time ASC;
@@ -178,14 +244,8 @@ def get_pending_requests():
 
 
 def update_request_status(request_id, new_status):
-    """Update a request's status and report whether it exists."""
-    allowed_statuses = {
-        "pending",
-        "allocated",
-        "completed"
-    }
-
-    if new_status not in allowed_statuses:
+    """Update a request status and report whether the request exists."""
+    if new_status not in ALLOWED_REQUEST_STATUSES:
         raise ValueError(
             "Status must be pending, allocated, or completed."
         )
@@ -199,7 +259,7 @@ def update_request_status(request_id, new_status):
             """, (new_status, request_id))
 
             return cur.rowcount > 0
-# function of history
+
 
 def get_allocation_history():
     """Retrieve allocation history with request and resource details."""
@@ -212,6 +272,7 @@ def get_allocation_history():
                     rr.location,
                     rr.need,
                     ri.resource_name,
+                    ri.resource_category,
                     ra.quantity,
                     ri.unit,
                     ri.warehouse_location,
@@ -227,7 +288,7 @@ def get_allocation_history():
 
 
 if __name__ == "__main__":
-    # Read-only smoke test: this does not allocate resources.
+    # Read-only smoke test; this does not allocate resources.
     try:
         print("All relief requests:")
         for request in get_all_requests():
@@ -237,8 +298,12 @@ if __name__ == "__main__":
         for request in get_pending_requests():
             print(request)
 
-        print("\nResource inventory:")
+        print("\nAll resources:")
         for resource in get_resource_inventory():
+            print(resource)
+
+        print("\nAvailable Water resources:")
+        for resource in get_resources_by_category("Water"):
             print(resource)
 
         print("\nAllocation history:")

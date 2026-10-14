@@ -1,3 +1,6 @@
+import uuid
+from fastapi import HTTPException
+from Backend.DBMS.db_operations import add_relief_request
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
 
@@ -59,6 +62,28 @@ def schedule(
 @app.post("/analyze-flood")
 def analyze_flood(message: FloodMessage):
     result = analyze_flood_message(message.text)
+    request_id = str(uuid.uuid4())
+    location="unknown"
+    need="Flood assistance"
+    people_affected=0
+    arrival_time=0
+    try:
+        saved_request_id=add_relief_request(
+            request_id=request_id,
+            location=location,
+            need=need,
+            urgency_score=float(result["urgency_score"]),
+            people_affected=people_affected,
+            arrival_time=arrival_time,
+            source_text=message.text,
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail="Flood message was analyzed but could not save to the database",) from error
+    return{
+            "request_id":saved_request_id,
+            "message": message.text,
+            "saved_to_database":True, **result,
+        }
 
     return {
         "message": message.text,

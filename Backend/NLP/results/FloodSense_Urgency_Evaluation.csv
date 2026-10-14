@@ -1,0 +1,70 @@
+﻿Image_Name,Language,Original_Text,Expected_Needs,Expected_Keywords,Expected_Location,Expected_People_Count,Expected_Time,Expected_Urgency_Level,Image_Type,Predicted_Urgency_Level,Expected_Normalized,Predicted_Normalized
+FS_EN_001.png,English,HELP! Eight people are trapped on the first floor of a house at Riverbank Village. Water is still rising and the stairs are underwater. Please send a rescue boat now. Two of us are children.,rescue,trapped; rescue boat; Water is still rising; children; HELP,Riverbank Village,8.0,,high,Direct emergency request,High,high,high
+FS_EN_002.png,English,"We are stuck at home because the road is flooded, but everyone is safe. No ambulance is needed at the moment. We need drinking water and food packets for the family by tomorrow morning.",water; food,drinking water; food packets; road is flooded; stuck at home,,,by tomorrow morning,medium,Direct emergency request,Medium,medium,medium
+FS_EN_003.png,English,"AMBULANCE REQUIRED URGENTLY
+A pregnant woman in North Colony is in labour, and the road to the clinic is under water. Please send a boat ambulance and a doctor before 9:00 PM tonight.",medical,ambulance; pregnant woman; in labour; boat ambulance; doctor; road to the clinic is under water,North Colony,,before 9:00 PM tonight,high,Direct emergency request,High,high,high
+FS_EN_004.png,English,"Road to Green Valley Cut Off as River Floods Fields
+The only road to Green Valley has been under waist-deep water since Tuesday, leaving about 400 residents without access to shops or clinics. Local volunteers say stocks of drinking water are running low.
+They have asked the control room for water tankers, food packets, and two boats to carry the elderly to the relief camp. The water level is expected to stay high until Friday.",water; food; evacuation,under waist-deep water; drinking water; water tankers; food packets; two boats; the elderly; relief camp,Green Valley,400.0,since Tuesday; until Friday,medium,Newspaper-style report,Low,medium,low
+FS_EN_005.png,English,"Blankets and Warm Clothes Needed at Sunrise Nagar Relief Camp
+The relief camp at the Sunrise Nagar Community Hall is now sheltering 120 people, most of them women and children. Nights have turned cold and many families have only wet clothes.
+Camp organisers have asked donors for blankets, warm clothes and baby clothing by Sunday. No medical help is needed, as the visiting doctor has already examined everyone.",clothing,blankets; warm clothes; baby clothing; wet clothes; women and children,Sunrise Nagar,120.0,by Sunday,low,Newspaper-style report,Low,low,low
+FS_EN_006.png,English,"NOTICE: Evacuation of Eastbank Ward
+All residents of Eastbank Ward must evacuate to the relief camp at Sunrise Nagar Town Hall before 6:00 PM today. About 350 people live in the low-lying lanes.
+Buses will leave from the market ground every 30 minutes. Elderly and disabled residents should contact the control room for boat assistance.",evacuation; shelter,evacuate; relief camp; Buses; boat assistance; Elderly and disabled; low-lying lanes,Eastbank Ward,350.0,before 6:00 PM today; every 30 minutes,high,Official notice / relief bulletin,High,high,high
+FS_EN_007.png,English,"Relief Distribution at Maple Lane School Ground
+Food packets, drinking water and blankets will be distributed at Maple Lane School Ground on Saturday between 10:00 AM and 2:00 PM. One packet will be given to each family on showing a household card.
+Volunteers will deliver supplies to people who cannot walk. Trucks carrying supplies may be delayed because two bridges are flooded.",food; water; clothing,Food packets; drinking water; blankets; distributed; Trucks; two bridges are flooded,Maple Lane School Ground,,on Saturday between 10:00 AM and 2:00 PM,low,Official notice / relief bulletin,Low,low,low
+FS_EN_008.png,English,"Seven Villagers Stranded on Rooftop at Silverstream Hamlet
+Rescue teams are racing to reach seven villagers, including a pregnant woman and two small children, stranded on a rooftop at Silverstream Hamlet. A landslide has blocked the access road, and the water has reached the roof level.
+The group has had no food or drinking water since Monday, and one child has a high fever. Officials said two boats and a medical team will leave at dawn.",rescue; food; water; medical,stranded; rooftop; pregnant woman; two small children; no food or drinking water; high fever; medical team; two boats,Silverstream Hamlet,7.0,since Monday; at dawn,high,Newspaper-style report,High,high,high
+FS_HI_001.png,Hindi,मदद कीजिए! रिवरबैंक गाँव में 12 लोग घर की छत पर फँसे हुए हैं। पानी लगातार बढ़ रहा है और नीचे की मंज़िल डूब चुकी है। कृपया तुरंत नाव और बचाव दल भेजिए।,rescue,फँसे हुए; बचाव दल; नाव; पानी लगातार बढ़ रहा है; मदद कीजिए,रिवरबैंक गाँव,12.0,,high,Direct emergency request,High,high,high
+FS_HI_002.png,Hindi,"घर के बुज़ुर्ग को बहुत तेज़ बुखार है और वे ठीक से बोल नहीं पा रहे हैं। सड़क पर पानी भरा है, इसलिए हम अस्पताल नहीं जा सकते। कृपया आज शाम 5 बजे तक डॉक्टर और दवाइयाँ भेजिए।",medical,बुज़ुर्ग; बहुत तेज़ बुखार; सड़क पर पानी भरा है; डॉक्टर; दवाइयाँ,,,आज शाम 5 बजे तक,high,Direct emergency request,High,high,high
+FS_HI_003.png,Hindi,"हम सब सुरक्षित हैं और किसी को चोट नहीं लगी है। एम्बुलेंस की ज़रूरत नहीं है। लेकिन ग्रीन वैली में पीने का पानी खत्म हो गया है, इसलिए कृपया कल सुबह तक पानी के टैंकर भेजिए।",water,पीने का पानी; पानी के टैंकर; खत्म हो गया है,ग्रीन वैली,,कल सुबह तक,medium,Direct emergency request,Medium,medium,medium
+FS_HI_004.png,Hindi,"नॉर्थ कॉलोनी में सड़कें पानी में डूबीं, राहत सामग्री की माँग
+नॉर्थ कॉलोनी की मुख्य सड़कें तीन दिन से पानी में डूबी हैं और लगभग 500 लोग बाहर नहीं निकल पा रहे हैं। निवासियों के अनुसार भोजन और पीने के पानी का भंडार लगभग खत्म हो चुका है।
+स्थानीय स्वयंसेवकों ने तीन नावों और खाने के पैकेट की माँग की है। अगले दो दिन भी बारिश जारी रहने की आशंका है।",food; water,सड़कें पानी में डूबीं; पीने के पानी; भोजन; खाने के पैकेट; तीन नावों; राहत सामग्री,नॉर्थ कॉलोनी,500.0,तीन दिन से; अगले दो दिन,medium,Newspaper-style report,High,medium,high
+FS_HI_005.png,Hindi,"बाढ़ से बेघर हुए लोगों को अस्थायी आश्रय की ज़रूरत
+सनराइज नगर में बाढ़ के कारण कच्चे घर बह जाने से 25 लोग बेघर हो गए हैं। सभी सुरक्षित हैं और फिलहाल रिश्तेदारों के घर रुके हुए हैं।
+उन्हें अगले रविवार तक अस्थायी आश्रय और तिरपाल चाहिए।",shelter,बेघर; अस्थायी आश्रय; तिरपाल; सुरक्षित,सनराइज नगर,25.0,अगले रविवार तक,low,Newspaper-style report,Low,low,low
+FS_HI_006.png,Hindi,"निकासी सूचना: मूनलाइट बेंड बस्ती
+नदी का जलस्तर खतरे के निशान से ऊपर पहुँच गया है। बस्ती के सभी निवासी आज रात 9 बजे से पहले सुरक्षित स्थान पर पहुँचें। लगभग 200 लोगों के लिए टाउन हॉल में राहत शिविर बनाया गया है।
+बुज़ुर्गों, बच्चों और बीमार लोगों को सबसे पहले नावों से निकाला जाएगा।",evacuation; shelter,"निकासी; सुरक्षित स्थान; राहत शिविर; नावों से निकाला जाएगा; बुज़ुर्गों, बच्चों और बीमार लोगों",मूनलाइट बेंड बस्ती,200.0,आज रात 9 बजे से पहले,high,Official notice / relief bulletin,High,high,high
+FS_HI_007.png,Hindi,"राहत शिविर सूचना: ग्रीन वैली सामुदायिक भवन
+ग्रीन वैली सामुदायिक भवन में राहत शिविर चल रहा है। शनिवार सुबह 10 बजे से दोपहर 2 बजे तक कंबल, कपड़े और भोजन के पैकेट बाँटे जाएँगे।
+कृपया अपने साथ परिवार का पहचान पत्र लाएँ। जो लोग चल नहीं सकते, उनके घर तक सामान पहुँचाया जाएगा।",clothing; food,कंबल; कपड़े; भोजन के पैकेट; बाँटे जाएँगे; जो लोग चल नहीं सकते,ग्रीन वैली,,शनिवार सुबह 10 बजे से दोपहर 2 बजे तक,low,Official notice / relief bulletin,Low,low,low
+FS_HI_008.png,Hindi,"परिवहन सूचना: राहत के लिए नाव और ट्रक चाहिए
+रिवरबैंक गाँव से राहत शिविर तक लोगों को पहुँचाने के लिए चार नावों और दो ट्रकों की आवश्यकता है। मुख्य पुल पानी में डूबा है, इसलिए गाड़ियाँ गाँव तक नहीं जा सकतीं।
+जिन संस्थाओं के पास नाव या ट्रक उपलब्ध हों, वे कल दोपहर 12 बजे तक नियंत्रण कक्ष को सूचित करें।",evacuation,नावों; ट्रकों; मुख्य पुल पानी में डूबा है; नियंत्रण कक्ष; राहत शिविर तक लोगों को पहुँचाने,रिवरबैंक गाँव,,कल दोपहर 12 बजे तक,medium,Official notice / relief bulletin,High,medium,high
+FS_AS_001.png,Assamese,সহায় কৰক! সোণপাৰ গাঁৱত ১৫ জন লোক ঘৰৰ চালত আবদ্ধ হৈ আছে। পানী দ্ৰুতগতিত বাঢ়িছে আৰু তেওঁলোকৰ মাজত দুটা শিশু আছে। অনুগ্ৰহ কৰি এতিয়াই উদ্ধাৰ দল আৰু নাৱ পঠিয়াওক।,rescue,আবদ্ধ; উদ্ধাৰ দল; নাৱ; পানী দ্ৰুতগতিত বাঢ়িছে; শিশু,সোণপাৰ গাঁও,15.0,,high,Direct emergency request,High,high,high
+FS_AS_002.png,Assamese,"আমি সকলো সুস্থ আছোঁ। কোনো আহত লোক নাই আৰু এম্বুলেন্সৰ প্ৰয়োজন নাই। কিন্তু খোৱাপানী শেষ হৈছে, অনুগ্ৰহ কৰি কাইলৈ ৰাতিপুৱাৰ ভিতৰত পানী পঠিয়াওক।",water,খোৱাপানী; পানী; শেষ হৈছে,,,কাইলৈ ৰাতিপুৱাৰ ভিতৰত,medium,Direct emergency request,High,medium,high
+FS_AS_003.png,Assamese,"জোনাকীপাৰ গাঁৱত বানত আহত বৃদ্ধ, চিকিৎসাৰ বাবে অপেক্ষা
+জোনাকীপাৰ গাঁৱত বানপানীৰ সময়ত দেৱাল ভাঙি পৰি এজন বৃদ্ধ গুৰুতৰভাৱে আহত হৈছে। ৰাস্তা পানীত ডুবি থকাৰ বাবে এম্বুলেন্স গাঁৱলৈ আহিব পৰা নাই।
+পৰিয়ালে আজি সন্ধিয়া ৬ বজাৰ আগতে নাৱেৰে চিকিৎসক আৰু এম্বুলেন্স পঠিয়াবলৈ অনুৰোধ কৰিছে।",medical,আহত; এম্বুলেন্স; চিকিৎসা; চিকিৎসক; ৰাস্তা পানীত ডুবি; নাৱেৰে,জোনাকীপাৰ গাঁও,,আজি সন্ধিয়া ৬ বজাৰ আগতে,high,Newspaper-style report,High,high,high
+FS_AS_004.png,Assamese,"পদুমপাৰ গাঁৱত খাদ্য আৰু খোৱাপানীৰ অভাৱ
+পদুমপাৰ গাঁৱৰ ৰাস্তা পানীত ডুবি থকাৰ বাবে তিনিদিনৰ পৰা যোগাযোগ বন্ধ হৈ আছে। প্ৰায় ৩০০ জন লোকে খাদ্য আৰু খোৱাপানীৰ অভাৱত ভুগিছে।
+শিশুবোৰ ভোকত আছে। গাঁৱৰ লোকে খাদ্যৰ পেকেট আৰু খোৱাপানী নাৱেৰে পঠিয়াবলৈ অনুৰোধ কৰিছে।",food; water,খাদ্য; খোৱাপানী; খাদ্যৰ পেকেট; ভোকত; ৰাস্তা পানীত ডুবি; যোগাযোগ বন্ধ; নাৱেৰে,পদুমপাৰ গাঁও,300.0,তিনিদিনৰ পৰা,medium,Newspaper-style report,High,medium,high
+FS_AS_005.png,Assamese,"ত্ৰাণ শিবিৰত কম্বল আৰু কাপোৰৰ প্ৰয়োজন
+জোনাকীপাৰ গাঁৱৰ বিদ্যালয়ৰ ত্ৰাণ শিবিৰত ৪০ জন লোকে আশ্ৰয় লৈছে। ৰাতি ঠাণ্ডা বাঢ়িছে আৰু বহুতৰে কাপোৰ তিতি গৈছে।
+শিবিৰৰ সঞ্চালকে ৰবিবাৰৰ ভিতৰত কম্বল, গৰম কাপোৰ আৰু শিশুৰ কাপোৰ পঠিয়াবলৈ অনুৰোধ কৰিছে। কোনো জৰুৰীকালীন পৰিস্থিতি নাই।",clothing,কম্বল; কাপোৰ; গৰম কাপোৰ; ঠাণ্ডা; শিশুৰ কাপোৰ,জোনাকীপাৰ গাঁও,40.0,ৰবিবাৰৰ ভিতৰত,low,Newspaper-style report,Low,low,low
+FS_AS_006.png,Assamese,"নদীৰ পানী বিপদসীমাৰ ওপৰত: স্থানান্তৰৰ নিৰ্দেশ
+ৰূপালীপাৰ বসতিৰ সকলো বাসিন্দাই আজি ৰাতি ৯ বজাৰ আগতে নিৰাপদ স্থানলৈ স্থানান্তৰ হ'ব লাগিব। প্ৰায় ২০০ জন লোকৰ বাবে টাউন হলত ত্ৰাণ শিবিৰ খোলা হৈছে।
+বৃদ্ধ, শিশু আৰু অসুস্থ লোকক প্ৰথমে নাৱেৰে উদ্ধাৰ কৰা হ'ব।",evacuation; shelter; rescue,"স্থানান্তৰ; নিৰাপদ স্থান; ত্ৰাণ শিবিৰ; নাৱেৰে উদ্ধাৰ; বৃদ্ধ, শিশু আৰু অসুস্থ লোক",ৰূপালীপাৰ বসতি,200.0,আজি ৰাতি ৯ বজাৰ আগতে,high,Official notice / relief bulletin,High,high,high
+FS_AS_007.png,Assamese,"ত্ৰাণ বিতৰণৰ বিজ্ঞপ্তি
+শনিবাৰে ৰাতিপুৱা ১০ বজাৰ পৰা দুপৰীয়া ২ বজালৈ ৰঙাপাৰ গাঁৱৰ বিদ্যালয়ৰ পথাৰত খাদ্যৰ পেকেট, খোৱাপানী আৰু কম্বল বিতৰণ কৰা হ'ব। প্ৰতিটো পৰিয়ালে এখন কাৰ্ড লৈ আহিব লাগিব।
+ৰাস্তা পানীত ডুবি থকাৰ বাবে ট্ৰাকবোৰ পলম হ'ব পাৰে।",food; water; clothing,খাদ্যৰ পেকেট; খোৱাপানী; কম্বল; বিতৰণ; ট্ৰাক; ৰাস্তা পানীত ডুবি,ৰঙাপাৰ গাঁও,,শনিবাৰে ৰাতিপুৱা ১০ বজাৰ পৰা দুপৰীয়া ২ বজালৈ,low,Official notice / relief bulletin,Low,low,low
+FS_CM_001.png,Code-mixed (Hindi + English),Please help! Riverbank Village में 10 लोग छत पर फँसे हैं और water level बढ़ता जा रहा है। एक बुज़ुर्ग injured है और उसे ambulance की ज़रूरत है। रात 8 बजे से पहले boat भेजिए।,rescue; medical,फँसे; water level; injured; ambulance; boat; बुज़ुर्ग,Riverbank Village,10.0,रात 8 बजे से पहले,high,Direct emergency request,High,high,high
+FS_CM_002.png,Code-mixed (Romanized Hindi + English),"Hum sab safe hain aur koi injured nahi hai, ambulance ki zaroorat nahi hai. Bas ghar mein drinking water aur khana khatam ho gaya hai. Please kal subah tak food packets aur paani ke bottles bhej dijiye.",water; food,drinking water; khana; food packets; paani; khatam ho gaya hai,,,kal subah tak,medium,Direct emergency request,Medium,medium,medium
+FS_CM_003.png,Code-mixed (Assamese + English),Help লাগে! Green Valleyত বানৰ পানী ঘৰলৈ সোমাইছে আৰু ৫ জন লোক upstairsত আবদ্ধ হৈ আছে। দুজন শিশু আৰু এজন বৃদ্ধ আছে। অনুগ্ৰহ কৰি rescue boat পঠিয়াওক।,rescue,Help; আবদ্ধ; rescue boat; শিশু; বৃদ্ধ; বানৰ পানী ঘৰলৈ সোমাইছে,Green Valley,5.0,,high,Direct emergency request,High,high,high
+FS_CM_004.png,Code-mixed (Hindi + English),"Flood relief: North Colony में food, water और blankets की shortage
+North Colony में flood के बाद लगभग 250 लोग relief camp में रह रहे हैं। Camp organisers के अनुसार drinking water और food packets शनिवार तक ही चलेंगे।
+रात में ठंड बढ़ने से blankets और बच्चों के कपड़ों की भी ज़रूरत है। कोई serious injury report नहीं हुई है।",water; food; clothing,drinking water; food packets; blankets; बच्चों के कपड़ों; shortage; relief camp,North Colony,250.0,शनिवार तक,medium,Newspaper-style report,Medium,medium,medium
+FS_CM_005.png,Code-mixed (Assamese + English),"Padumpar Gaonত road বন্ধ, medicine আৰু খাদ্যৰ অভাৱ
+বানৰ বাবে তিনিদিনৰ পৰা road বন্ধ হৈ আছে আৰু গাঁৱৰ ৬০ জন লোক বাহিৰলৈ ওলাব পৰা নাই। কেইজনমান লোকৰ জ্বৰ আছে আৰু তেওঁলোকৰ বাবে doctor আৰু medicine লাগে।
+Volunteersএ drinking water আৰু food packets পঠিয়াবলৈ অনুৰোধ কৰিছে।",medical; water; food,road বন্ধ; জ্বৰ; doctor; medicine; drinking water; food packets; খাদ্যৰ অভাৱ,Padumpar Gaon,60.0,তিনিদিনৰ পৰা,medium,Newspaper-style report,Medium,medium,medium
+FS_CM_006.png,Code-mixed (Romanized Hindi + English),"NOTICE: Moonlight Bend Basti mein turant evacuation
+River danger mark se upar beh rahi hai. Basti ke sabhi log aaj raat 9 baje se pehle Town Hall ke relief camp mein pahunchein. Lagbhag 180 logon ke liye shelter taiyaar hai.
+Bujurgon, bacchon aur bimar logon ko pehle boats se nikala jayega.",evacuation; shelter,"evacuation; danger mark; relief camp; shelter taiyaar hai; boats se nikala jayega; Bujurgon, bacchon aur bimar logon",Moonlight Bend Basti,180.0,aaj raat 9 baje se pehle,high,Official notice / relief bulletin,High,high,high
+FS_CM_007.png,Code-mixed (Hindi + English),"Relief bulletin: Green Valley में free medical camp
+Green Valley Community Hall में शुक्रवार सुबह 9 बजे से free medical camp लगेगा। Doctors बुखार और skin infection की medicines देंगे। Injured लोगों के लिए ambulance तैयार रहेगी।
+साथ ही 200 food packets और drinking water भी बाँटे जाएँगे।",medical; food; water,medical camp; Doctors; medicines; ambulance; food packets; drinking water,Green Valley,,शुक्रवार सुबह 9 बजे से,low,Official notice / relief bulletin,Low,low,low

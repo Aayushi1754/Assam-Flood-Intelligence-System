@@ -6,7 +6,7 @@ Uses predefined category weights and critical-emergency overrides.
 """
 
 import re
-from keyword_extraction import extract_keywords_independent
+from .keyword_extraction import extract_keywords_independent
 
 
 # ==================================================

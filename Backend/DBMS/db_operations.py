@@ -1,6 +1,9 @@
 
 from psycopg.rows import dict_row
-from db import get_connection
+try:
+    from .db import get_connection
+except ImportError:
+    from db import get_connection
 
 
 def get_all_requests():

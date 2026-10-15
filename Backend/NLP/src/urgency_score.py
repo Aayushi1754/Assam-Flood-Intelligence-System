@@ -19,7 +19,7 @@ URGENCY_CATEGORIES = {
         "keywords": [
             # English
             "trapped", "stranded", "stuck at home",
-            "immediate rescue", "people trapped",
+            "immediate rescue", "people trapped","urgent_rescue","need urgent rescue","severe flooding","water has entered house","people need rescue",
 
             # Hindi
             "फँसे हुए", "फँसे", "फंसे हुए", "फंसे",
@@ -319,11 +319,16 @@ def calculate_urgency(text):
         "mandatory evacuation",
         "evacuate before",
         "rescue by",
-        "boat needed immediately"
-        "must evacaute",
+        "boat needed immediately",
+        "must evacuate",
         "must leave",
         "danger mark",
-        "water level above danger"
+        "water level above danger",
+        "urgent_rescue",
+        "need urgent rescue",
+        "severe flooding",
+        "water has entered house",
+        "people need rescue",
         # Hindi
         "निकासी सूचना",
         "खतरे के निशान से ऊपर",

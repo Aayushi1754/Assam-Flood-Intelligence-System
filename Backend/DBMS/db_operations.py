@@ -90,7 +90,7 @@ def add_relief_request(
                 people_affected,
                 arrival_time,
                 source_text,
-                keywords,
+                extracted_keywords,
                 urgency_level,
             ))
 

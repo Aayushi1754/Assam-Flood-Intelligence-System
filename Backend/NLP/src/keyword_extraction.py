@@ -149,7 +149,62 @@ def remove_overlapping_keywords(keywords):
 
     return filtered_keywords
 
+def classify_relief_need(text):
+    """Classify the primary type of assistance requested."""
 
+    text = text.casefold()
+
+    categories = {
+        "Rescue": [
+            "rescue", "trapped", "stranded", "evacuate",
+            "evacuation", "boat", "बचाव", "फँसे",
+            "उদ্ধাৰ", "আবদ্ধ", "আৱদ্ধ",
+            "boats se nikala jayega",
+        ],
+        "Medical": [
+            "medical", "medicine", "medicines", "doctor",
+            "ambulance", "injured", "fever",
+            "चिकित्सा", "डॉक्टर", "दवाइयाँ",
+            "চিকিৎসা", "চিকিৎসক", "আহত",
+        ],
+        "Food": [
+            "food", "hungry", "meal", "food packet",
+            "food packets", "खाना", "भोजन",
+            "খাদ্য", "ভোকত", "khana",
+        ],
+        "Water": [
+            "drinking water", "water", "paani",
+            "पानी", "पीने का पानी", "খোৱাপানী",
+        ],
+        "Shelter": [
+            "shelter", "blanket", "tarpaulin",
+            "relief camp", "कंबल", "राहत शिविर",
+            "কম্বল", "ত্ৰাণ শিবিৰ",
+        ],
+    }
+
+    for category, keywords in categories.items():
+        if any(keyword in text for keyword in keywords):
+            return category
+
+    return "Flood assistance"
+def extract_people_affected(text):
+    """Extract a numeric count of affected people when stated."""
+
+    if not isinstance(text, str):
+        return 0
+
+    patterns = [
+        r"\b(\d+)\s+(?:people|persons|families|victims)\b",
+        r"\b(\d+)\s+(?:people are|persons are)\b",
+    ]
+
+    for pattern in patterns:
+        match = re.search(pattern, text, flags=re.IGNORECASE)
+        if match:
+            return int(match.group(1))
+
+    return 0
 # ------------------------------------------
 # Run keyword extraction
 # ------------------------------------------

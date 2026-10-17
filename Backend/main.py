@@ -1,7 +1,9 @@
 import uuid
+import math
 from fastapi import HTTPException
 from Backend.DBMS.db_operations import add_relief_request
-from Backend.DBMS.db_operations import (get_all_requests,get_resources_by_category,allocate_resource,get_allocation_history,)
+from Backend.DBMS.db_operations import (get_all_requests,get_resources_by_category,allocate_resource,get_allocation_history,get_resource_inventory)
+from Backend.resource_requirements import (calculate_required_quantity as calculate_quantity,)
 from Backend.NLP.src.keyword_extraction import(
     classify_relief_need,
     extract_people_affected,
@@ -34,6 +36,12 @@ class FloodMessage(BaseModel):
         min_length=1,
         max_length=200,
         description="Location of the flood-affected area",
+    )
+class BulkFloodMessage(BaseModel):
+    messages:list[FloodMessage]=Field(
+        ...,
+        min_length=1,
+        max_length=100,
     )
 class ResourceAllocationRequest(BaseModel):
     request_id: str
@@ -110,7 +118,6 @@ def schedule_saved_requests(algorithm: str = "Priority"):
     }
 @app.get("/suggest-resources/{request_id}")
 def suggest_resources(request_id: str):
-    # Find the saved request
     saved_requests = get_all_requests()
 
     request = next(
@@ -120,32 +127,109 @@ def suggest_resources(request_id: str):
         ),
         None,
     )
-
     if request is None:
         raise HTTPException(
             status_code=404,
             detail="Relief request not found.",
         )
-
-    # Choose a suggested resource category from the NLP keywords
     keywords = [
         str(keyword).casefold()
         for keyword in (request["extracted_keywords"] or [])
     ]
-
     category = None
 
-    if any(word in keywords for word in ["rescue", "trapped", "urgent"]):
-        category = "Rescue"
-    elif any(word in keywords for word in ["injured", "medicine", "medical"]):
-        category = "Medical"
-    elif any(word in keywords for word in ["food", "meal", "hungry"]):
-        category = "Food"
-    elif any(word in keywords for word in ["water", "drinking"]):
-        category = "Water"
-    elif any(word in keywords for word in ["shelter", "blanket", "clothes"]):
-        category = "Shelter"
+    # Rescue — English, Hindi, Assamese, and Roman Hindi
+    if any(word in keywords for word in [
+        # English
+        "rescue", "trapped", "urgent", "stranded",
+        "boat", "boats", "evacuate", "evacuation",
 
+        # Hindi
+        "बचाव", "फँसे", "फंसे", "फँस", "फंस",
+        "रेस्क्यू", "नाव", "नौका", "उद्धार",
+
+        # Assamese
+        "উদ্ধাৰ", "আবদ্ধ", "আৱদ্ধ", "নাও",
+        "নাৱেৰে", "উদ্ধাৰ দল",
+
+        # Roman Hindi
+        "bachao", "fase", "fasse", "phas",
+        "naav", "nao", "rescue boat",
+    ]):
+        category = "Rescue"
+
+    # Medical
+    elif any(word in keywords for word in [
+        # English
+        "injured", "medicine", "medicines", "medical",
+        "doctor", "ambulance", "fever",
+
+        # Hindi
+        "चिकित्सा", "डॉक्टर", "दवाइयाँ", "दवाई",
+        "घायल", "एम्बुलेंस", "बुखार",
+
+        # Assamese
+        "চিকিৎসা", "চিকিৎসক", "আহত",
+        "এম্বুলেন্স", "জৰুৰী চিকিৎসা",
+
+        # Roman Hindi
+        "dawai", "dawaiyan", "doctor chahiye",
+    ]):
+        category = "Medical"
+
+    # Food
+    elif any(word in keywords for word in [
+        # English
+        "food", "meal", "hungry", "food packet",
+        "food packets",
+
+        # Hindi
+        "खाना", "भोजन", "भोजन के पैकेट",
+        "खाद्य",
+
+        # Assamese
+        "খাদ্য", "খাদ্যৰ পেকেট", "ভোকত",
+
+        # Roman Hindi
+        "khana", "bhojan", "food packets",
+    ]):
+        category = "Food"
+
+    # Drinking water
+    elif any(word in keywords for word in [
+        # English
+        "water", "drinking", "drinking water",
+        "water shortage",
+
+        # Hindi
+        "पानी", "पीने का पानी", "जल",
+
+        # Assamese
+        "পানী", "খোৱাপানী", "খোৱা পানী",
+
+        # Roman Hindi
+        "paani", "pani", "peene ka paani",
+    ]):
+        category = "Water"
+
+    # Shelter
+    elif any(word in keywords for word in [
+        # English
+        "shelter", "blanket", "blankets", "clothes",
+        "tarpaulin", "relief camp",
+
+        # Hindi
+        "कंबल", "आश्रय", "राहत शिविर",
+        "तिरपाल", "कपड़े",
+
+        # Assamese
+        "কম্বল", "আশ্ৰয়", "নিৰাপদ স্থান",
+        "ত্ৰাণ শিবিৰ", "গৰম কাপোৰ",
+
+        # Roman Hindi
+        "kambal", "rahat shivir", "kapde",
+    ]):
+        category = "Shelter"
     if category is None:
         return {
             "request_id": request_id,
@@ -154,7 +238,6 @@ def suggest_resources(request_id: str):
             "available_resources": [],
         }
 
-    # Check the inventory without changing stock
     resources = get_resources_by_category(category)
 
     return {
@@ -167,6 +250,142 @@ def suggest_resources(request_id: str):
             if resources
             else "No resources are currently available in this category."
         ),
+    }
+@app.get("/suggest-resources-bulk")
+def suggest_resources_bulk():
+    saved_requests = get_all_requests()
+
+    results = []
+
+    for request in saved_requests:
+        keywords = [
+            str(keyword).casefold()
+            for keyword in (request["extracted_keywords"] or [])
+        ]
+
+        category = None
+
+        if any(word in keywords for word in [
+        "rescue", "trapped", "urgent","बचाव", "फँसे", "फंसे","উদ্ধাৰ", "আবদ্ধ", "নাও" ]):
+            category = "Rescue"
+
+        elif any(word in keywords for word in ["injured", "medicine", "medical","चिकित्सा","चिकित्सा सहायता","চিকিৎসা"]):
+            category = "Medical"
+        elif any(word in keywords for word in [
+    "food", "meal", "hungry",
+    "food packets", "भोजन", "भोजन के पैकेट",
+    "খাদ্য", "খাদ্যৰ পেকেট"
+]):
+            category = "Food"
+
+        elif any(word in keywords for word in [
+    "water", "drinking", "drinking water",
+    "पानी", "पीने का पानी",
+    "পানী", "খোৱা পানী"
+]):
+            category = "Water"
+
+        elif any(word in keywords for word in [
+    "shelter", "blanket", "clothes",
+    "कंबल", "आश्रय",
+    "কম্বল", "আশ্ৰয়"
+]):
+            category = "Shelter"
+
+        if category is None:
+            results.append({
+                "request_id": request["request_id"],
+                "location": request["location"],
+                "urgency_level": request["urgency_level"],
+                "suggested_category": None,
+                "available_resources": [],
+                "message": "No resource category could be confidently suggested."
+            })
+            continue
+
+        resources = get_resources_by_category(category)
+
+        results.append({
+            "request_id": request["request_id"],
+            "location": request["location"],
+            "urgency_level": request["urgency_level"],
+            "suggested_category": category,
+            "available_resources": resources,
+            "message": (
+                "Resources are available for consideration."
+                if resources
+                else "No resources are currently available in this category."
+            )
+        })
+
+    return {
+        "total_requests": len(results),
+        "suggestions": results
+    }
+
+@app.get("/calculate-resource-requirements")
+def calculate_resource_requirements_endpoint(
+    need: str,
+    people_affected: int,
+):
+    try:
+        quantity = calculate_quantity(
+            need=need,
+            people_affected=people_affected,
+        )
+
+        return {
+            "need": need,
+            "people_affected": people_affected,
+            "required_quantity": quantity,
+        }
+
+    except ValueError as error:
+        raise HTTPException(
+            status_code=400,
+            detail=str(error),
+        )
+@app.post("/analyze-flood-bulk")
+def analyze_flood_bulk(bulk_message: BulkFloodMessage):
+    results = []
+    for message in bulk_message.messages:
+        result = analyze_flood_message(message.text)
+        request_id = str(uuid.uuid4())
+        need = classify_relief_need(message.text)
+        people_affected = extract_people_affected(message.text)
+        try:
+            saved_request_id = add_relief_request(
+                request_id=request_id,
+                location=message.location.strip(),
+                need=need,
+                urgency_score=float(result["urgency_score"]),
+                people_affected=people_affected,
+                arrival_time=0,
+                source_text=message.text,
+                extracted_keywords=result["extracted_keywords"],
+                urgency_level=result["urgency_level"],
+            )
+            results.append({
+                "request_id": saved_request_id,
+                "location": message.location,
+                "need": need,
+                "people_affected": people_affected,
+                "saved_to_database": True,
+                **result,
+            })
+        except Exception as e:
+            results.append({
+                "location": message.location,
+                "saved_to_database": False,
+                "error": str(e),
+            })
+    return {
+        "total_messages": len(bulk_message.messages),
+        "successfully_saved": sum(
+            1 for item in results
+            if item["saved_to_database"]
+        ),
+        "results": results,
     }
 @app.post("/allocate-resource")
 def allocate_resource_endpoint(data: ResourceAllocationRequest):
@@ -204,6 +423,147 @@ def allocation_history():
             status_code=500,
             detail=f"Failed to fetch allocation history: {str(error)}",
         )
+@app.post("/allocate-resources-by-schedule")
+def allocate_resources_by_schedule(algorithm: str = "Priority"):
+
+    # 1. Get all requests
+    saved_requests = get_all_requests()
+
+    # Only process pending requests
+    pending_requests = [
+        row for row in saved_requests
+        if row["status"] == "pending"
+    ]
+
+    # 2. Convert pending requests into scheduler objects
+    requests = [
+        ReliefRequest(
+            request_id=str(row["request_id"]),
+            location=row["location"],
+            need=row["need"],
+            urgency_score=float(row["urgency_score"]),
+            people_affected=int(row["people_affected"]),
+            arrival_time=int(row["arrival_time"]),
+        )
+        for row in pending_requests
+    ]
+
+    # 3. Schedule requests using selected algorithm
+    scheduled_requests = schedule_requests(requests, algorithm)
+
+    # 4. Prepare inventory and allocation report
+    inventory = get_resource_inventory()
+    allocation_results = []
+
+    for scheduled in scheduled_requests:
+
+        request_id = str(scheduled["request_id"])
+
+        # Find the original database request
+        request = next(
+            (
+                row for row in pending_requests
+                if str(row["request_id"]) == request_id
+            ),
+            None,
+        )
+
+        if request is None:
+            continue
+
+        need = str(request["need"]).strip().lower()
+        people = request["people_affected"]
+
+        # 5. Match request to a resource
+        resource_mapping = {
+            "food": "Food packets",
+            "rescue": "Rescue boat",
+            "medical": "First Aid Kits",
+            "water": "Drinking water",
+            "shelter": "Blankets",
+        }
+
+        resource_name = resource_mapping.get(need)
+
+        if resource_name is None:
+            allocation_results.append({
+                "request_id": request_id,
+                "status": "skipped",
+                "message": f"No resource mapping for {need}.",
+            })
+            continue
+
+        # 6. Calculate required quantity
+        try:
+            quantity = calculate_quantity(
+                need=need,
+                people_affected=people,
+            )
+
+        except ValueError as error:
+            allocation_results.append({
+                "request_id": request_id,
+                "status": "skipped",
+                "message": str(error),
+            })
+            continue
+
+        # Check available stock before allocation
+        resource = next(
+            (
+                item for item in inventory
+                if item["resource_name"] == resource_name
+            ),
+            None,
+        )
+
+        if resource is None:
+            allocation_results.append({
+                "request_id": request_id,
+                "status": "skipped",
+                "message": f"{resource_name} not found in inventory.",
+            })
+            continue
+
+        if resource["available_quantity"] < quantity:
+            allocation_results.append({
+                "request_id": request_id,
+                "status": "insufficient_stock",
+                "resource": resource_name,
+                "required_quantity": quantity,
+                "available_quantity": resource["available_quantity"],
+            })
+            continue
+
+        # 7. Allocate and deduct inventory
+        try:
+            result = allocate_resource(
+                request_id=request_id,
+                resource_name=resource_name,
+                quantity=quantity,
+            )
+
+            # Update local inventory for the next request
+            resource["available_quantity"] -= quantity
+
+            allocation_results.append({
+                "request_id": request_id,
+                "status": "allocated",
+                "allocation": result,
+            })
+
+        except ValueError as error:
+            allocation_results.append({
+                "request_id": request_id,
+                "status": "failed",
+                "message": str(error),
+            })
+
+    return {
+        "algorithm": algorithm,
+        "total_pending_requests": len(pending_requests),
+        "allocation_results": allocation_results,
+    }
 @app.post("/analyze-flood")
 def analyze_flood(message: FloodMessage):
     result = analyze_flood_message(message.text)

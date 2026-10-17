@@ -23,7 +23,9 @@ URGENCY_CATEGORIES = {
 
             # Hindi
             "फँसे हुए", "फँसे", "फंसे हुए", "फंसे",
-            "बचाव दल",
+            "बचाव दल","फँस गए", "फंस गए",
+            "बचाने के लिए", "रेस्क्यू बोट",
+            "तुरंत बचाव", "बचाव की जरूरत",
 
             # Assamese
             "আবদ্ধ", "আৱদ্ধ", "উদ্ধাৰ দল",
@@ -90,16 +92,21 @@ URGENCY_CATEGORIES = {
             "drinking water", "food packets",
             "food packet", "no food or drinking water",
             "medicines", "medicine", "water tankers",
-            "shortage",
+            "shortage","no safe drinking water","no drinking water","need clean water immediately",
 
             # Hindi
             "पीने का पानी", "खाने के पैकेट",
             "भोजन के पैकेट", "पानी के टैंकर",
-            "दवाइयाँ", "भोजन", "खाना",
+            "दवाइयाँ", "भोजन", "खाना","साफ पानी नहीं मिल रहा",
+"पीने का साफ पानी नहीं मिल रहा",
 
             # Assamese
             "খোৱাপানী", "খাদ্যৰ পেকেট",
             "খাদ্য", "শেষ হৈছে",
+            "খোৱা পানীৰ প্ৰয়োজন",
+"খোৱাপানীৰ প্ৰয়োজন",
+"খোৱা পানীৰ প্ৰয়োজন",
+"খোৱাপানীৰ প্ৰয়োজন",
 
             # Roman Hindi
             "paani", "khana", "food packets",
@@ -159,7 +166,9 @@ CRITICAL_RESCUE_KEYWORDS = [
     "trapped", "stranded", "stuck at home",
     "immediate rescue", "फँसे हुए", "फँसे",
     "फंसे हुए", "फंसे", "আবদ্ধ", "আৱদ্ধ",
-    "log fase hue", "bachao",
+    "log fase hue", "bachao","फँस गए", "फंस गए",
+    "रेस्क्यू बोट",
+    "तुरंत बचाव", 
 ]
 
 CRITICAL_MEDICAL_KEYWORDS = [
@@ -210,11 +219,47 @@ def detect_urgency_categories(text):
 
     return matched
 
+def is_non_emergency_update(text):
+    """Identify messages that explicitly describe a non-emergency."""
 
-# ==================================================
-# 5. URGENCY SCORING
-# ==================================================
+    text = text.casefold()
 
+    non_emergency_phrases = [
+        # English
+        "no evacuations are needed",
+        "no evacuation is needed",
+        "no evacuation is required",
+        "no immediate evacuation",
+        "evacuation is not needed",
+        "evacuation is not required",
+        "no rescue is needed",
+        "no immediate danger",
+        "water levels are stable",
+        "water level is stable",
+        "river level is stable",
+        "routine flood update",
+        "routine flood information update",
+
+        # Hindi
+        "निकासी की आवश्यकता नहीं है",
+        "निकासी की जरूरत नहीं है",
+        "तत्काल निकासी की जरूरत नहीं है",
+        "जलस्तर स्थिर है",
+        "पानी का स्तर स्थिर है",
+        "कोई तत्काल खतरा नहीं है",
+
+        # Assamese
+        "উদ্ধাৰৰ প্ৰয়োজন নাই",
+        "উদ্ধাৰৰ প্ৰয়োজন নাই",
+        "পানীৰ স্তৰ স্থিৰ",
+        "জলস্তৰ স্থিৰ",
+        "কোনো তাৎক্ষণিক বিপদ নাই",
+    ]
+
+    return any(
+        contains_phrase(text, phrase)
+        for phrase in non_emergency_phrases
+    )
 def calculate_urgency(text):
     """Calculate urgency from 1 to 5 using categories and message context."""
 
@@ -226,6 +271,51 @@ def calculate_urgency(text):
         }
 
     matched_categories = detect_urgency_categories(text)
+    normalized_text = text.casefold()
+
+    # Detect a genuine emergency before applying a non-emergency rule.
+    genuine_emergency_phrases = [
+        # English
+        "people are trapped",
+        "people remain trapped",
+        "trapped on rooftops",
+        "stranded people",
+        "immediate rescue",
+        "urgent rescue",
+        "rescue boat needed",
+        "ambulance needed",
+        "medical emergency",
+        "evacuate immediately",
+        "mandatory evacuation",
+
+        # Hindi
+        "लोग फँसे हुए हैं",
+        "लोग फंसे हुए हैं",
+        "तुरंत बचाव",
+        "रेस्क्यू बोट चाहिए",
+        "तत्काल चिकित्सा सहायता",
+
+        # Assamese
+        "লোক আবদ্ধ হৈ আছে",
+        "লোক আৱদ্ধ হৈ আছে",
+        "উদ্ধাৰ দল",
+        "জৰুৰী চিকিৎসা",
+    ]
+
+    has_genuine_emergency = any(
+        contains_phrase(normalized_text, phrase)
+        for phrase in genuine_emergency_phrases
+    )
+
+    if (
+        is_non_emergency_update(normalized_text)
+        and not has_genuine_emergency
+    ):
+        return {
+            "urgency_score": 1.0,
+            "urgency_level": "Informational",
+            "matched_categories": matched_categories,
+        }
     normalized_text = text.casefold()
 
     # Start with the average weight of matched categories.
@@ -424,6 +514,13 @@ if __name__ == "__main__":
         "বানপানীৰ খবৰ আৰু পানীৰ স্তৰ পৰীক্ষা কৰা হৈছে।",
         "Paani aur khana chahiye.",
         "The river level is being monitored.",
+        "Flood update: water levels are stable today, and no evacuations are needed.",
+
+"Twenty people are trapped on rooftops and urgently need rescue boats.",
+
+"Water levels are stable, but 10 people remain trapped on a rooftop.",
+
+"The river level is being monitored, and officials have issued a routine flood information update.",
     ]
 
     print("\nFloodSense Integrated Analysis")

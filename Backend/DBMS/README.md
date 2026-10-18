@@ -1,62 +1,73 @@
 # FloodSense — DBMS Module
-#updated
 
 ## 1. Overview
 
-The Database Management System (DBMS) module stores and manages flood-relief requests, resource inventory, and resource allocation records for the FloodSense Assam Flood Intelligence System.
+The Database Management System (DBMS) module is responsible for storing and managing flood-relief requests, resource inventory, and resource allocation records in the FloodSense Assam Flood Intelligence System.
 
-It uses PostgreSQL for persistent data storage and Psycopg 3 for Python database connectivity. The module supports relief-request management, NLP result storage, resource availability checks, and transactional resource allocation.
+The module uses PostgreSQL as its relational database and Psycopg 3 for connectivity between Python and PostgreSQL. It supports relief-request management, storage of Natural Language Processing (NLP) results, resource availability checks, and transactional resource allocation.
+
+The main objective of this module is to maintain structured, consistent, and accessible data to support flood-relief operations.
 
 ## 2. Technologies Used
 
-- Python
-- PostgreSQL
-- Psycopg 3
-- SQL
-- `unittest` and `unittest.mock` for automated testing
+- **Python:** Implements database connectivity and database operations.
+- **PostgreSQL:** Stores application data in a relational database.
+- **Psycopg 3:** Connects the Python application to PostgreSQL.
+- **SQL:** Defines database structures and performs data operations.
+- **unittest:** Supports automated testing.
+- **unittest.mock:** Allows database-related functions to be tested using mocks.
 
 ## 3. Project Files
 
-- `db.py` — establishes the PostgreSQL database connection.
-- `db_operations.py` — implements relief-request operations, resource inventory retrieval, category-based filtering, resource allocation, status updates, and allocation history.
-- `schema.sql` — defines database tables, constraints, indexes, and the allocation-summary view.
-- `seed.sql` — provides sample relief requests and resource inventory records.
-- `test_db_operations.py` — contains automated tests for DBMS operations, including resource-category validation.
+The DBMS module contains the following files:
 
-## 4. Database Tables
+| File | Description |
+|---|---|
+| `db.py` | Establishes the PostgreSQL database connection. |
+| `db_operations.py` | Implements database operations for relief requests, resource inventory, resource allocation, status updates, and allocation history. |
+| `schema.sql` | Defines database tables, constraints, indexes, and the allocation-summary view. |
+| `seed.sql` | Provides sample relief requests and resource inventory records. |
+| `test_db_operations.py` | Contains automated tests for DBMS operations and resource-category validation. |
+| `README.md` | Documents the database module, setup instructions, features, and testing procedure. |
 
-### 4.1 `relief_requests`
+## 4. Database Design
 
-Stores flood-relief requests and their processing status.
+The database organizes flood-relief information into three main tables: `relief_requests`, `resource_inventory`, and `resource_allocations`.
 
-Important fields:
+### 4.1 Relief Requests Table
 
-- `request_id` — unique identifier for each request.
-- `location` — location requiring assistance.
-- `need` — requested relief resource or assistance.
-- `urgency_score` — numeric urgency score from 0 to 10.
-- `people_affected` — number of people affected.
-- `arrival_time` — request arrival time or associated time value, as defined by the application.
-- `status` — request status: `pending`, `allocated`, or `completed`.
-- `source_text` — original request text.
-- `extracted_keywords` — keywords extracted from the request by the NLP component.
-- `urgency_level` — urgency classification produced by the NLP component.
-- `created_at` — timestamp when the request was created.
+The `relief_requests` table stores information about requests for flood-relief assistance.
 
-### 4.2 `resource_inventory`
+Important fields include:
 
-Stores available relief resources and their warehouse details.
+- `request_id`: Identifies each relief request.
+- `location`: Specifies the location requiring assistance.
+- `need`: Describes the requested resource or assistance.
+- `urgency_score`: Stores the numeric urgency score, intended to range from 0 to 10.
+- `people_affected`: Records the number of people affected.
+- `arrival_time`: Stores the request's arrival-time information.
+- `status`: Represents the request's processing status, such as pending, allocated, or completed.
+- `source_text`: Stores the original text of the relief request.
+- `extracted_keywords`: Stores keywords extracted by the NLP component.
+- `urgency_level`: Stores the urgency classification produced by the NLP component.
+- `created_at`: Records when the request was created.
 
-Important fields:
+This table helps the application organize requests and track their processing status.
 
-- `resource_id` — unique resource identifier.
-- `resource_name` — resource name.
-- `resource_category` — category of resource.
-- `available_quantity` — quantity currently available.
-- `unit` — measurement unit, such as litres, packets, or kits.
-- `warehouse_location` — location of the warehouse storing the resource.
+### 4.2 Resource Inventory Table
 
-Supported resource categories:
+The `resource_inventory` table stores information about relief resources and their availability.
+
+Important fields include:
+
+- `resource_id`: Identifies each resource record.
+- `resource_name`: Specifies the name of the resource.
+- `resource_category`: Identifies the category of the resource.
+- `available_quantity`: Stores the quantity currently available.
+- `unit`: Specifies the measurement unit, such as litres, packets, or kits.
+- `warehouse_location`: Records the location where the resource is stored.
+
+The supported resource categories are:
 
 - Medical
 - Food
@@ -64,115 +75,186 @@ Supported resource categories:
 - Rescue
 - Shelter
 
-The database enforces non-negative inventory quantities.
+Inventory constraints help prevent invalid negative quantities when enforced by the database schema.
 
-### 4.3 `resource_allocations`
+### 4.3 Resource Allocations Table
 
-Maintains the allocation history.
+The `resource_allocations` table maintains a record of resources allocated to relief requests.
 
-Important fields:
+Important fields include:
 
-- `allocation_id` — unique allocation identifier.
-- `request_id` — reference to the relief request.
-- `resource_id` — reference to the allocated resource.
-- `quantity` — quantity allocated.
-- `allocated_at` — allocation timestamp.
+- `allocation_id`: Identifies each allocation record.
+- `request_id`: References the related relief request.
+- `resource_id`: References the allocated resource.
+- `quantity`: Records the quantity allocated.
+- `allocated_at`: Records the allocation timestamp.
 
-Foreign keys link allocation records to their corresponding requests and resources.
+Foreign-key relationships connect allocation records with their corresponding relief requests and resources. These relationships help maintain referential integrity.
 
-## 5. Database Features
+## 5. Database Relationships
 
-- Primary keys and foreign-key relationships.
-- Constraints for urgency scores, quantities, request statuses, and resource categories.
-- Indexes to support common request and inventory searches.
-- The `relief_allocation_summary` view for viewing request and allocation information together.
-- Parameterized SQL queries to help prevent SQL injection.
-- Transaction-based resource allocation.
-- Inventory row locking to reduce the risk of concurrent allocations exceeding available stock.
-- Resource filtering by category and available quantity.
-- Storage of NLP-extracted keywords and urgency classifications.
-- Automated tests for DBMS operations and resource-category validation.
+The database uses relational links between requests, resources, and allocations.
 
-## 6. Main Database Operations
+- A relief request can be associated with allocation records.
+- A resource can appear in allocation records.
+- Each allocation record references a relief request and a resource through foreign keys.
 
-The `db_operations.py` module provides functions for:
+These relationships allow the application to track which resources were allocated to which requests and retrieve allocation history.
+
+## 6. DBMS Concepts Used
+
+### 6.1 Relational Database Model
+
+PostgreSQL stores the application's structured information in tables containing rows and columns. Related tables are connected through keys.
+
+### 6.2 Primary Keys
+
+Primary keys uniquely identify records in their respective tables. For example, request, resource, and allocation identifiers distinguish individual records.
+
+### 6.3 Foreign Keys and Referential Integrity
+
+Foreign keys connect related records across tables. In the allocation table, the request and resource references help ensure that an allocation is associated with corresponding database records.
+
+### 6.4 Constraints and Data Validation
+
+Database constraints can restrict invalid values and improve data consistency. Relevant examples in this project include urgency-score limits, non-negative quantities, request-status values, and supported resource categories, as defined by the schema.
+
+### 6.5 Indexing
+
+Indexes can improve the performance of frequently used searches. The schema defines indexes intended to support common request and inventory queries.
+
+### 6.6 Database Views
+
+The `relief_allocation_summary` view provides a combined representation of relief-request and allocation information. It makes related information easier to retrieve without repeatedly writing the same joins.
+
+### 6.7 SQL Queries
+
+SQL is used to insert, retrieve, and update database records. Parameterized queries help protect against SQL injection by separating query structure from supplied values.
+
+### 6.8 Transactions
+
+Resource allocation involves related database changes. A transaction helps ensure that these changes are handled together, reducing the risk of partially completed allocations.
+
+### 6.9 Concurrency Control
+
+Inventory row locking, when used during allocation, helps prevent concurrent operations from allocating more resources than are available.
+
+### 6.10 Normalization
+
+Normalization is a database-design technique used to reduce unnecessary data duplication and prevent insertion, update, and deletion anomalies.
+
+The FloodSense database separates relief requests, resource inventory, and allocation records into related tables. This separation supports organized data management and reduces the need to repeat request and resource details in every allocation record.
+
+The exact normal form, such as First Normal Form (1NF), Second Normal Form (2NF), or Third Normal Form (3NF), should be established by examining the complete table definitions, attributes, keys, and functional dependencies. It should not be assumed solely from the number of tables.
+
+## 7. Main Database Operations
+
+The `db_operations.py` module provides functions for managing database information.
+
+The main operations include:
 
 - Retrieving existing relief requests.
-- Inserting a relief request with its source text and NLP results.
+- Inserting relief requests with their source text and NLP results.
 - Retrieving resource inventory.
-- Retrieving available resources by category.
+- Filtering available resources by category.
 - Retrieving pending relief requests.
 - Allocating resources to relief requests.
 - Updating request status.
 - Retrieving resource allocation history.
 
-Resource allocation records the allocation, deducts the allocated quantity from inventory, and updates the request status within a database transaction.
+During resource allocation, the application records the allocation, adjusts the available inventory quantity, and updates the request status as part of a database transaction, according to the implemented allocation logic.
 
-The database module stores NLP results supplied by the application. NLP processing itself is handled by the relevant application or NLP component.
+The DBMS module stores NLP results supplied by the application. The NLP component is responsible for processing text and producing extracted keywords and urgency classifications.
 
-## 7. Setup Instructions
+## 8. Setup Instructions
 
 ### Prerequisites
 
-Install Python and PostgreSQL. Ensure the PostgreSQL database server is running.
+Install the following software:
 
-### Step 1: Create the database
+- Python
+- PostgreSQL
+- pip, the Python package installer
 
-Create a database named `floodsense_db` using pgAdmin or the PostgreSQL command line.
+Ensure that the PostgreSQL server is running before attempting to connect.
 
-### Step 2: Configure the database connection
+### Step 1: Create the Database
 
-Configure the connection settings expected by `db.py`. Use environment variables for credentials where supported by the implementation.
+Create a PostgreSQL database named `floodsense_db` using pgAdmin or the PostgreSQL command line.
 
-Do not commit database passwords or other sensitive credentials to GitHub.
+### Step 2: Configure the Connection
 
-### Step 3: Create the schema
+Configure the connection settings expected by `db.py`.
 
-Execute `schema.sql` against `floodsense_db`.
+Use environment variables or another appropriate configuration method for database credentials when supported by the implementation. Do not commit database passwords or other sensitive information to version control.
 
-If the database already exists, ensure its schema has been migrated to include the latest columns and constraints. `CREATE TABLE IF NOT EXISTS` does not automatically add missing columns to existing tables.
+### Step 3: Create the Database Schema
 
-### Step 4: Insert sample data
+Execute `schema.sql` against the `floodsense_db` database.
 
-Execute `seed.sql` against `floodsense_db`.
+If the database already exists, ensure that its schema includes the latest table definitions, columns, constraints, indexes, and views. A statement such as `CREATE TABLE IF NOT EXISTS` does not automatically add missing columns to an existing table.
 
-Run the seed script only when appropriate for the current database state, since sample data may conflict with existing primary keys or unique resource names.
+### Step 4: Insert Sample Data
 
-### Step 5: Install the database dependency
+Execute `seed.sql` against `floodsense_db` when sample data is required.
+
+Review the existing database state before rerunning the seed script because duplicate identifiers or unique values may cause conflicts.
+
+### Step 5: Install the Python Database Dependency
+
+Run the following command in the terminal:
 
 ```powershell
 python -m pip install "psycopg[binary]"
 ```
 
-### Step 6: Run the DBMS tests
+### Step 6: Run the Tests
 
-From the DBMS directory, run:
+Navigate to the DBMS directory:
+
+```powershell
+cd Backend/DBMS
+```
+
+Run the tests using Python's unittest framework:
 
 ```powershell
 python -m unittest test_db_operations.py -v
 ```
 
-Alternatively, run the tests with pytest:
+Alternatively, if pytest is installed, run:
 
 ```powershell
 python -m pytest -v test_db_operations.py
 ```
 
-The tests use mocks where appropriate, so a passing unit-test suite does not necessarily verify a live PostgreSQL connection. Follow the test configuration in `test_db_operations.py`.
+The test suite may use mocks to isolate database operations. Therefore, passing unit tests does not necessarily confirm that a live PostgreSQL connection works correctly. Check the test implementation and database configuration when verifying live integration.
 
-## 8. Security and Reliability
+## 9. Security and Reliability
 
-- Never commit database passwords or other credentials to version control.
-- Use parameterized SQL queries.
-- Validate resource categories and allocation quantities before performing operations.
-- Use database transactions for related allocation updates.
-- Handle database errors in the application integration layer and provide suitable error messages.
-- Verify database migrations before deploying schema changes.
+The DBMS module follows important database-security and reliability practices:
 
-## 9. Integration
+- Use parameterized SQL queries to help prevent SQL injection.
+- Avoid committing passwords, credentials, or other sensitive configuration to GitHub.
+- Validate resource categories and allocation quantities.
+- Use transactions for related resource-allocation updates.
+- Use appropriate concurrency controls when modifying shared inventory.
+- Handle database errors and provide suitable application-level error messages.
+- Keep the database schema consistent with the application's expected structure.
+- Test database operations after modifying queries or schema definitions.
 
-Other project modules can import functions from `db_operations.py` to create or retrieve relief requests, access inventory, filter available resources, allocate resources, update request status, and retrieve allocation history.
+## 10. Application Integration
 
-The application or NLP integration layer is responsible for processing incoming text and supplying the extracted keywords and urgency classification when inserting a relief request.
+Other project components can use functions from `db_operations.py` to create and retrieve relief requests, access inventory, filter available resources, allocate resources, update request statuses, and retrieve allocation history.
 
-The application integration layer should handle database errors and return appropriate messages to users.
+The application or NLP component processes incoming text and supplies the extracted keywords and urgency classification when creating a relief request.
+
+The integration layer is responsible for handling database errors and communicating appropriate results or error messages to the user.
+
+## 11. Conclusion
+
+The FloodSense DBMS module provides structured storage and management of flood-relief requests, resource inventory, and allocation history. PostgreSQL provides relational data storage, while Python and Psycopg 3 support database connectivity and application operations.
+
+Primary keys, foreign keys, constraints, indexes, views, parameterized queries, transactions, and automated tests support data integrity, security, and maintainability. Together, these features help the FloodSense system organize relief information and support resource-allocation workflows during flood emergencies.
+
+#added normalisation part

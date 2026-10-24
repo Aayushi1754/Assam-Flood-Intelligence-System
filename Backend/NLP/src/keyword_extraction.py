@@ -1,393 +1,332 @@
-import re
-from pathlib import Path
+# ============================================================
+# FloodSense: Static Multilingual Keyword Dictionary
+# Languages: English, Hindi, Assamese, Romanized Hindi
+# Categories: Food, Water, Medical, Rescue, Shelter
+# ============================================================
 
-import pandas as pd
+KEYWORD_MATRIX = {
+    "Food": {
+        "Resource": "Food Supplies",
+        "Keywords": {
+            "EN": [
+                "food", "need food", "no food", "food needed",
+                "hungry", "starving", "ration", "food packets",
+                "need groceries", "cooked food", "baby food",
+                "food supplies", "no groceries", "meal needed",
+                "we have nothing to eat",
+                "dry ration", "food shortage", "food supply", "food kits",
+"food kit", "cooked food", "no food", "food packets",
+"food packet", "ration card", "flood-affected", "hungry",
+"starving", "meal needed", "food needed"
+            ],
+            "HI": [
+                "खाना", "भोजन", "खाना नहीं है", "भूख लगी है",
+                "राशन चाहिए", "भोजन चाहिए", "खाने की जरूरत है",
+                "खाने का सामान", "भूखे हैं", "बच्चों का खाना",
+                "पका हुआ खाना", "खाने को कुछ नहीं है",
+                "सूखा राशन", "खाद्य किट", "खाने के पैकेट",
+"भोजन की कमी", "खाना नहीं", "अनाज",
+"राहत वितरण", "राशन कार्ड", "भूखे",
+"खाद्य सामग्री", "पका हुआ खाना"
+            ],
+            "AS": [
+                "খাদ্য", "খোৱা", "খাবলৈ নাই", "ভোক লাগিছে",
+                "খাদ্য লাগে", "চাউল লাগে", "খাদ্যৰ অভাৱ",
+                "খাবলৈ একো নাই", "ৰেচন লাগে",
+                "খাদ্য সামগ্ৰী লাগে","শুকান খাদ্য", "খাদ্য কিট", "খাদ্যৰ পেকেট",
+"খাদ্যৰ অভাৱ", "খাদ্য নাই", "ৰেচন কাৰ্ড",
+"খাদ্য যোগান", "ৰন্ধা খাদ্য", "ভোকত",
+"ত্ৰাণ বিতৰণ"
+            ],
+            "Romanized_HI": [
+                "khana chahiye", "khana nahi hai", "bhook lagi hai",
+                "ration chahiye", "bhookhe hain", "bhojan chahiye",
+                "khane ko kuch nahi hai", "khane ka saman chahiye"
+            ]
+        }
+    },
 
+    "Water": {
+        "Resource": "Drinking Water",
+        "Keywords": {
+            "EN": [
+                "water", "drinking water", "no drinking water",
+                "need water", "need clean water", "clean water",
+                "no safe water", "water shortage", "thirsty",
+                "water bottles needed", "water tanker needed",
+                "water contaminated", "water purification tablets",
+                "safe drinking water", "no water available",
+                "water level", "stable", "danger mark",
+"water shortage", "chlorine tablets", "water cans",
+"water tanker", "no safe drinking water",
+"receding", "water under control", "tube wells",
+"water supply", "water contaminated","drinking water","clean water"
+            ],
+            "HI": [
+                "पानी", "पीने का पानी", "पीने का पानी नहीं है",
+                "पानी चाहिए", "साफ पानी चाहिए", "प्यास लगी है",
+                "पानी दूषित है", "पानी की बोतल चाहिए",
+                "पानी का टैंकर चाहिए", "पानी की कमी है",
+                "पीने के लिए पानी नहीं है", "स्वच्छ पानी चाहिए","जलस्तर", "स्थिर", "खतरे के निशान",
+"पानी उतर रहा", "पानी के कैन", "हैंडपंप",
+"क्लोरीन की गोलियां", "पानी का टैंकर",
+"पीने का साफ पानी", "पानी की कमी"
+            ],
+            "AS": [
+                "পানী", "খোৱা পানী নাই", "বিশুদ্ধ পানী লাগে",
+                "পিয়াহ লাগিছে", "পানী দূষিত হৈছে",
+                "পানীৰ বটল লাগে", "পানীৰ টেংকাৰ লাগে",
+                "নিৰাপদ পানী নাই", "খোৱা পানী লাগে",
+                "পানীৰ অভাৱ হৈছে","পানীৰ স্তৰ", "স্থিৰ", "বিপদসীমা",
+"পানী নামি আছে", "পানীৰ কেন", "নলকূপ",
+"ক্লৰিন বটিকা", "পানীৰ টেংকাৰ",
+"খোৱা পানীৰ অভাৱ", "পানীৰ অভাৱ হৈছে"
+            ],
+            "Romanized_HI": [
+                "pani chahiye", "pani nahi hai",
+                "peene ka pani", "saaf pani chahiye",
+                "pyaas lagi hai", "pani ki kami hai",
+                "pani ganda hai", "pani ka tanker chahiye",
+                "peene ke liye pani nahi hai"
+            ]
+        }
+    },
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
+    "Medical": {
+        "Resource": "Medical supplies",
+        "Keywords": {
+            "EN": [
+                "injured", "injury", "bleeding", "medical help",
+                "need medicine", "medicine needed", "doctor needed",
+                "ambulance", "sick", "seriously injured",
+                "medical emergency", "first aid", "hospital",
+                "pregnant woman", "snake bite", "fever",
+                "cannot breathe", "medical supplies","urgent medical assistance", "breathing trouble",
+"chest pain", "labour", "diarrhoea", "infection",
+"medical team", "health check-up camp", "ORS",
+"insulin", "medicines", "doctor", "fever",
+"medical camp", "seriously injured"
+            ],
+            "HI": [
+                "घायल", "चोट लगी है", "खून बह रहा है",
+                "दवा चाहिए", "डॉक्टर चाहिए", "चिकित्सा सहायता",
+                "एम्बुलेंस चाहिए", "बीमार हैं", "अस्पताल चाहिए",
+                "प्राथमिक उपचार", "बुखार है", "सांस नहीं आ रही",
+                "गर्भवती महिला", "सांप ने काट लिया",
+                "गंभीर रूप से घायल","सीने में दर्द", "प्रसव पीड़ा", "दस्त",
+"संक्रमण", "मेडिकल टीम", "स्वास्थ्य जांच शिविर",
+"ओआरएस", "इंसुलिन", "दवाइयां",
+"सांस लेने में तकलीफ", "उल्टी"
+            ],
+            "AS": [
+                "আঘাত পাইছে", "আহত", "তেজ ওলাইছে",
+                "ঔষধ লাগে", "ডাক্তৰ লাগে", "চিকিৎসা লাগে",
+                "এম্বুলেন্স লাগে", "অসুস্থ", "হাস্পতাল লাগে",
+                "জ্বৰ হৈছে", "উশাহ লোৱাত কষ্ট",
+                "প্ৰাথমিক চিকিৎসা লাগে","বুকুত বিষ", "প্ৰসৱ বেদনা", "ডায়েৰিয়া",
+"সংক্ৰমণ", "চিকিৎসক দল", "স্বাস্থ্য পৰীক্ষা শিবিৰ",
+"ওআৰএছ", "ইনচুলিন", "ঔষধ", "জ্বৰ", "বমি"
+            ],
+            "Romanized_HI": [
+                "chot lagi hai", "khoon beh raha hai",
+                "dawai chahiye", "doctor chahiye",
+                "ambulance chahiye", "bimar hain",
+                "aspatal chahiye", "bukhar hai",
+                "saans nahi aa rahi", "medical madad chahiye"
+            ]
+        }
+    },
 
-DATASET_PATH = (
-    PROJECT_ROOT / "dataset" / "FloodSense_Dataset_Ground_Truth.csv"
-)
+    "Rescue": {
+        "Resource": "Rescue Team",
+        "Keywords": {
+            "EN": [
+                "rescue", "need rescue", "trapped", "trapped in flood",
+                "stranded", "drowning", "stuck in water",
+                "rescue team", "boat needed", "people stranded",
+                "stuck on roof", "cannot escape", "evacuate",
+                "evacuation needed", "water rising",
+                "family trapped", "rescue urgently","rescue boat", "rescue boats", "bridge", "road",
+"embankment", "evacuate", "evacuation",
+"higher ground", "rescued", "operations",
+"rising", "monitoring", "flooded", "stuck",
+"send help", "boat", "boats", "rescue team"
+            ],
+            "HI": [
+                "बचाओ", "बचाव चाहिए", "फंसे हुए हैं",
+                "बाढ़ में फंसे हैं", "पानी में फंसे हैं",
+                "डूब रहे हैं", "नाव चाहिए", "बचाव दल चाहिए",
+                "छत पर फंसे हैं", "निकालने में मदद करें",
+                "पानी बढ़ रहा है", "परिवार फंसा हुआ है",
+                "तुरंत बचाव चाहिए", "बाहर नहीं निकल पा रहे","नावें", "तटबंध", "बांध", "खाली करें",
+"ऊंचे स्थान", "बचाव कार्य", "बचाव",
+"पुल", "सड़क", "बढ़ रहा", "नियंत्रण",
+"बाढ़ प्रभावित", "हेल्पलाइन"
+            ],
+            "AS": [
+                "উদ্ধাৰ লাগে", "বানত আবদ্ধ", "পানীত আবদ্ধ",
+                "আৱদ্ধ হৈ আছোঁ", "ডুব গৈছে",
+                "নাও লাগে", "উদ্ধাৰকাৰী দল লাগে",
+                "ঘৰৰ ছাদত আবদ্ধ", "পানী বাঢ়িছে",
+                "বাহিৰলৈ ওলাব পৰা নাই","আটকা পৰি আছে", "আটকা পৰা", "উদ্ধাৰ কাৰ্য",
+"বাঢ়ি আছে", "দলং", "ৰাস্তা", "খালী কৰক",
+"ওখ ঠাই", "স্থানান্তৰ", "বান্ধ", "হেল্পলাইন",
+"বিপদসীমা"
+            ],
+            "Romanized_HI": [
+                "bachao", "madad karo", "bachav chahiye",
+                "baadh mein fanse hain", "pani mein fanse hain",
+                "doob rahe hain", "naav chahiye",
+                "chhat par fanse hain", "nikalne mein madad karo",
+                "pani badh raha hai", "rescue chahiye"
+            ]
+        }
+    },
 
-OUTPUT_PATH = (
-    PROJECT_ROOT / "results" / "FloodSense_Keyword_Extraction_Results.csv"
-)
+    "Shelter": {
+        "Resource": "Shelter",
+        "Keywords": {
+            "EN": [
+                "shelter", "need shelter", "homeless",
+                "house flooded", "home destroyed", "roof collapsed",
+                "temporary shelter", "place to stay",
+                "need accommodation", "shelter needed",
+                "camp needed", "no place to sleep",
+                "house damaged", "lost my home", "evacuation center","relief camp", "blankets", "dry clothes",
+"warm clothing", "tarpaulin", "temporary shelter",
+"relief", "safe", "trucks", "flood-affected"
+            ],
+            "HI": [
+                "आश्रय चाहिए", "रहने की जगह चाहिए",
+                "घर में पानी भर गया", "घर टूट गया",
+                "छत गिर गई", "घर नष्ट हो गया",
+                "अस्थायी आश्रय चाहिए", "रहने की जगह नहीं है",
+                "सोने की जगह नहीं है", "घर क्षतिग्रस्त है",
+                "घर बह गया", "शरण चाहिए","राहत शिविर", "कंबल", "सूखे कपड़े",
+"गर्म कपड़ों", "तिरपाल", "अस्थायी आश्रय",
+"राहत", "सुरक्षित", "ट्रक"
+            ],
+            "AS": [
+                "আশ্ৰয় লাগে", "থাকিবলৈ ঠাই লাগে",
+                "ঘৰত পানী সোমাইছে", "ঘৰ ভাঙি গৈছে",
+                "ঘৰৰ চাল খহি পৰিছে", "অস্থায়ী আশ্ৰয় লাগে",
+                "থাকিবলৈ ঠাই নাই", "ঘৰ ক্ষতিগ্ৰস্ত হৈছে",
+                "শুবলৈ ঠাই নাই", "ঘৰ উটি গৈছে","ত্ৰাণ শিবিৰ", "কম্বল", "শুকান কাপোৰ",
+"গৰম কাপোৰ", "তেৰপাল", "অস্থায়ী আশ্ৰয়",
+"ত্ৰাণ", "নিৰাপদ", "ট্ৰাক"
+            ],
+            "Romanized_HI": [
+                "rehne ki jagah chahiye", "ghar mein pani bhar gaya",
+                "ghar toot gaya", "chhat gir gayi",
+                "aashray chahiye", "sone ki jagah nahi hai",
+                "ghar beh gaya", "ghar kharab ho gaya",
+                "rehne ki jagah nahi hai"
+            ]
+        }
+    }
+}
+def classify_relief_need(text):
+    keywords_found = extract_keywords_independent(text)
 
+    matched_categories = []
+    matched_resources = []
 
-# ------------------------------------------
-# Multilingual keyword dictionary
-# ------------------------------------------
+    # Find categories only from keywords actually detected.
+    for category, category_data in KEYWORD_MATRIX.items():
 
-KEYWORD_PHRASES = [
-    # English: water, food and supplies
-    "no food or drinking water", "drinking water",
-    "food packets", "food packet", "blankets",
-    "warm clothes", "baby clothing", "wet clothes",
-    "water tankers", "water tank", "shortage",
+        category_keywords = []
 
-    # English: rescue and evacuation
-    "road to the clinic is under water",
-    "rescue boat", "boat ambulance", "boat assistance",
-    "two boats", "three boats", "boats", "boat",
-    "ambulance", "rescue team", "rescue",
-    "evacuate", "evacuation", "stranded", "trapped",
-    "stuck at home", "rooftop", "relief camp",
-    "temporary shelter", "shelter", "tarpaulin",
+        for language, keywords in category_data["Keywords"].items():
+            category_keywords.extend(keywords)
 
-    # English: people and medical needs
-    "elderly and disabled", "pregnant woman",
-    "women and children", "two small children",
-    "medical assistance", "medical team", "medical camp",
-    "in labour", "high fever", "doctors", "doctor",
-    "medicines", "medicine", "injured", "elderly",
-    "children", "baby", "people", "buses", "trucks",
-    "food", "help", "urgent", "emergency",
+        matched = [
+            keyword
+            for keyword in keywords_found
+            if keyword in category_keywords
+        ]
 
-    # English: flood conditions and infrastructure
-    "water is still rising", "under waist-deep water",
-    "two bridges are flooded", "road is flooded",
-    "road is under water", "rising water",
-    "low-lying lanes", "danger mark", "water level",
-    "high water", "flooded", "flood", "river",
-    "collapsed",
+        if matched:
+            matched_categories.append(category)
+            matched_resources.append(category_data["Resource"])
 
-    # Hindi
-    "गर्भवती महिला", "प्रसव पीड़ा",
-    "पीने का पानी", "खाने के पैकेट", "भोजन के पैकेट",
-    "राहत सामग्री", "राहत शिविर", "अस्थायी आश्रय",
-    "बचाव दल", "नावों से निकाला जाएगा",
-    "नावों", "नाव", "फँसे हुए", "फँसे",
-    "मदद कीजिए", "बुज़ुर्गों", "बुज़ुर्ग",
-    "बहुत तेज़ बुखार", "तेज़ बुखार",
-    "सड़क पर पानी भरा है", "मुख्य पुल पानी में डूबा है",
-    "पानी लगातार बढ़ रहा है", "पानी के टैंकर",
-    "खत्म हो गया है", "निकासी", "सुरक्षित स्थान",
-    "बेघर", "तिरपाल", "कंबल", "कपड़े",
-    "जो लोग चल नहीं सकते", "डॉक्टर", "दवाइयाँ",
-    "बच्चों", "बच्चे", "भोजन", "बाढ़", "पानी", "बचाव",
-    "फँस गए", "फँस गए हैं",
-    "फंस गए", "फंस गए हैं",
-    "रेस्क्यू", "रेस्क्यू बोट",
-    "रेस्क्यू बोट की जरूरत",
-    "बचाने के लिए", "बचाने की जरूरत",
-    "जरूरत है", "की जरूरत है",
-    "लोग फँस गए", "लोग फंस गए",
-    # Assamese
-    "খোৱাপানী", "খাদ্যৰ পেকেট", "খাদ্য",
-    "উদ্ধাৰ দল", "নাৱেৰে উদ্ধাৰ", "নাৱেৰে",
-    "নিৰাপদ স্থান", "ত্ৰাণ শিবিৰ", "কম্বল",
-    "গৰম কাপোৰ", "শিশুৰ কাপোৰ", "যোগাযোগ বন্ধ",
-    "ৰাস্তা পানীত ডুবি", "পানী দ্ৰুতগতিত বাঢ়িছে",
-    "বানৰ পানী ঘৰলৈ সোমাইছে", "শেষ হৈছে",
-    "আহত", "চিকিৎসা", "চিকিৎসক", "এম্বুলেন্স",
-    "বৃদ্ধ", "শিশু", "ভোকত", "বিতৰণ",
-    "জৰুৰী", "নিৰুদ্দেশ", "পানী", "বানপানী",
-    "আবদ্ধ", "আৱদ্ধ", "উদ্ধাৰ", "নাৱ", "নাও",
-    "লোক আবদ্ধ হৈ আছে",
-    "লোক আৱদ্ধ হৈ আছে",
-    "উদ্ধাৰ কৰিবলৈ",
-    "উদ্ধাৰ কৰিবলৈ নাওৰ প্ৰয়োজন",
-    "নাওৰ প্ৰয়োজন",
-    "নাওৰ প্ৰয়োজন",
-    "উদ্ধাৰৰ প্ৰয়োজন",
-    "উদ্ধাৰৰ প্ৰয়োজন",
-
-    # Code-mixed Roman Hindi
-    "khatam ho gaya hai", "shelter taiyaar hai",
-    "boats se nikala jayega", "bacchon aur bimar logon",
-    "bujurgon", "khana", "paani",
-    "road band", "road bandh", "bandh",
-    "log fase gaye hain",
-    "log phanse hue hain",
-    "rescue boat chahiye",
-    "rescue boat ki zarurat hai",
-    "bachane ke liye",
-    "naav ki zarurat hai",
-    "madad ki zarurat hai",
-]
-
-KEYWORD_PHRASES = list(dict.fromkeys(KEYWORD_PHRASES))
-
-
-# ------------------------------------------
-# Keyword extraction
-# ------------------------------------------
-
-def extract_keywords_independent(text):
-    """Extract dictionary-based flood-related keyword phrases."""
-
-    if not isinstance(text, str) or not text.strip():
-        return []
-
-    normalized_text = text.casefold()
-    matches = []
-
-    for phrase in KEYWORD_PHRASES:
-        normalized_phrase = phrase.casefold()
-
-        if phrase.isascii():
-            pattern = (
-                r"(?<!\w)"
-                + re.escape(normalized_phrase)
-                + r"(?!\w)"
-            )
-        else:
-            pattern = re.escape(normalized_phrase)
-
-        if re.search(pattern, normalized_text):
-            matches.append(phrase)
-
-    return matches
-
-
-# ------------------------------------------
-# Remove overlapping keyword matches
-# ------------------------------------------
-
+    return {
+        "keywords": keywords_found,
+        "categories": matched_categories,
+        "resources": list(dict.fromkeys(matched_resources))
+    }
 def remove_overlapping_keywords(keywords):
-    """Keep longer phrases when they contain shorter matches."""
-
-    sorted_keywords = sorted(
-        set(keywords),
-        key=len,
-        reverse=True
-    )
+    # Remove duplicates while preserving order.
+    keywords = list(dict.fromkeys(keywords))
 
     filtered_keywords = []
 
-    for keyword in sorted_keywords:
-        keyword_lower = keyword.casefold()
-
-        is_redundant = any(
-            keyword_lower in existing.casefold()
-            and keyword_lower != existing.casefold()
-            for existing in filtered_keywords
+    for keyword in keywords:
+        # Skip a keyword if it is contained in a longer
+        # matched keyword.
+        is_overlapping = any(
+            keyword.casefold() in other.casefold()
+            and keyword.casefold() != other.casefold()
+            for other in keywords
         )
 
-        if not is_redundant:
+        if not is_overlapping:
             filtered_keywords.append(keyword)
 
     return filtered_keywords
+import re
 
-def classify_relief_need(text):
-    """Classify the primary assistance need, avoiding informational false positives."""
 
+def extract_keywords_independent(text):
     if not isinstance(text, str) or not text.strip():
-        return "Flood assistance"
+        return []
 
-    text = text.casefold()
+    found_keywords = []
+    normalized_text = text.casefold()
 
-    # Detect messages that only provide routine information.
-    informational_phrases = [
-        "no immediate evacuation",
-        "no evacuation is needed",
-        "no rescue is needed",
-        "routine flood information update",
-        "river level is being monitored",
-        "water levels are stable",
-        "নদীৰ পানীৰ স্তৰ বৃদ্ধি পাইছে",
-        "জলস্তৰ বৃদ্ধি পাইছে",
-        "জলস্তৰ বাঢ়ি",
-    ]
+    for category, category_data in KEYWORD_MATRIX.items():
+        for language, keywords in category_data["Keywords"].items():
+            for keyword in keywords:
+                keyword_normalized = keyword.casefold()
 
-    if any(phrase in text for phrase in informational_phrases):
-        return "Flood assistance"
+                # ASCII keywords use boundaries to avoid matching
+                # substrings inside unrelated words.
+                if keyword.isascii():
+                    pattern = (
+                        r"(?<!\w)"
+                        + re.escape(keyword_normalized)
+                        + r"(?!\w)"
+                    )
+                    matched = re.search(pattern, normalized_text)
+                else:
+                    matched = keyword_normalized in normalized_text
 
-    categories = {
-        "Rescue": [
-            "rescue", "trapped", "stranded", "evacuate",
-            "evacuation", "boat", "boats",
-            "बचाव", "फँसे", "फंसे", "फँस", "फंसा",
-            "रेस्क्यू", "नाव", "नौका",
-            "उद्धार", "আবদ্ধ", "আৱদ্ধ", "উদ্ধাৰ",
-            "নাও", "ৰেচকিউ",
-            "boats se nikala jayega",
-        ],
+                if matched:
+                    found_keywords.append(keyword)
 
-        "Medical": [
-            "medical", "medicine", "medicines", "doctor",
-            "ambulance", "injured", "fever",
-            "चिकित्सा", "डॉक्टर", "दवाइयाँ",
-            "চিকিৎসা", "চিকিৎসক", "আহত",
-        ],
+    # Remove duplicate matches while preserving order.
+    return remove_overlapping_keywords(found_keywords)
+import re
 
-        "Food": [
-            "food", "hungry", "meal", "food packet",
-            "food packets", "खाना", "भोजन",
-            "খাদ্য", "ভোকত", "khana",
-        ],
-
-        "Shelter": [
-            "shelter", "blanket", "blankets", "tarpaulin",
-            "relief camp", "কंबल", "कंबल",
-            "राहत शिविर", "আশ্ৰয়", "আশ্রয়",
-            "কম্বল", "ত্ৰাণ শিবিৰ", "গৃহহীন",
-        ],
-            "Water": [
-    # English
-    "drinking water",
-    "clean water",
-    "water supply",
-    "water shortage",
-    "water tanker",
-    "water tank",
-
-    # Hindi
-    "पीने का पानी",
-    "पीने का साफ पानी",
-    "साफ पानी",
-    "स्वच्छ पानी",
-    "पानी नहीं मिल रहा",
-    "पानी की कमी",
-    "जल की कमी",
-
-    # Assamese
-    "খোৱাপানী",
-    "খোৱা পানী",
-    "খোৱা পানীৰ",
-    "খোৱাৰ পানী",
-    "খোৱাপানীৰ প্ৰয়োজন",
-    "খোৱাপানীৰ প্ৰয়োজন",
-
-    # Roman Hindi
-    "paani",
-    "saaf pani",
-    "peene ka paani",
-    "peene ka saaf paani",
-    "paani nahi mil raha",
-    "paani ki kami",
-],
-    }
-
-    priority_order = [
-        "Rescue",
-        "Medical",
-        "Food",
-        "Shelter",
-        "Water",
-    ]
-
-    for category in priority_order:
-        if any(keyword in text for keyword in categories[category]):
-            return category
-
-    return "Flood assistance"
-def extract_people_affected(text):
-    """Extract affected-person or family counts from English, Hindi,
-    Assamese, and Roman Hindi."""
-
+def extract_people_affected(text: str) -> int:
+    """
+    Extract the estimated number of people affected from a flood message.
+    Returns 0 when no count can be identified.
+    """
     if not isinstance(text, str) or not text.strip():
         return 0
 
-    # Convert Hindi and Assamese digits to ASCII digits.
-    digit_map = str.maketrans(
-        "०१२३४५६७८९০১২৩৪৫৬৭৮৯",
-        "01234567890123456789"
-    )
-    text = text.translate(digit_map)
-
-    # Normalize whitespace.
-    text = re.sub(r"\s+", " ", text).strip()
-
-    # Numeric counts, including language-specific suffixes and word order.
     patterns = [
-        # English: 30 people, 12 families, 8 injured flood victims
-        r"\b(\d+)\s+(?:people|persons|families|victims)\b",
-        r"\b(\d+)\s+injured\s+(?:flood\s+)?victims\b",
-        r"\b(\d+)\s+(?:injured|affected)\s+people\b",
-
-        # Hindi: 15 लोगों, 20 परिवार, 9 लोग घायल
-        r"(\d+)\s*(?:लोगों|लोग|व्यक्ति|व्यक्तियों|परिवारों|परिवार|पीड़ितों|पीड़ित)\b",
-
-        # Assamese: 10 জন, 18 জন লোক, 20টা পৰিয়াল, 20 পৰিয়াল
-        r"(\d+)\s*(?:টা\s*)?(?:জন|লোক|পৰিয়াল|পৰিয়াল|ভুক্তভোগী)\b",
-
-        # Roman Hindi: 20 log, 15 logon, 10 parivar
-        r"\b(\d+)\s*(?:logon|log|logo|vyakti|parivar|parivaar)\b",
+        r"\b(\d[\d,]*)\s+(?:people|persons|families|residents|villagers|individuals|flood victims|victims|)\b",
+        r"\b(\d[\d,]*)\s+(?:लोग|परिवार|व्यक्ति)\b",
+        r"\b(\d[\d,]*)\s+(?:লোক|জন|পৰিয়াল|পৰিয়াল)\b",
     ]
 
     for pattern in patterns:
-        match = re.search(pattern, text, flags=re.IGNORECASE)
+        match = re.search(pattern, text, re.IGNORECASE)
         if match:
-            return int(match.group(1))
-
-    # English number words: twenty-five people, thirty families.
-    number_words = {
-        "one": 1, "two": 2, "three": 3, "four": 4, "five": 5,
-        "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10,
-        "eleven": 11, "twelve": 12, "thirteen": 13, "fourteen": 14,
-        "fifteen": 15, "sixteen": 16, "seventeen": 17, "eighteen": 18,
-        "nineteen": 19, "twenty": 20, "thirty": 30, "forty": 40,
-        "fifty": 50, "sixty": 60, "seventy": 70, "eighty": 80,
-        "ninety": 90,
-    }
-
-    word_pattern = (
-        r"\b(" + "|".join(number_words) +
-        r")(?:[- ](" + "|".join(number_words) +
-        r"))?\s+(?:people|persons|families|victims)\b"
-    )
-
-    match = re.search(word_pattern, text, flags=re.IGNORECASE)
-
-    if match:
-        first = number_words[match.group(1).lower()]
-        second = match.group(2)
-
-        if second:
-            second_value = number_words[second.lower()]
-            if first >= 20 and first % 10 == 0 and second_value < 10:
-                return first + second_value
-
-        return first
+            try:
+                return int(match.group(1).replace(",", ""))
+            except ValueError:
+                continue
 
     return 0
-
-def evaluate_keywords(df):
-    total_tp = 0
-    total_fp = 0
-    total_fn = 0
-
-    for _, row in df.iterrows():
-        expected = {
-            k.strip().casefold()
-            for k in str(row["Expected_Keywords"]).split(";")
-            if k.strip() and k.strip().casefold() != "nan"
-        }
-
-        predicted = {
-            str(k).strip().casefold()
-            for k in row["Filtered_Keywords"]
-            if str(k).strip()
-        }
-
-        total_tp += len(expected & predicted)
-        total_fp += len(predicted - expected)
-        total_fn += len(expected - predicted)
-
-    precision = (
-        total_tp / (total_tp + total_fp)
-        if total_tp + total_fp else 0
-    )
-
-    recall = (
-        total_tp / (total_tp + total_fn)
-        if total_tp + total_fn else 0
-    )
-
-    f1_score = (
-        2 * precision * recall / (precision + recall)
-        if precision + recall else 0
-    )
-
-    print("\nKeyword Extraction Evaluation")
-    print("-----------------------------")
-    print(f"True Positives:  {total_tp}")
-    print(f"False Positives: {total_fp}")
-    print(f"False Negatives: {total_fn}")
-    print(f"Precision:       {precision:.2%}")
-    print(f"Recall:          {recall:.2%}")
-    print(f"F1-score:        {f1_score:.2%}")
-if __name__ == "__main__":
-    main()

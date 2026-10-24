@@ -1,18 +1,5 @@
-"""
-FloodSense: Multilingual Urgency Scoring
-Languages: English, Hindi, Assamese, and Roman Hindi.
-
-Uses predefined category weights and critical-emergency overrides.
-"""
-
 import re
 from .keyword_extraction import extract_keywords_independent
-
-
-# ==================================================
-# 1. PREDEFINED URGENCY CATEGORIES
-# ==================================================
-
 URGENCY_CATEGORIES = {
     "rescue_emergency": {
         "weight": 4,
@@ -156,12 +143,6 @@ URGENCY_CATEGORIES = {
         ],
     },
 }
-
-
-# ==================================================
-# 2. CRITICAL EMERGENCY OVERRIDES
-# ==================================================
-
 CRITICAL_RESCUE_KEYWORDS = [
     "trapped", "stranded", "stuck at home",
     "immediate rescue", "फँसे हुए", "फँसे",
@@ -179,11 +160,6 @@ CRITICAL_MEDICAL_KEYWORDS = [
     "garbhvati mahila",
 ]
 
-
-# ==================================================
-# 3. TEXT MATCHING
-# ==================================================
-
 def contains_phrase(text, phrase):
     """Match a phrase without case sensitivity."""
     text = text.casefold().strip()
@@ -197,11 +173,6 @@ def contains_phrase(text, phrase):
         return re.search(pattern, text) is not None
 
     return phrase in text
-
-
-# ==================================================
-# 4. CATEGORY DETECTION
-# ==================================================
 
 def detect_urgency_categories(text):
     """Identify urgency categories present in a message."""
@@ -239,6 +210,8 @@ def is_non_emergency_update(text):
         "river level is stable",
         "routine flood update",
         "routine flood information update",
+        "no rescue needed",
+        "everyone is safe",
 
         # Hindi
         "निकासी की आवश्यकता नहीं है",
@@ -481,10 +454,6 @@ def calculate_urgency(text):
         "matched_categories": matched_categories,
     }
 
-
-# ==================================================
-# 6. BASIC MULTILINGUAL TESTS
-# ==================================================
 def analyze_flood_message(text):
     if not isinstance(text, str) or not text.strip():
         return{

@@ -19,9 +19,114 @@ from Backend.OS.metrics import (
 )
 
 from Backend.NLP.src.urgency_score import analyze_flood_message
+from Backend.NLP.src.ocr import extract_text_from_image
+from fastapi import UploadFile,File,HTTPException
+import os
+import uuid
+UPLOAD_DIR = "uploads"
+MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB per image
+MAX_IMAGES = 50
 
+os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 app = FastAPI(title="FloodSense")
+
+@app.post("/extract-image-text")
+async def extract_multiple_image_text(
+    files: list[UploadFile] = File(...)
+):
+    if not files:
+        raise HTTPException(
+            status_code=400,
+            detail="Please upload at least one image."
+        )
+
+    if len(files) > MAX_IMAGES:
+        raise HTTPException(
+            status_code=400,
+            detail=f"You can upload a maximum of {MAX_IMAGES} images at once."
+        )
+
+    allowed_types = {"image/jpeg", "image/png", "image/webp"}
+    allowed_extensions = {".jpg", ".jpeg", ".png", ".webp"}
+
+    results = []
+
+    for file in files:
+        image_path = None
+
+        try:
+            extension = os.path.splitext(file.filename or "")[1].lower()
+
+            if (
+                file.content_type not in allowed_types
+                or extension not in allowed_extensions
+            ):
+                results.append({
+                    "filename": file.filename,
+                    "success": False,
+                    "text": "",
+                    "message": "Unsupported file. Upload JPG, JPEG, PNG, or WEBP images."
+                })
+                continue
+
+            contents = await file.read()
+
+            if not contents:
+                results.append({
+                    "filename": file.filename,
+                    "success": False,
+                    "text": "",
+                    "message": "The uploaded file is empty."
+                })
+                continue
+
+            if len(contents) > MAX_FILE_SIZE:
+                results.append({
+                    "filename": file.filename,
+                    "success": False,
+                    "text": "",
+                    "message": "Image exceeds the 10 MB size limit."
+                })
+                continue
+
+            image_path = os.path.join(
+                UPLOAD_DIR,
+                f"{uuid.uuid4().hex}{extension}"
+            )
+
+            with open(image_path, "wb") as image_file:
+                image_file.write(contents)
+
+            result = extract_text_from_image(image_path)
+
+            results.append({
+                "filename": file.filename,
+                **result
+            })
+
+        except Exception as error:
+            results.append({
+                "filename": file.filename,
+                "success": False,
+                "text": "",
+                "message": f"Could not process image: {str(error)}"
+            })
+
+        finally:
+            if image_path and os.path.exists(image_path):
+                os.remove(image_path)
+
+            await file.close()
+
+    successful = sum(1 for item in results if item["success"])
+
+    return {
+        "total_images": len(results),
+        "successful_images": successful,
+        "failed_images": len(results) - successful,
+        "results": results
+    }
 
 
 class FloodMessage(BaseModel):
@@ -157,12 +262,26 @@ def suggest_resources(request_id: str):
         "naav", "nao", "rescue boat",
     ]):
         category = "Rescue"
-
-    # Medical
     elif any(word in keywords for word in [
         # English
-        "injured", "medicine", "medicines", "medical",
-        "doctor", "ambulance", "fever",
+        "first aid",
+        "first aid kit",
+        "first aid kits",
+        "bandages",
+        "bleeding",
+        "injured",
+        "injury",
+    ]):
+        category = "first_aid"
+    elif any(word in keywords for word in [
+        # English
+        "medicine",
+        "medicines",
+        "medical supply",
+        "medical supplies",
+        "doctor",
+        "ambulance",
+        "fever",
 
         # Hindi
         "चिकित्सा", "डॉक्टर", "दवाइयाँ", "दवाई",
@@ -175,7 +294,7 @@ def suggest_resources(request_id: str):
         # Roman Hindi
         "dawai", "dawaiyan", "doctor chahiye",
     ]):
-        category = "Medical"
+        category = "medical"
 
     # Food
     elif any(word in keywords for word in [
@@ -348,42 +467,93 @@ def calculate_resource_requirements_endpoint(
 @app.post("/analyze-flood-bulk")
 def analyze_flood_bulk(bulk_message: BulkFloodMessage):
     results = []
+
     for message in bulk_message.messages:
-        result = analyze_flood_message(message.text)
-        request_id = str(uuid.uuid4())
-        need = classify_relief_need(message.text)
-        people_affected = extract_people_affected(message.text)
+        text = message.text.strip()
+        location = message.location.strip()
+
         try:
+            urgency_result = analyze_flood_message(text)
+            relief_result = classify_relief_need(text)
+            people_affected = extract_people_affected(text)
+
+            urgency_categories = relief_result["categories"]
+            message_text = text.casefold()
+
+            # Identify the specific resource needed.
+            if any(phrase in message_text for phrase in [
+                "first aid",
+                "first aid kit",
+                "first aid kits",
+                "bandage",
+                "bandages",
+            ]):
+                need = "first_aid"
+                resource_suggestions = ["First Aid Kits"]
+
+            elif any(phrase in message_text for phrase in [
+                "medical supplies",
+                "medical supply",
+                "medicine",
+                "medicines",
+            ]):
+                need = "medical"
+                resource_suggestions = ["Medical supplies"]
+
+            else:
+                need = (
+                    ", ".join(category.lower() for category in urgency_categories)
+                    if urgency_categories
+                    else "Needs Review"
+                )
+                resource_suggestions = relief_result["resources"]
+
+            request_id = str(uuid.uuid4())
+
             saved_request_id = add_relief_request(
                 request_id=request_id,
-                location=message.location.strip(),
+                location=location,
                 need=need,
-                urgency_score=float(result["urgency_score"]),
+                urgency_score=float(urgency_result["urgency_score"]),
                 people_affected=people_affected,
                 arrival_time=0,
-                source_text=message.text,
-                extracted_keywords=result["extracted_keywords"],
-                urgency_level=result["urgency_level"],
+                source_text=text,
+                extracted_keywords=urgency_result["extracted_keywords"],
+                urgency_level=urgency_result["urgency_level"],
             )
+
             results.append({
                 "request_id": saved_request_id,
-                "location": message.location,
-                "need": need,
+                "message": text,
+                "location": location,
+                "extracted_keywords": urgency_result["extracted_keywords"],
+                "urgency_score": urgency_result["urgency_score"],
+                "urgency_level": urgency_result["urgency_level"],
+                "matched_urgency_categories": urgency_result["matched_categories"],
+                "urgency_category": urgency_result["urgency_level"],
+                "resource_suggestions": resource_suggestions,
                 "people_affected": people_affected,
+                "need": need,
                 "saved_to_database": True,
-                **result,
             })
+
         except Exception as e:
             results.append({
-                "location": message.location,
+                "message": text,
+                "location": location,
                 "saved_to_database": False,
                 "error": str(e),
             })
+
     return {
         "total_messages": len(bulk_message.messages),
         "successfully_saved": sum(
             1 for item in results
             if item["saved_to_database"]
+        ),
+        "failed_messages": sum(
+            1 for item in results
+            if not item["saved_to_database"]
         ),
         "results": results,
     }
@@ -432,7 +602,7 @@ def allocate_resources_by_schedule(algorithm: str = "Priority"):
     # Only process pending requests
     pending_requests = [
         row for row in saved_requests
-        if row["status"] == "pending"
+        if str(row.get("status", "")).lower() == "pending"
     ]
 
     # 2. Convert pending requests into scheduler objects
@@ -448,18 +618,37 @@ def allocate_resources_by_schedule(algorithm: str = "Priority"):
         for row in pending_requests
     ]
 
-    # 3. Schedule requests using selected algorithm
+    # 3. Schedule requests
     scheduled_requests = schedule_requests(requests, algorithm)
 
-    # 4. Prepare inventory and allocation report
+    # 4. Prepare inventory and results
     inventory = get_resource_inventory()
     allocation_results = []
+
+    # Recognize relief needs and urgency categories
+    resource_mapping = {
+        "food": ("Food packets", "food"),
+        "water": ("Drinking water", "water"),
+        "rescue": ("Rescue boat", "rescue"),
+        "medical": ("Medical supplies", "medical"),
+        "first_aid":("First Aid Kits","medical"),
+        "shelter": ("Blankets", "shelter"),
+
+        "rescue_emergency": ("Rescue boat", "rescue"),
+        "medical_emergency": ("Medical supplies", "medical"),
+        "shelter_relief": ("Blankets", "shelter"),
+
+        # These categories are broad and cannot reliably identify
+        # one particular resource.
+        "essential_supplies": (None, None),
+        "general_information": (None, None),
+        "evacuation": ("Rescue boat", "rescue"),
+    }
 
     for scheduled in scheduled_requests:
 
         request_id = str(scheduled["request_id"])
 
-        # Find the original database request
         request = next(
             (
                 row for row in pending_requests
@@ -471,93 +660,120 @@ def allocate_resources_by_schedule(algorithm: str = "Priority"):
         if request is None:
             continue
 
-        need = str(request["need"]).strip().lower()
-        people = request["people_affected"]
+        raw_need = str(request["need"]).strip().lower()
+        people = int(request["people_affected"])
 
-        # 5. Match request to a resource
-        resource_mapping = {
-            "food": "Food packets",
-            "rescue": "Rescue boat",
-            "medical": "First Aid Kits",
-            "water": "Drinking water",
-            "shelter": "Blankets",
-        }
+        # Accept either a single need or comma-separated needs
+        needs = [
+            part.strip()
+            for part in raw_need.replace(";", ",").split(",")
+            if part.strip()
+        ]
 
-        resource_name = resource_mapping.get(need)
+        # Resolve each need independently
+        resolved_needs = []
+        for need_item in needs:
+            mapped = resource_mapping.get(need_item)
 
-        if resource_name is None:
+            if mapped and mapped[0] is not None:
+                if mapped not in resolved_needs:
+                    resolved_needs.append(mapped)
+
+        if not resolved_needs:
             allocation_results.append({
                 "request_id": request_id,
                 "status": "skipped",
-                "message": f"No resource mapping for {need}.",
+                "message": f"No resource mapping for {raw_need}.",
             })
             continue
 
-        # 6. Calculate required quantity
-        try:
-            quantity = calculate_quantity(
-                need=need,
-                people_affected=people,
+        request_allocations = []
+
+        # Allocate each resource independently
+        for resource_name, calculation_need in resolved_needs:
+
+            try:
+                quantity = calculate_quantity(
+                    need=calculation_need,
+                    people_affected=people,
+                )
+            except (ValueError, KeyError) as error:
+                request_allocations.append({
+                    "resource": resource_name,
+                    "status": "skipped",
+                    "message": str(error),
+                })
+                continue
+
+            resource = next(
+                (
+                    item for item in inventory
+                    if item["resource_name"].strip().lower()
+                    == resource_name.lower()
+                ),
+                None,
             )
 
-        except ValueError as error:
-            allocation_results.append({
-                "request_id": request_id,
-                "status": "skipped",
-                "message": str(error),
-            })
-            continue
+            if resource is None:
+                request_allocations.append({
+                    "resource": resource_name,
+                    "status": "skipped",
+                    "message": f"{resource_name} not found in inventory.",
+                })
+                continue
 
-        # Check available stock before allocation
-        resource = next(
-            (
-                item for item in inventory
-                if item["resource_name"] == resource_name
-            ),
-            None,
-        )
+            available = int(resource["available_quantity"])
 
-        if resource is None:
-            allocation_results.append({
-                "request_id": request_id,
-                "status": "skipped",
-                "message": f"{resource_name} not found in inventory.",
-            })
-            continue
+            if available < quantity:
+                request_allocations.append({
+                    "resource": resource_name,
+                    "status": "insufficient_stock",
+                    "required_quantity": quantity,
+                    "available_quantity": available,
+                })
+                continue
 
-        if resource["available_quantity"] < quantity:
-            allocation_results.append({
-                "request_id": request_id,
-                "status": "insufficient_stock",
-                "resource": resource_name,
-                "required_quantity": quantity,
-                "available_quantity": resource["available_quantity"],
-            })
-            continue
+            try:
+                result = allocate_resource(
+                    request_id=request_id,
+                    resource_name=resource_name,
+                    quantity=quantity,
+                )
 
-        # 7. Allocate and deduct inventory
-        try:
-            result = allocate_resource(
-                request_id=request_id,
-                resource_name=resource_name,
-                quantity=quantity,
-            )
+                # Update the local inventory for subsequent allocations
+                resource["available_quantity"] -= quantity
 
-            # Update local inventory for the next request
-            resource["available_quantity"] -= quantity
+                request_allocations.append({
+                    "resource": resource_name,
+                    "status": "allocated",
+                    "quantity": quantity,
+                    "allocation": result,
+                })
 
-            allocation_results.append({
-                "request_id": request_id,
-                "status": "allocated",
-                "allocation": result,
-            })
+            except ValueError as error:
+                request_allocations.append({
+                    "resource": resource_name,
+                    "status": "failed",
+                    "message": str(error),
+                })
 
-        except ValueError as error:
-            allocation_results.append({
-                "request_id": request_id,
-                "status": "failed",
-                "message": str(error),
-            })
+        successful = [
+            item for item in request_allocations
+            if item["status"] == "allocated"
+        ]
+
+        if successful and len(successful) == len(request_allocations):
+            overall_status = "allocated"
+        elif successful:
+            overall_status = "partially_allocated"
+        else:
+            overall_status = "skipped"
+
+        allocation_results.append({
+            "request_id": request_id,
+            "status": overall_status,
+            "allocations": request_allocations,
+        })
 
     return {
         "algorithm": algorithm,
@@ -568,12 +784,48 @@ def allocate_resources_by_schedule(algorithm: str = "Priority"):
 def analyze_flood(message: FloodMessage):
     result = analyze_flood_message(message.text)
     request_id = str(uuid.uuid4())
-    location=message.location.strip()
-    need=classify_relief_need(message.text)
-    people_affected=extract_people_affected(message.text)
-    arrival_time=0
+    location = message.location.strip()
+    need = classify_relief_need(message.text)
+    relief_result = classify_relief_need(message.text)
+
+    priority_order = ["Rescue", "Medical", "Water", "Food", "Shelter"]
+    message_text = message.text.casefold()
+
+    if any(
+        phrase in message_text
+        for phrase in [
+            "first aid",
+            "first aid kit",
+            "first aid kits",
+            "bandage",
+            "bandages",
+        ]
+    ):
+        need = "first_aid"
+    elif any(
+        phrase in message_text
+        for phrase in [
+            "medical supplies",
+            "medical supply",
+            "medicine",
+            "medicines",
+        ]
+    ):
+        need = "medical"
+    else:
+        need = next(
+            (
+                category.lower()
+                for category in priority_order
+                if category in relief_result.get("categories", [])
+            ),
+            "information",
+        )
+
+    people_affected = extract_people_affected(message.text)
+    arrival_time = 0
     try:
-        saved_request_id=add_relief_request(
+        saved_request_id = add_relief_request(
             request_id=request_id,
             location=location,
             need=need,
@@ -585,14 +837,14 @@ def analyze_flood(message: FloodMessage):
             urgency_level=result["urgency_level"],
         )
     except Exception as e:
-        raise HTTPException(status_code=500, detail="Flood message was analyzed but could not save to the database",) from e
-    return{
-            "request_id":saved_request_id,
-            "message": message.text,
-            "saved_to_database":True, **result,
-        }
+        raise HTTPException(
+            status_code=500,
+            detail="Flood message was analyzed but could not save to the database",
+        ) from e
 
     return {
+        "request_id": saved_request_id,
         "message": message.text,
+        "saved_to_database": True,
         **result,
     }

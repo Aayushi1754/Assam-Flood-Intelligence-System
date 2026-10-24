@@ -1,0 +1,337 @@
+﻿Image_Name,Language,Original_Text,Expected_Needs,Expected_Keywords,Expected_Location,Expected_People_Count,Expected_Urgency_Level,Image_Type
+FS_EN_001.png,EN,Water has reduced in Dhemaji since morning. No rescue or evacuation is needed. We will update if anything changes.,information,rescue;evacuation,Dhemaji,0,Low,Printed_Report
+FS_EN_002.png,EN,"DAMAGE REPORT
+Mud and flood water have damaged the road to Ballia. Please send a team to check the bridge before heavy vehicles use it.",information,flood water;bridge,Ballia,0,Medium,Printed_Report
+FS_EN_003.png,EN,Embankment breached near Barpeta Road at 8 PM. Villagers must evacuate to higher ground immediately. About 60 people are still inside the village.,evacuation,embankment;breached;evacuate,Barpeta Road,60,Critical,Emergency_Message
+FS_EN_004.png,EN,"Request: 40 flood victims in Madhubani need medicines for fever, diarrhoea and skin infection. Please send a doctor.",medical,flood;medicines;fever;diarrhoea;doctor,Madhubani,40,High,Community_Request
+FS_EN_005.png,EN,Our village in Darbhanga has no electricity and 60 people are sleeping on the road without blankets. Children are cold. Need blankets and tarpaulin urgently.,blankets_clothing;shelter,blankets;tarpaulin;urgently,Darbhanga,60,High,Community_Request
+FS_EN_006.png,EN,"Child with high fever and diarrhoea stranded in Patna. No boat available, flood water everywhere. Need medical help and rescue immediately.",medical;rescue,fever;diarrhoea;stranded;flood water;help;rescue,Patna,0,Critical,Emergency_Message
+FS_EN_007.png,EN,Our village in Majuli has no electricity and 150 people are sleeping on the road without blankets. Children are cold. Need blankets and tarpaulin urgently.,blankets_clothing;shelter,blankets;tarpaulin;urgently,Majuli,150,High,Community_Request
+FS_EN_008.png,EN,NOTICE: Ferry service at Dibrugarh has resumed from 8 PM after the flood. Please follow the safety instructions.,information,flood,Dibrugarh,0,Informational,Public_Notice
+FS_EN_009.png,EN,Weather department says light rain is expected in Dibrugarh for the next two days. Please stay updated.,information,,Dibrugarh,0,Informational,Printed_Report
+FS_EN_010.png,EN,Road to Sivasagar is flooded. Vehicles are not able to pass. Please avoid this route.,information,flooded,Sivasagar,0,Medium,Printed_Report
+FS_EN_011.png,EN,"FLOOD SITUATION REPORT
+Water is entering the lower houses in Bahraich. 90 families have shifted to relatives. We may need dry food if the water stays for two more days.",food,flood;dry food,Bahraich,0,Medium,Printed_Report
+FS_EN_012.png,EN,NOTICE: Blankets and clothes will be distributed at the relief camp in Sitapur on 15 July. Please bring your family card.,blankets_clothing,blankets;clothes;relief camp,Sitapur,0,Low,Public_Notice
+FS_EN_013.png,EN,Embankment breached near Gorakhpur at 11 AM. Villagers must evacuate to higher ground immediately. About 25 people are still inside the village.,evacuation,embankment;breached;evacuate,Gorakhpur,25,Critical,Emergency_Message
+FS_EN_014.png,EN,"FLOOD UPDATE
+The water level of the Brahmaputra at Bhagalpur is stable at 4 PM today. No new areas are affected.",information,flood;water level,Bhagalpur,0,Informational,Printed_Report
+FS_EN_015.png,EN,Drinking water is finished in Barpeta Road. Tube wells are submerged and 250 people are depending on dirty flood water. Please send clean drinking water.,drinking_water,drinking water;submerged;flood water;clean drinking water,Barpeta Road,250,High,Community_Request
+FS_EN_016.png,EN,Help! Our house in Dhemaji is under water and 3 family members are stranded on the first floor. We need rescue now. Please send NDRF.,rescue,help;under water;stranded;rescue,Dhemaji,3,Critical,Community_Request
+FS_EN_017.png,EN,"FLOOD UPDATE
+The water level of the Ghaghara at Barpeta Road is stable at 7 AM today. No new areas are affected.",information,flood;water level,Barpeta Road,0,Informational,Printed_Report
+FS_EN_018.png,EN,NOTICE: Families in Ballia who lost their ration cards in the flood can get duplicate cards at the block office on 3 September.,information,flood,Ballia,0,Low,Public_Notice
+FS_EN_019.png,EN,"Water has gone down in most parts of Patna, but 60 people in one village are still stranded and need rescue. Please send a boat.",rescue,stranded;rescue,Patna,60,Critical,Emergency_Message
+FS_EN_020.png,EN,NOTICE: Schools in Ballia will remain closed on Saturday because of flood water on the road.,information,flood water,Ballia,0,Informational,Public_Notice
+FS_EN_021.png,EN,"The relief camp at Saharsa is overcrowded with 12 people. We need more tents, food and drinking water.",shelter;food;drinking_water,relief camp;tents;food;drinking water,Saharsa,12,High,Phone_Screenshot
+FS_EN_022.png,EN,The district control room helpline for flood information is open all day. Residents of Majuli can contact it for updates.,information,control room;flood,Majuli,0,Informational,Printed_Report
+FS_EN_023.png,EN,"PUBLIC NOTICE: Relief distribution at Jorhat will be held on Monday at 9:30 AM. Each family will get rice, dal and cooking oil. No emergency.",food,relief distribution,Jorhat,0,Low,Public_Notice
+FS_EN_024.png,EN,"Our school building in Kamrup is being used as a flood shelter. We need mats, buckets and drinking water for 12 people.",shelter;drinking_water,flood;shelter;drinking water,Kamrup,12,Medium,Community_Request
+FS_EN_025.png,EN,"The relief camp at North Lakhimpur is overcrowded with 40 people. We need more tents, food and drinking water.",shelter;food;drinking_water,relief camp;tents;food;drinking water,North Lakhimpur,40,High,Phone_Screenshot
+FS_EN_026.png,EN,URGENT: 18 people are trapped on rooftops in Golaghat. Water is still rising. Please send rescue boats immediately.,rescue,urgent;trapped;rising;rescue boats,Golaghat,18,Critical,Emergency_Message
+FS_EN_027.png,EN,"Child with high fever and diarrhoea stranded in Katihar. No boat available, flood water everywhere. Need medical help and rescue immediately.",medical;rescue,fever;diarrhoea;stranded;flood water;help;rescue,Katihar,0,Critical,Emergency_Message
+FS_EN_028.png,EN,"Request: 150 flood victims in Samastipur need medicines for fever, diarrhoea and skin infection. Please send a doctor.",medical,flood;medicines;fever;diarrhoea;doctor,Samastipur,150,High,Community_Request
+FS_EN_029.png,EN,NOTICE: Schools in Katihar will remain closed on Tuesday because of flood water on the road.,information,flood water,Katihar,0,Informational,Public_Notice
+FS_EN_030.png,EN,Road to Kamrup is flooded. Vehicles are not able to pass. Please avoid this route.,information,flooded,Kamrup,0,Medium,Printed_Report
+FS_EN_031.png,EN,Help! Our house in Dibrugarh is under water and 7 family members are stranded on the first floor. We need rescue now. Please send NDRF.,rescue,help;under water;stranded;rescue,Dibrugarh,7,Critical,Community_Request
+FS_EN_032.png,EN,URGENT: 12 people are trapped on rooftops in Barpeta Road. Water is still rising. Please send rescue boats immediately.,rescue,urgent;trapped;rising;rescue boats,Barpeta Road,12,Critical,Emergency_Message
+FS_EN_033.png,EN,Flood water has fully receded from Bhagalpur. Cleaning work has started and no assistance is needed at this time.,information,flood water;receded,Bhagalpur,0,Informational,Phone_Screenshot
+FS_EN_034.png,EN,Evacuation order for Dibrugarh: residents near the river must move to the relief camp at the school before 4 PM.,evacuation;shelter,evacuation;relief camp,Dibrugarh,0,High,Public_Notice
+FS_EN_035.png,EN,"Health camp request: 12 people in Bahraich have fever and cough after the flood. Not an emergency, but a doctor visit is needed this week.",medical,health camp;fever;flood;doctor,Bahraich,12,Medium,Community_Request
+FS_EN_036.png,EN,40 families in Majuli have had no food since yesterday. Roads are flooded and relief trucks cannot reach us. Please send food packets.,food,food;flooded;relief;food packets,Majuli,0,High,Community_Request
+FS_EN_037.png,EN,"Our school building in Sivasagar is being used as a flood shelter. We need mats, buckets and drinking water for 40 people.",shelter;drinking_water,flood;shelter;drinking water,Sivasagar,40,Medium,Community_Request
+FS_EN_038.png,EN,SOS from Muzaffarpur: water has crossed the danger mark and entered homes. 12 people are stuck without food or drinking water. Send rescue boats.,rescue;food;drinking_water,SOS;danger mark;stuck;food;drinking water;rescue boats,Muzaffarpur,12,Critical,Phone_Screenshot
+FS_EN_039.png,EN,Some families in Dhubri need old clothes and blankets as nights are getting cold. No one is in danger at the moment.,blankets_clothing,clothes;blankets,Dhubri,0,Medium,Community_Request
+FS_EN_040.png,EN,Bridge near Gorakhpur has collapsed. 12 villagers are cut off from the town and cannot reach the hospital. Please arrange a boat.,rescue;medical,bridge;collapsed,Gorakhpur,12,High,Phone_Screenshot
+FS_EN_041.png,EN,"Child with high fever and diarrhoea stranded in Tinsukia. No boat available, flood water everywhere. Need medical help and rescue immediately.",medical;rescue,fever;diarrhoea;stranded;flood water;help;rescue,Tinsukia,0,Critical,Emergency_Message
+FS_EN_042.png,EN,Medical emergency at Ballia: a pregnant woman is in labour and the road is flooded. We need a boat and an ambulance immediately.,medical;rescue,medical emergency;pregnant;labour;flooded;ambulance,Ballia,0,Critical,Phone_Screenshot
+FS_EN_043.png,EN,Flood water has fully receded from Gorakhpur. Cleaning work has started and no assistance is needed at this time.,information,flood water;receded,Gorakhpur,0,Informational,Phone_Screenshot
+FS_EN_044.png,EN,PUBLIC NOTICE: A medical camp will be organised at Golaghat on Thursday from 7 AM. Free check-up and medicines for flood-affected families.,medical,medical camp;medicines;flood,Golaghat,0,Low,Public_Notice
+FS_EN_045.png,EN,Bridge near Sivasagar has collapsed. 60 villagers are cut off from the town and cannot reach the hospital. Please arrange a boat.,rescue;medical,bridge;collapsed,Sivasagar,60,High,Phone_Screenshot
+FS_EN_046.png,EN,NOTICE: Families in Katihar who lost their ration cards in the flood can get duplicate cards at the block office on Saturday.,information,flood,Katihar,0,Low,Public_Notice
+FS_EN_047.png,EN,"FIELD REPORT
+The water level at Saharsa has stopped rising but is still above normal. 60 people are staying at the relief camp. Please send some food and water.",shelter;food;drinking_water,water level;rising;relief camp;food,Saharsa,60,Medium,Printed_Report
+FS_EN_048.png,EN,15 elderly residents of Majuli are stranded without medicine. One person has chest pain. Please send a medical team and rescue boat urgently.,medical;rescue,stranded;medicine;chest pain;medical team;rescue boat;urgently,Majuli,15,Critical,Emergency_Message
+FS_EN_049.png,EN,NOTICE: Schools in Tinsukia will remain closed on 12 August because of flood water on the road.,information,flood water,Tinsukia,0,Informational,Public_Notice
+FS_EN_050.png,EN,"The relief camp at Patna is overcrowded with 90 people. We need more tents, food and drinking water.",shelter;food;drinking_water,relief camp;tents;food;drinking water,Patna,90,High,Phone_Screenshot
+FS_EN_051.png,EN,"Health camp request: 60 people in Golaghat have fever and cough after the flood. Not an emergency, but a doctor visit is needed this week.",medical,health camp;fever;flood;doctor,Golaghat,60,Medium,Community_Request
+FS_EN_052.png,EN,Help! Our house in Muzaffarpur is under water and 5 family members are stranded on the first floor. We need rescue now. Please send NDRF.,rescue,help;under water;stranded;rescue,Muzaffarpur,5,Critical,Community_Request
+FS_EN_053.png,EN,NOTICE: Families in Morigaon who lost their ration cards in the flood can get duplicate cards at the block office on Thursday.,information,flood,Morigaon,0,Low,Public_Notice
+FS_EN_054.png,EN,10 elderly residents of Sitapur are stranded without medicine. One person has chest pain. Please send a medical team and rescue boat urgently.,medical;rescue,stranded;medicine;chest pain;medical team;rescue boat;urgently,Sitapur,10,Critical,Emergency_Message
+FS_EN_055.png,EN,"FIELD REPORT
+The water level at North Lakhimpur has stopped rising but is still above normal. 150 people are staying at the relief camp. Please send some food and water.",shelter;food;drinking_water,water level;rising;relief camp;food,North Lakhimpur,150,Medium,Printed_Report
+FS_EN_056.png,EN,"FLOOD SITUATION REPORT
+Water is entering the lower houses in Supaul. 40 families have shifted to relatives. We may need dry food if the water stays for two more days.",food,flood;dry food,Supaul,0,Medium,Printed_Report
+FS_EN_057.png,EN,PUBLIC NOTICE: A medical camp will be organised at Bhagalpur on 3 September from 5:30 PM. Free check-up and medicines for flood-affected families.,medical,medical camp;medicines;flood,Bhagalpur,0,Low,Public_Notice
+FS_EN_058.png,EN,PUBLIC NOTICE: A medical camp will be organised at Supaul on 12 August from 4 PM. Free check-up and medicines for flood-affected families.,medical,medical camp;medicines;flood,Supaul,0,Low,Public_Notice
+FS_EN_059.png,EN,Some families in Morigaon need old clothes and blankets as nights are getting cold. No one is in danger at the moment.,blankets_clothing,clothes;blankets,Morigaon,0,Medium,Community_Request
+FS_EN_060.png,EN,Drinking water is finished in Goalpara. Tube wells are submerged and 40 people are depending on dirty flood water. Please send clean drinking water.,drinking_water,drinking water;submerged;flood water;clean drinking water,Goalpara,40,High,Community_Request
+FS_EN_061.png,EN,The Burhidihing water level is rising fast at North Lakhimpur. Please be ready to evacuate if the water crosses the danger mark.,evacuation,water level;rising;evacuate;danger mark,North Lakhimpur,0,High,Phone_Screenshot
+FS_EN_062.png,EN,Embankment breached near Bhagalpur at 9:30 AM. Villagers must evacuate to higher ground immediately. About 150 people are still inside the village.,evacuation,embankment;breached;evacuate,Bhagalpur,150,Critical,Emergency_Message
+FS_EN_063.png,EN,Bridge near Goalpara has collapsed. 150 villagers are cut off from the town and cannot reach the hospital. Please arrange a boat.,rescue;medical,bridge;collapsed,Goalpara,150,High,Phone_Screenshot
+FS_EN_064.png,EN,"FLOOD UPDATE
+The water level of the Subansiri at Golaghat is stable at 6 PM today. No new areas are affected.",information,flood;water level,Golaghat,0,Informational,Printed_Report
+FS_EN_065.png,EN,"FIELD REPORT
+The water level at Jorhat has stopped rising but is still above normal. 25 people are staying at the relief camp. Please send some food and water.",shelter;food;drinking_water,water level;rising;relief camp;food,Jorhat,25,Medium,Printed_Report
+FS_EN_066.png,EN,"PUBLIC NOTICE: Relief distribution at Saharsa will be held on Friday at 5:30 PM. Each family will get rice, dal and cooking oil. No emergency.",food,relief distribution,Saharsa,0,Low,Public_Notice
+FS_EN_067.png,EN,"Health camp request: 150 people in Supaul have fever and cough after the flood. Not an emergency, but a doctor visit is needed this week.",medical,health camp;fever;flood;doctor,Supaul,150,Medium,Community_Request
+FS_EN_068.png,EN,SOS from Madhubani: water has crossed the danger mark and entered homes. 60 people are stuck without food or drinking water. Send rescue boats.,rescue;food;drinking_water,SOS;danger mark;stuck;food;drinking water;rescue boats,Madhubani,60,Critical,Phone_Screenshot
+FS_EN_069.png,EN,Weather department says light rain is expected in Dhemaji for the next two days. Please stay updated.,information,,Dhemaji,0,Informational,Printed_Report
+FS_EN_070.png,EN,Medical emergency at Katihar: a pregnant woman is in labour and the road is flooded. We need a boat and an ambulance immediately.,medical;rescue,medical emergency;pregnant;labour;flooded;ambulance,Katihar,0,Critical,Phone_Screenshot
+FS_EN_071.png,EN,Drinking water is finished in Gorakhpur. Tube wells are submerged and 90 people are depending on dirty flood water. Please send clean drinking water.,drinking_water,drinking water;submerged;flood water;clean drinking water,Gorakhpur,90,High,Community_Request
+FS_EN_072.png,EN,"Request: 12 flood victims in Dhubri need medicines for fever, diarrhoea and skin infection. Please send a doctor.",medical,flood;medicines;fever;diarrhoea;doctor,Dhubri,12,High,Community_Request
+FS_EN_073.png,EN,NOTICE: Ferry service at Madhubani has resumed from 11 AM after the flood. Please follow the safety instructions.,information,flood,Madhubani,0,Informational,Public_Notice
+FS_EN_074.png,EN,URGENT: 40 people are trapped on rooftops in Bhagalpur. Water is still rising. Please send rescue boats immediately.,rescue,urgent;trapped;rising;rescue boats,Bhagalpur,40,Critical,Emergency_Message
+FS_EN_075.png,EN,Weather department says light rain is expected in Muzaffarpur for the next two days. Please stay updated.,information,,Muzaffarpur,0,Informational,Printed_Report
+FS_EN_076.png,EN,"DAMAGE REPORT
+Mud and flood water have damaged the road to Morigaon. Please send a team to check the bridge before heavy vehicles use it.",information,flood water;bridge,Morigaon,0,Medium,Printed_Report
+FS_EN_077.png,EN,NOTICE: Blankets and clothes will be distributed at the relief camp in Nalbari on Wednesday. Please bring your family card.,blankets_clothing,blankets;clothes;relief camp,Nalbari,0,Low,Public_Notice
+FS_EN_078.png,EN,The district control room helpline for flood information is open all day. Residents of Nalbari can contact it for updates.,information,control room;flood,Nalbari,0,Informational,Printed_Report
+FS_EN_079.png,EN,"Our school building in Dhemaji is being used as a flood shelter. We need mats, buckets and drinking water for 150 people.",shelter;drinking_water,flood;shelter;drinking water,Dhemaji,150,Medium,Community_Request
+FS_EN_080.png,EN,Road to Goalpara is flooded. Vehicles are not able to pass. Please avoid this route.,information,flooded,Goalpara,0,Medium,Printed_Report
+FS_EN_081.png,EN,Some families in Samastipur need old clothes and blankets as nights are getting cold. No one is in danger at the moment.,blankets_clothing,clothes;blankets,Samastipur,0,Medium,Community_Request
+FS_EN_082.png,EN,The Gandak water level is rising fast at Patna. Please be ready to evacuate if the water crosses the danger mark.,evacuation,water level;rising;evacuate;danger mark,Patna,0,High,Phone_Screenshot
+FS_EN_083.png,EN,The Yamuna water level is rising fast at Tinsukia. Please be ready to evacuate if the water crosses the danger mark.,evacuation,water level;rising;evacuate;danger mark,Tinsukia,0,High,Phone_Screenshot
+FS_EN_084.png,EN,The district control room helpline for flood information is open all day. Residents of Sitapur can contact it for updates.,information,control room;flood,Sitapur,0,Informational,Printed_Report
+FS_EN_085.png,EN,"DAMAGE REPORT
+Mud and flood water have damaged the road to Samastipur. Please send a team to check the bridge before heavy vehicles use it.",information,flood water;bridge,Samastipur,0,Medium,Printed_Report
+FS_EN_086.png,EN,Flood water has fully receded from Barpeta Road. Cleaning work has started and no assistance is needed at this time.,information,flood water;receded,Barpeta Road,0,Informational,Phone_Screenshot
+FS_EN_087.png,EN,Evacuation order for Madhubani: residents near the river must move to the relief camp at the school before 7 AM.,evacuation;shelter,evacuation;relief camp,Madhubani,0,High,Public_Notice
+FS_EN_088.png,EN,Our village in Bahraich has no electricity and 25 people are sleeping on the road without blankets. Children are cold. Need blankets and tarpaulin urgently.,blankets_clothing;shelter,blankets;tarpaulin;urgently,Bahraich,25,High,Community_Request
+FS_EN_089.png,EN,6 elderly residents of Nalbari are stranded without medicine. One person has chest pain. Please send a medical team and rescue boat urgently.,medical;rescue,stranded;medicine;chest pain;medical team;rescue boat;urgently,Nalbari,6,Critical,Emergency_Message
+FS_EN_090.png,EN,NOTICE: Blankets and clothes will be distributed at the relief camp in Jorhat on Sunday. Please bring your family card.,blankets_clothing,blankets;clothes;relief camp,Jorhat,0,Low,Public_Notice
+FS_EN_091.png,EN,12 families in Darbhanga have had no food since yesterday. Roads are flooded and relief trucks cannot reach us. Please send food packets.,food,food;flooded;relief;food packets,Darbhanga,0,High,Community_Request
+FS_EN_092.png,EN,"Water has gone down in most parts of Tinsukia, but 150 people in one village are still stranded and need rescue. Please send a boat.",rescue,stranded;rescue,Tinsukia,150,Critical,Emergency_Message
+FS_EN_093.png,EN,Water has reduced in Muzaffarpur since morning. No rescue or evacuation is needed. We will update if anything changes.,information,rescue;evacuation,Muzaffarpur,0,Low,Printed_Report
+FS_EN_094.png,EN,Medical emergency at Tinsukia: a pregnant woman is in labour and the road is flooded. We need a boat and an ambulance immediately.,medical;rescue,medical emergency;pregnant;labour;flooded;ambulance,Tinsukia,0,Critical,Phone_Screenshot
+FS_EN_095.png,EN,"FLOOD SITUATION REPORT
+Water is entering the lower houses in Darbhanga. 250 families have shifted to relatives. We may need dry food if the water stays for two more days.",food,flood;dry food,Darbhanga,0,Medium,Printed_Report
+FS_EN_096.png,EN,SOS from Dibrugarh: water has crossed the danger mark and entered homes. 150 people are stuck without food or drinking water. Send rescue boats.,rescue;food;drinking_water,SOS;danger mark;stuck;food;drinking water;rescue boats,Dibrugarh,150,Critical,Phone_Screenshot
+FS_EN_097.png,EN,Evacuation order for Dhubri: residents near the river must move to the relief camp at the school before 5:30 PM.,evacuation;shelter,evacuation;relief camp,Dhubri,0,High,Public_Notice
+FS_EN_098.png,EN,Water has reduced in Kamrup since morning. No rescue or evacuation is needed. We will update if anything changes.,information,rescue;evacuation,Kamrup,0,Low,Printed_Report
+FS_EN_099.png,EN,"PUBLIC NOTICE: Relief distribution at Nalbari will be held on Sunday at 8 PM. Each family will get rice, dal and cooking oil. No emergency.",food,relief distribution,Nalbari,0,Low,Public_Notice
+FS_EN_100.png,EN,90 families in Sitapur have had no food since yesterday. Roads are flooded and relief trucks cannot reach us. Please send food packets.,food,food;flooded;relief;food packets,Sitapur,0,High,Community_Request
+FS_HI_001.png,HI,"क्षति रिपोर्ट
+कीचड़ और बाढ़ के पानी से सुपौल की सड़क खराब हो गई है। भारी गाड़ियां चलने से पहले कृपया पुल की जांच के लिए टीम भेजें।",information,बाढ़,सुपौल,0,Medium,Printed_Report
+FS_HI_002.png,HI,सूचना: दरभंगा में 3 सितंबर को शाम 5:30 बजे से चिकित्सा शिविर लगेगा। बाढ़ प्रभावित परिवारों के लिए मुफ्त जांच और दवाइयां।,medical,चिकित्सा शिविर;बाढ़;दवाइयां,दरभंगा,0,Low,Public_Notice
+FS_HI_003.png,HI,"सूचना: जिन परिवारों के राशन कार्ड बाढ़ में खो गए हैं, उन्हें 3 सितंबर को खंड कार्यालय में डुप्लीकेट कार्ड मिलेगा। स्थान: मुजफ्फरपुर।",information,बाढ़,मुजफ्फरपुर,0,Low,Public_Notice
+FS_HI_004.png,HI,"बहराइच का राहत शिविर 40 लोगों से भरा है। हमें और टेंट, खाना और पीने का पानी चाहिए।",shelter;food;drinking_water,राहत शिविर;टेंट;खाना;पीने का पानी,बहराइच,40,High,Phone_Screenshot
+FS_HI_005.png,HI,मधुबनी में सुबह से पानी कम हो रहा है। बचाव या घर खाली करने की जरूरत नहीं है। कुछ बदलेगा तो सूचित करेंगे।,information,बचाव;घर खाली,मधुबनी,0,Low,Printed_Report
+FS_HI_006.png,HI,"बाढ़ सूचना
+आगरा में कोसी का जलस्तर आज दोपहर 4 बजे स्थिर है। कोई नया क्षेत्र प्रभावित नहीं हुआ है।",information,बाढ़;जलस्तर,आगरा,0,Informational,Printed_Report
+FS_HI_007.png,HI,सूचना: आगरा के राहत शिविर में रविवार को कंबल और कपड़े बांटे जाएंगे। कृपया अपना परिवार कार्ड साथ लाएं।,blankets_clothing,राहत शिविर;कंबल;कपड़े,आगरा,0,Low,Public_Notice
+FS_HI_008.png,HI,"बाढ़ सूचना
+खगड़िया में बागमती का जलस्तर आज सुबह 7 बजे स्थिर है। कोई नया क्षेत्र प्रभावित नहीं हुआ है।",information,बाढ़;जलस्तर,खगड़िया,0,Informational,Printed_Report
+FS_HI_009.png,HI,धेमाजी के कुछ परिवारों को पुराने कपड़े और कंबल चाहिए क्योंकि रातें ठंडी हो रही हैं। फिलहाल किसी को खतरा नहीं है।,blankets_clothing,कपड़े;कंबल,धेमाजी,0,Medium,Community_Request
+FS_HI_010.png,HI,सीतापुर में गंगा का जलस्तर तेजी से बढ़ रहा है। पानी खतरे के निशान को पार करे तो घर खाली करने के लिए तैयार रहें।,evacuation,जलस्तर;बढ़ रहा;खतरे के निशान;घर खाली,सीतापुर,0,High,Phone_Screenshot
+FS_HI_011.png,HI,"सूचना: जिन परिवारों के राशन कार्ड बाढ़ में खो गए हैं, उन्हें शनिवार को खंड कार्यालय में डुप्लीकेट कार्ड मिलेगा। स्थान: बाराबंकी।",information,बाढ़,बाराबंकी,0,Low,Public_Notice
+FS_HI_012.png,HI,सीतापुर में पीने का पानी खत्म हो गया है। हैंडपंप डूब गए हैं और 250 लोग गंदे बाढ़ के पानी पर निर्भर हैं। कृपया साफ पीने का पानी भेजें।,drinking_water,पीने का पानी;डूब;बाढ़;साफ पीने का पानी,सीतापुर,250,High,Community_Request
+FS_HI_013.png,HI,आगरा में 6 बुजुर्ग बिना दवा के फंसे हैं। एक व्यक्ति को सीने में दर्द है। कृपया तुरंत चिकित्सा दल और बचाव नाव भेजें।,medical;rescue,दवा;फंसे;सीने में दर्द;तुरंत;चिकित्सा;बचाव नाव,आगरा,6,Critical,Emergency_Message
+FS_HI_014.png,HI,"माजुली का राहत शिविर 12 लोगों से भरा है। हमें और टेंट, खाना और पीने का पानी चाहिए।",shelter;food;drinking_water,राहत शिविर;टेंट;खाना;पीने का पानी,माजुली,12,High,Phone_Screenshot
+FS_HI_015.png,HI,बलिया के हमारे गांव में बिजली नहीं है और 60 लोग बिना कंबल के सड़क पर सो रहे हैं। बच्चों को ठंड लग रही है। कंबल और तिरपाल की सख्त जरूरत है।,blankets_clothing;shelter,कंबल;तिरपाल,बलिया,60,High,Community_Request
+FS_HI_016.png,HI,"क्षेत्र रिपोर्ट
+समस्तीपुर में पानी का बढ़ना रुक गया है, पर अभी सामान्य से ऊपर है। 60 लोग राहत शिविर में रह रहे हैं। कृपया कुछ खाना और पानी भेजें।",shelter;food;drinking_water,राहत शिविर;खाना,समस्तीपुर,60,Medium,Printed_Report
+FS_HI_017.png,HI,"बाढ़ स्थिति रिपोर्ट
+धेमाजी के निचले घरों में पानी घुस रहा है। 250 परिवार रिश्तेदारों के यहां चले गए हैं। पानी दो दिन और रुका तो सूखा राशन चाहिए होगा।",food,बाढ़;सूखा राशन,धेमाजी,0,Medium,Printed_Report
+FS_HI_018.png,HI,भागलपुर जाने वाली सड़क पर पानी भरा है। गाड़ियां नहीं निकल पा रही हैं। कृपया इस रास्ते से न जाएं।,information,पानी भरा,भागलपुर,0,Medium,Printed_Report
+FS_HI_019.png,HI,"अनुरोध: बहराइच में 40 बाढ़ पीड़ितों को बुखार, दस्त और त्वचा संक्रमण की दवाइयां चाहिए। कृपया डॉक्टर भेजें।",medical,बाढ़ पीड़ित;बुखार;दस्त;दवाइयां;डॉक्टर,बहराइच,40,High,Community_Request
+FS_HI_020.png,HI,"सुपौल का स्कूल भवन बाढ़ आश्रय के रूप में इस्तेमाल हो रहा है। 12 लोगों के लिए चटाई, बाल्टी और पीने का पानी चाहिए।",shelter;drinking_water,बाढ़;आश्रय;पीने का पानी,सुपौल,12,Medium,Community_Request
+FS_HI_021.png,HI,मौसम विभाग के अनुसार गोपालगंज में अगले दो दिन हल्की बारिश की संभावना है। कृपया सूचना पर नजर रखें।,information,,गोपालगंज,0,Informational,Printed_Report
+FS_HI_022.png,HI,SOS: गोपालगंज में पानी खतरे के निशान से ऊपर चला गया है और घरों में घुस गया है। 12 लोग बिना खाने और पीने के पानी के फंसे हैं। बचाव नाव भेजें।,rescue;food;drinking_water,खतरे के निशान;खाने;फंसे;बचाव नाव,गोपालगंज,12,Critical,Phone_Screenshot
+FS_HI_023.png,HI,सूचना: बाराबंकी में 12 अगस्त को दोपहर 4 बजे से चिकित्सा शिविर लगेगा। बाढ़ प्रभावित परिवारों के लिए मुफ्त जांच और दवाइयां।,medical,चिकित्सा शिविर;बाढ़;दवाइयां,बाराबंकी,0,Low,Public_Notice
+FS_HI_024.png,HI,मौसम विभाग के अनुसार आगरा में अगले दो दिन हल्की बारिश की संभावना है। कृपया सूचना पर नजर रखें।,information,,आगरा,0,Informational,Printed_Report
+FS_HI_025.png,HI,गोरखपुर से बाढ़ का पानी पूरी तरह उतर गया है। सफाई का काम शुरू हो गया है और अभी किसी सहायता की जरूरत नहीं है।,information,बाढ़;उतर गया,गोरखपुर,0,Informational,Phone_Screenshot
+FS_HI_026.png,HI,माजुली के पास पुल टूट गया है। 12 ग्रामीण शहर से कट गए हैं और अस्पताल नहीं पहुंच सकते। कृपया नाव की व्यवस्था करें।,rescue;medical,पुल टूट;नाव,माजुली,12,High,Phone_Screenshot
+FS_HI_027.png,HI,पटना के हमारे गांव में बिजली नहीं है और 150 लोग बिना कंबल के सड़क पर सो रहे हैं। बच्चों को ठंड लग रही है। कंबल और तिरपाल की सख्त जरूरत है।,blankets_clothing;shelter,कंबल;तिरपाल,पटना,150,High,Community_Request
+FS_HI_028.png,HI,मौसम विभाग के अनुसार सहरसा में अगले दो दिन हल्की बारिश की संभावना है। कृपया सूचना पर नजर रखें।,information,,सहरसा,0,Informational,Printed_Report
+FS_HI_029.png,HI,मथुरा से बाढ़ का पानी पूरी तरह उतर गया है। सफाई का काम शुरू हो गया है और अभी किसी सहायता की जरूरत नहीं है।,information,बाढ़;उतर गया,मथुरा,0,Informational,Phone_Screenshot
+FS_HI_030.png,HI,आगरा के पास तटबंध टूट गया है। गांव के लोग तुरंत ऊंची जगह पर चले जाएं। अभी भी लगभग 60 लोग गांव के अंदर हैं।,evacuation,तटबंध;तुरंत;ऊंची जगह,आगरा,60,Critical,Emergency_Message
+FS_HI_031.png,HI,मथुरा में पीने का पानी खत्म हो गया है। हैंडपंप डूब गए हैं और 40 लोग गंदे बाढ़ के पानी पर निर्भर हैं। कृपया साफ पीने का पानी भेजें।,drinking_water,पीने का पानी;डूब;बाढ़;साफ पीने का पानी,मथुरा,40,High,Community_Request
+FS_HI_032.png,HI,पटना के पास पुल टूट गया है। 150 ग्रामीण शहर से कट गए हैं और अस्पताल नहीं पहुंच सकते। कृपया नाव की व्यवस्था करें।,rescue;medical,पुल टूट;नाव,पटना,150,High,Phone_Screenshot
+FS_HI_033.png,HI,सूचना: बाढ़ के बाद गोरखपुर में नाव सेवा सुबह 11 बजे से फिर शुरू हो गई है। कृपया सुरक्षा निर्देशों का पालन करें।,information,बाढ़;नाव,गोरखपुर,0,Informational,Public_Notice
+FS_HI_034.png,HI,"गोलपाड़ा के ज्यादातर हिस्सों से पानी उतर गया है, लेकिन एक गांव में 150 लोग अब भी फंसे हैं और उन्हें बचाव की जरूरत है। कृपया नाव भेजें।",rescue,उतर गया;फंसे;बचाव;नाव,गोलपाड़ा,150,Critical,Emergency_Message
+FS_HI_035.png,HI,सूचना: खगड़िया के राहत शिविर में बुधवार को कंबल और कपड़े बांटे जाएंगे। कृपया अपना परिवार कार्ड साथ लाएं।,blankets_clothing,राहत शिविर;कंबल;कपड़े,खगड़िया,0,Low,Public_Notice
+FS_HI_036.png,HI,सहरसा के पास तटबंध टूट गया है। गांव के लोग तुरंत ऊंची जगह पर चले जाएं। अभी भी लगभग 150 लोग गांव के अंदर हैं।,evacuation,तटबंध;तुरंत;ऊंची जगह,सहरसा,150,Critical,Emergency_Message
+FS_HI_037.png,HI,बलिया में राप्ती का जलस्तर तेजी से बढ़ रहा है। पानी खतरे के निशान को पार करे तो घर खाली करने के लिए तैयार रहें।,evacuation,जलस्तर;बढ़ रहा;खतरे के निशान;घर खाली,बलिया,0,High,Phone_Screenshot
+FS_HI_038.png,HI,तुरंत मदद चाहिए! बाराबंकी में 18 लोग छत पर फंसे हैं और पानी लगातार बढ़ रहा है। कृपया बचाव नाव भेजें।,rescue,तुरंत;मदद;फंसे;बढ़ रहा;बचाव नाव,बाराबंकी,18,Critical,Emergency_Message
+FS_HI_039.png,HI,"सूचना: सीवान में रविवार को रात 8 बजे राहत वितरण होगा। हर परिवार को चावल, दाल और तेल मिलेगा। कोई आपात स्थिति नहीं है।",food,राहत वितरण,सीवान,0,Low,Public_Notice
+FS_HI_040.png,HI,धेमाजी जाने वाली सड़क पर पानी भरा है। गाड़ियां नहीं निकल पा रही हैं। कृपया इस रास्ते से न जाएं।,information,पानी भरा,धेमाजी,0,Medium,Printed_Report
+FS_HI_041.png,HI,तुरंत मदद चाहिए! मधुबनी में 40 लोग छत पर फंसे हैं और पानी लगातार बढ़ रहा है। कृपया बचाव नाव भेजें।,rescue,तुरंत;मदद;फंसे;बढ़ रहा;बचाव नाव,मधुबनी,40,Critical,Emergency_Message
+FS_HI_042.png,HI,गोरखपुर में पीने का पानी खत्म हो गया है। हैंडपंप डूब गए हैं और 90 लोग गंदे बाढ़ के पानी पर निर्भर हैं। कृपया साफ पीने का पानी भेजें।,drinking_water,पीने का पानी;डूब;बाढ़;साफ पीने का पानी,गोरखपुर,90,High,Community_Request
+FS_HI_043.png,HI,सूचना: मधुबनी में गुरुवार को सुबह 7 बजे से चिकित्सा शिविर लगेगा। बाढ़ प्रभावित परिवारों के लिए मुफ्त जांच और दवाइयां।,medical,चिकित्सा शिविर;बाढ़;दवाइयां,मधुबनी,0,Low,Public_Notice
+FS_HI_044.png,HI,सूचना: मथुरा में सड़क पर बाढ़ का पानी होने के कारण शनिवार को स्कूल बंद रहेंगे।,information,बाढ़,मथुरा,0,Informational,Public_Notice
+FS_HI_045.png,HI,"स्वास्थ्य शिविर का अनुरोध: बाढ़ के बाद लखीमपुर में 150 लोगों को बुखार और खांसी है। आपात स्थिति नहीं है, पर इसी हफ्ते डॉक्टर की जरूरत है।",medical,स्वास्थ्य शिविर;बाढ़;बुखार;डॉक्टर,लखीमपुर,150,Medium,Community_Request
+FS_HI_046.png,HI,कटिहार के कुछ परिवारों को पुराने कपड़े और कंबल चाहिए क्योंकि रातें ठंडी हो रही हैं। फिलहाल किसी को खतरा नहीं है।,blankets_clothing,कपड़े;कंबल,कटिहार,0,Medium,Community_Request
+FS_HI_047.png,HI,मुजफ्फरपुर में सुबह से पानी कम हो रहा है। बचाव या घर खाली करने की जरूरत नहीं है। कुछ बदलेगा तो सूचित करेंगे।,information,बचाव;घर खाली,मुजफ्फरपुर,0,Low,Printed_Report
+FS_HI_048.png,HI,सूचना: गोपालगंज में सड़क पर बाढ़ का पानी होने के कारण मंगलवार को स्कूल बंद रहेंगे।,information,बाढ़,गोपालगंज,0,Informational,Public_Notice
+FS_HI_049.png,HI,"स्वास्थ्य शिविर का अनुरोध: बाढ़ के बाद सुपौल में 12 लोगों को बुखार और खांसी है। आपात स्थिति नहीं है, पर इसी हफ्ते डॉक्टर की जरूरत है।",medical,स्वास्थ्य शिविर;बाढ़;बुखार;डॉक्टर,सुपौल,12,Medium,Community_Request
+FS_HI_050.png,HI,"सूचना: दरभंगा में सोमवार को सुबह 9:30 बजे राहत वितरण होगा। हर परिवार को चावल, दाल और तेल मिलेगा। कोई आपात स्थिति नहीं है।",food,राहत वितरण,दरभंगा,0,Low,Public_Notice
+FS_HI_051.png,HI,"स्वास्थ्य शिविर का अनुरोध: बाढ़ के बाद समस्तीपुर में 60 लोगों को बुखार और खांसी है। आपात स्थिति नहीं है, पर इसी हफ्ते डॉक्टर की जरूरत है।",medical,स्वास्थ्य शिविर;बाढ़;बुखार;डॉक्टर,समस्तीपुर,60,Medium,Community_Request
+FS_HI_052.png,HI,गोपालगंज में तेज बुखार और दस्त से पीड़ित एक बच्चा बाढ़ के पानी में फंसा है। नाव नहीं है। तुरंत इलाज और बचाव की जरूरत है।,medical;rescue,बुखार;दस्त;बाढ़;फंसा;नाव;तुरंत;बचाव,गोपालगंज,0,Critical,Emergency_Message
+FS_HI_053.png,HI,सीतापुर से बाढ़ का पानी पूरी तरह उतर गया है। सफाई का काम शुरू हो गया है और अभी किसी सहायता की जरूरत नहीं है।,information,बाढ़;उतर गया,सीतापुर,0,Informational,Phone_Screenshot
+FS_HI_054.png,HI,मेडिकल इमरजेंसी: खगड़िया में एक गर्भवती महिला को प्रसव पीड़ा हो रही है और सड़क पर पानी भरा है। तुरंत नाव और एम्बुलेंस चाहिए।,medical;rescue,मेडिकल इमरजेंसी;गर्भवती;प्रसव;पानी भरा;तुरंत;नाव;एम्बुलेंस,खगड़िया,0,Critical,Phone_Screenshot
+FS_HI_055.png,HI,मेडिकल इमरजेंसी: बाराबंकी में एक गर्भवती महिला को प्रसव पीड़ा हो रही है और सड़क पर पानी भरा है। तुरंत नाव और एम्बुलेंस चाहिए।,medical;rescue,मेडिकल इमरजेंसी;गर्भवती;प्रसव;पानी भरा;तुरंत;नाव;एम्बुलेंस,बाराबंकी,0,Critical,Phone_Screenshot
+FS_HI_056.png,HI,SOS: आगरा में पानी खतरे के निशान से ऊपर चला गया है और घरों में घुस गया है। 60 लोग बिना खाने और पीने के पानी के फंसे हैं। बचाव नाव भेजें।,rescue;food;drinking_water,खतरे के निशान;खाने;फंसे;बचाव नाव,आगरा,60,Critical,Phone_Screenshot
+FS_HI_057.png,HI,"अनुरोध: पटना में 150 बाढ़ पीड़ितों को बुखार, दस्त और त्वचा संक्रमण की दवाइयां चाहिए। कृपया डॉक्टर भेजें।",medical,बाढ़ पीड़ित;बुखार;दस्त;दवाइयां;डॉक्टर,पटना,150,High,Community_Request
+FS_HI_058.png,HI,गोलपाड़ा के लिए घर खाली करने का आदेश: नदी किनारे रहने वाले लोग दोपहर 4 बजे से पहले स्कूल में बने राहत शिविर में पहुंच जाएं।,evacuation;shelter,घर खाली;राहत शिविर,गोलपाड़ा,0,High,Public_Notice
+FS_HI_059.png,HI,खगड़िया में 10 बुजुर्ग बिना दवा के फंसे हैं। एक व्यक्ति को सीने में दर्द है। कृपया तुरंत चिकित्सा दल और बचाव नाव भेजें।,medical;rescue,दवा;फंसे;सीने में दर्द;तुरंत;चिकित्सा;बचाव नाव,खगड़िया,10,Critical,Emergency_Message
+FS_HI_060.png,HI,"सूचना: जिन परिवारों के राशन कार्ड बाढ़ में खो गए हैं, उन्हें गुरुवार को खंड कार्यालय में डुप्लीकेट कार्ड मिलेगा। स्थान: खगड़िया।",information,बाढ़,खगड़िया,0,Low,Public_Notice
+FS_HI_061.png,HI,"क्षति रिपोर्ट
+कीचड़ और बाढ़ के पानी से दरभंगा की सड़क खराब हो गई है। भारी गाड़ियां चलने से पहले कृपया पुल की जांच के लिए टीम भेजें।",information,बाढ़,दरभंगा,0,Medium,Printed_Report
+FS_HI_062.png,HI,गोपालगंज में 12 परिवारों ने कल से कुछ नहीं खाया है। सड़कें डूबी हैं और राहत ट्रक नहीं पहुंच पा रहे। कृपया खाने के पैकेट भेजें।,food,डूबी;राहत;खाने के पैकेट,गोपालगंज,0,High,Community_Request
+FS_HI_063.png,HI,मथुरा में तेज बुखार और दस्त से पीड़ित एक बच्चा बाढ़ के पानी में फंसा है। नाव नहीं है। तुरंत इलाज और बचाव की जरूरत है।,medical;rescue,बुखार;दस्त;बाढ़;फंसा;नाव;तुरंत;बचाव,मथुरा,0,Critical,Emergency_Message
+FS_HI_064.png,HI,गोरखपुर के लिए घर खाली करने का आदेश: नदी किनारे रहने वाले लोग शाम 5:30 बजे से पहले स्कूल में बने राहत शिविर में पहुंच जाएं।,evacuation;shelter,घर खाली;राहत शिविर,गोरखपुर,0,High,Public_Notice
+FS_HI_065.png,HI,"सीवान का स्कूल भवन बाढ़ आश्रय के रूप में इस्तेमाल हो रहा है। 40 लोगों के लिए चटाई, बाल्टी और पीने का पानी चाहिए।",shelter;drinking_water,बाढ़;आश्रय;पीने का पानी,सीवान,40,Medium,Community_Request
+FS_HI_066.png,HI,बाराबंकी में सुबह से पानी कम हो रहा है। बचाव या घर खाली करने की जरूरत नहीं है। कुछ बदलेगा तो सूचित करेंगे।,information,बचाव;घर खाली,बाराबंकी,0,Low,Printed_Report
+FS_HI_067.png,HI,मदद करें! बाराबंकी में हमारा घर पानी में डूब गया है और परिवार के 5 लोग पहली मंजिल पर फंसे हैं। तुरंत बचाव दल भेजें।,rescue,मदद;डूब;फंसे;तुरंत;बचाव दल,बाराबंकी,5,Critical,Community_Request
+FS_HI_068.png,HI,"क्षेत्र रिपोर्ट
+कटिहार में पानी का बढ़ना रुक गया है, पर अभी सामान्य से ऊपर है। 25 लोग राहत शिविर में रह रहे हैं। कृपया कुछ खाना और पानी भेजें।",shelter;food;drinking_water,राहत शिविर;खाना,कटिहार,25,Medium,Printed_Report
+FS_HI_069.png,HI,सहरसा में तेज बुखार और दस्त से पीड़ित एक बच्चा बाढ़ के पानी में फंसा है। नाव नहीं है। तुरंत इलाज और बचाव की जरूरत है।,medical;rescue,बुखार;दस्त;बाढ़;फंसा;नाव;तुरंत;बचाव,सहरसा,0,Critical,Emergency_Message
+FS_HI_070.png,HI,मदद करें! मुजफ्फरपुर में हमारा घर पानी में डूब गया है और परिवार के 3 लोग पहली मंजिल पर फंसे हैं। तुरंत बचाव दल भेजें।,rescue,मदद;डूब;फंसे;तुरंत;बचाव दल,मुजफ्फरपुर,3,Critical,Community_Request
+FS_HI_071.png,HI,गोलपाड़ा में घाघरा का जलस्तर तेजी से बढ़ रहा है। पानी खतरे के निशान को पार करे तो घर खाली करने के लिए तैयार रहें।,evacuation,जलस्तर;बढ़ रहा;खतरे के निशान;घर खाली,गोलपाड़ा,0,High,Phone_Screenshot
+FS_HI_072.png,HI,"अनुरोध: माजुली में 12 बाढ़ पीड़ितों को बुखार, दस्त और त्वचा संक्रमण की दवाइयां चाहिए। कृपया डॉक्टर भेजें।",medical,बाढ़ पीड़ित;बुखार;दस्त;दवाइयां;डॉक्टर,माजुली,12,High,Community_Request
+FS_HI_073.png,HI,मुजफ्फरपुर में 15 बुजुर्ग बिना दवा के फंसे हैं। एक व्यक्ति को सीने में दर्द है। कृपया तुरंत चिकित्सा दल और बचाव नाव भेजें।,medical;rescue,दवा;फंसे;सीने में दर्द;तुरंत;चिकित्सा;बचाव नाव,मुजफ्फरपुर,15,Critical,Emergency_Message
+FS_HI_074.png,HI,गोरखपुर में 90 परिवारों ने कल से कुछ नहीं खाया है। सड़कें डूबी हैं और राहत ट्रक नहीं पहुंच पा रहे। कृपया खाने के पैकेट भेजें।,food,डूबी;राहत;खाने के पैकेट,गोरखपुर,0,High,Community_Request
+FS_HI_075.png,HI,"क्षेत्र रिपोर्ट
+लखीमपुर में पानी का बढ़ना रुक गया है, पर अभी सामान्य से ऊपर है। 150 लोग राहत शिविर में रह रहे हैं। कृपया कुछ खाना और पानी भेजें।",shelter;food;drinking_water,राहत शिविर;खाना,लखीमपुर,150,Medium,Printed_Report
+FS_HI_076.png,HI,समस्तीपुर के कुछ परिवारों को पुराने कपड़े और कंबल चाहिए क्योंकि रातें ठंडी हो रही हैं। फिलहाल किसी को खतरा नहीं है।,blankets_clothing,कपड़े;कंबल,समस्तीपुर,0,Medium,Community_Request
+FS_HI_077.png,HI,SOS: सहरसा में पानी खतरे के निशान से ऊपर चला गया है और घरों में घुस गया है। 150 लोग बिना खाने और पीने के पानी के फंसे हैं। बचाव नाव भेजें।,rescue;food;drinking_water,खतरे के निशान;खाने;फंसे;बचाव नाव,सहरसा,150,Critical,Phone_Screenshot
+FS_HI_078.png,HI,मेडिकल इमरजेंसी: मुजफ्फरपुर में एक गर्भवती महिला को प्रसव पीड़ा हो रही है और सड़क पर पानी भरा है। तुरंत नाव और एम्बुलेंस चाहिए।,medical;rescue,मेडिकल इमरजेंसी;गर्भवती;प्रसव;पानी भरा;तुरंत;नाव;एम्बुलेंस,मुजफ्फरपुर,0,Critical,Phone_Screenshot
+FS_HI_079.png,HI,"क्षति रिपोर्ट
+कीचड़ और बाढ़ के पानी से सीवान की सड़क खराब हो गई है। भारी गाड़ियां चलने से पहले कृपया पुल की जांच के लिए टीम भेजें।",information,बाढ़,सीवान,0,Medium,Printed_Report
+FS_HI_080.png,HI,बाढ़ की जानकारी के लिए जिला नियंत्रण कक्ष पूरे दिन खुला है। मथुरा के निवासी अपडेट के लिए संपर्क कर सकते हैं।,information,बाढ़;जिला नियंत्रण कक्ष,मथुरा,0,Informational,Printed_Report
+FS_HI_081.png,HI,"बाढ़ सूचना
+सहरसा में यमुना का जलस्तर आज शाम 6 बजे स्थिर है। कोई नया क्षेत्र प्रभावित नहीं हुआ है।",information,बाढ़;जलस्तर,सहरसा,0,Informational,Printed_Report
+FS_HI_082.png,HI,मदद करें! मधुबनी में हमारा घर पानी में डूब गया है और परिवार के 7 लोग पहली मंजिल पर फंसे हैं। तुरंत बचाव दल भेजें।,rescue,मदद;डूब;फंसे;तुरंत;बचाव दल,मधुबनी,7,Critical,Community_Request
+FS_HI_083.png,HI,सीतापुर के लिए घर खाली करने का आदेश: नदी किनारे रहने वाले लोग सुबह 7 बजे से पहले स्कूल में बने राहत शिविर में पहुंच जाएं।,evacuation;shelter,घर खाली;राहत शिविर,सीतापुर,0,High,Public_Notice
+FS_HI_084.png,HI,सूचना: मुजफ्फरपुर के राहत शिविर में 15 जुलाई को कंबल और कपड़े बांटे जाएंगे। कृपया अपना परिवार कार्ड साथ लाएं।,blankets_clothing,राहत शिविर;कंबल;कपड़े,मुजफ्फरपुर,0,Low,Public_Notice
+FS_HI_085.png,HI,"सीतापुर के ज्यादातर हिस्सों से पानी उतर गया है, लेकिन एक गांव में 60 लोग अब भी फंसे हैं और उन्हें बचाव की जरूरत है। कृपया नाव भेजें।",rescue,उतर गया;फंसे;बचाव;नाव,सीतापुर,60,Critical,Emergency_Message
+FS_HI_086.png,HI,सूचना: सहरसा में सड़क पर बाढ़ का पानी होने के कारण 12 अगस्त को स्कूल बंद रहेंगे।,information,बाढ़,सहरसा,0,Informational,Public_Notice
+FS_HI_087.png,HI,मथुरा में 40 परिवारों ने कल से कुछ नहीं खाया है। सड़कें डूबी हैं और राहत ट्रक नहीं पहुंच पा रहे। कृपया खाने के पैकेट भेजें।,food,डूबी;राहत;खाने के पैकेट,मथुरा,0,High,Community_Request
+FS_HI_088.png,HI,कटिहार जाने वाली सड़क पर पानी भरा है। गाड़ियां नहीं निकल पा रही हैं। कृपया इस रास्ते से न जाएं।,information,पानी भरा,कटिहार,0,Medium,Printed_Report
+FS_HI_089.png,HI,खगड़िया के पास तटबंध टूट गया है। गांव के लोग तुरंत ऊंची जगह पर चले जाएं। अभी भी लगभग 25 लोग गांव के अंदर हैं।,evacuation,तटबंध;तुरंत;ऊंची जगह,खगड़िया,25,Critical,Emergency_Message
+FS_HI_090.png,HI,बलिया के पास पुल टूट गया है। 60 ग्रामीण शहर से कट गए हैं और अस्पताल नहीं पहुंच सकते। कृपया नाव की व्यवस्था करें।,rescue;medical,पुल टूट;नाव,बलिया,60,High,Phone_Screenshot
+FS_HI_091.png,HI,बाढ़ की जानकारी के लिए जिला नियंत्रण कक्ष पूरे दिन खुला है। गोरखपुर के निवासी अपडेट के लिए संपर्क कर सकते हैं।,information,बाढ़;जिला नियंत्रण कक्ष,गोरखपुर,0,Informational,Printed_Report
+FS_HI_092.png,HI,"बाढ़ स्थिति रिपोर्ट
+बहराइच के निचले घरों में पानी घुस रहा है। 40 परिवार रिश्तेदारों के यहां चले गए हैं। पानी दो दिन और रुका तो सूखा राशन चाहिए होगा।",food,बाढ़;सूखा राशन,बहराइच,0,Medium,Printed_Report
+FS_HI_093.png,HI,"लखीमपुर का स्कूल भवन बाढ़ आश्रय के रूप में इस्तेमाल हो रहा है। 150 लोगों के लिए चटाई, बाल्टी और पीने का पानी चाहिए।",shelter;drinking_water,बाढ़;आश्रय;पीने का पानी,लखीमपुर,150,Medium,Community_Request
+FS_HI_094.png,HI,तुरंत मदद चाहिए! दरभंगा में 12 लोग छत पर फंसे हैं और पानी लगातार बढ़ रहा है। कृपया बचाव नाव भेजें।,rescue,तुरंत;मदद;फंसे;बढ़ रहा;बचाव नाव,दरभंगा,12,Critical,Emergency_Message
+FS_HI_095.png,HI,गोलपाड़ा के हमारे गांव में बिजली नहीं है और 25 लोग बिना कंबल के सड़क पर सो रहे हैं। बच्चों को ठंड लग रही है। कंबल और तिरपाल की सख्त जरूरत है।,blankets_clothing;shelter,कंबल;तिरपाल,गोलपाड़ा,25,High,Community_Request
+FS_HI_096.png,HI,बाढ़ की जानकारी के लिए जिला नियंत्रण कक्ष पूरे दिन खुला है। गोपालगंज के निवासी अपडेट के लिए संपर्क कर सकते हैं।,information,बाढ़;जिला नियंत्रण कक्ष,गोपालगंज,0,Informational,Printed_Report
+FS_HI_097.png,HI,"बाढ़ स्थिति रिपोर्ट
+भागलपुर के निचले घरों में पानी घुस रहा है। 90 परिवार रिश्तेदारों के यहां चले गए हैं। पानी दो दिन और रुका तो सूखा राशन चाहिए होगा।",food,बाढ़;सूखा राशन,भागलपुर,0,Medium,Printed_Report
+FS_HI_098.png,HI,सूचना: बाढ़ के बाद सीतापुर में नाव सेवा रात 8 बजे से फिर शुरू हो गई है। कृपया सुरक्षा निर्देशों का पालन करें।,information,बाढ़;नाव,सीतापुर,0,Informational,Public_Notice
+FS_HI_099.png,HI,"भागलपुर का राहत शिविर 90 लोगों से भरा है। हमें और टेंट, खाना और पीने का पानी चाहिए।",shelter;food;drinking_water,राहत शिविर;टेंट;खाना;पीने का पानी,भागलपुर,90,High,Phone_Screenshot
+FS_HI_100.png,HI,"सूचना: मधुबनी में शुक्रवार को शाम 5:30 बजे राहत वितरण होगा। हर परिवार को चावल, दाल और तेल मिलेगा। कोई आपात स्थिति नहीं है।",food,राहत वितरण,मधुबनी,0,Low,Public_Notice
+FS_AS_001.png,AS,ডিমা হাছাওৰ আমাৰ গাঁৱত বিদ্যুৎ নাই আৰু 25 জন মানুহ কম্বল নোহোৱাকৈ ৰাস্তাত শুই আছে। শিশুবোৰে ঠাণ্ডা পাইছে। কম্বল আৰু তিৰপলৰ বৰ প্ৰয়োজন।,blankets_clothing;shelter,কম্বল;তিৰপল,ডিমা হাছাও,25,High,Community_Request
+FS_AS_002.png,AS,চিকিৎসা জৰুৰীকালীন অৱস্থা: মৰিগাঁওত এগৰাকী গৰ্ভৱতী মহিলাৰ প্ৰসৱ বেদনা উঠিছে আৰু ৰাস্তাত পানী জমা হৈছে। তৎক্ষণাত নাও আৰু এম্বুলেন্স লাগিব।,medical;rescue,চিকিৎসা;জৰুৰী;গৰ্ভৱতী;প্ৰসৱ বেদনা;নাও;এম্বুলেন্স,মৰিগাঁও,0,Critical,Phone_Screenshot
+FS_AS_003.png,AS,"অনুৰোধ: শিৱসাগৰত 40 জন বানপীড়িতৰ জ্বৰ, ডায়েৰিয়া আৰু ছালৰ সংক্ৰমণৰ ঔষধ লাগে। অনুগ্ৰহ কৰি চিকিৎসক পঠিয়াওক।",medical,জ্বৰ;ডায়েৰিয়া;ঔষধ;চিকিৎসক,শিৱসাগৰ,40,High,Community_Request
+FS_AS_004.png,AS,জাননী: বৰপেটাত 3 ছেপ্তেম্বৰত সন্ধিয়া 5:30 বজাৰ পৰা চিকিৎসা শিবিৰ অনুষ্ঠিত হ'ব। বানপ্ৰভাৱিত পৰিয়ালৰ বাবে বিনামূলীয়া পৰীক্ষা আৰু ঔষধ।,medical,চিকিৎসা শিবিৰ;ঔষধ,বৰপেটা,0,Low,Public_Notice
+FS_AS_005.png,AS,নগাঁওৰ ওচৰত বান্ধ ভাঙিছে। গাঁৱৰ মানুহে তৎক্ষণাত ওখ ঠাইলৈ যাওক। গাঁৱৰ ভিতৰত এতিয়াও প্ৰায় 25 জন মানুহ আছে।,evacuation,বান্ধ;ওখ ঠাই,নগাঁও,25,Critical,Emergency_Message
+FS_AS_006.png,AS,গোলাঘাটত 12 টা পৰিয়ালে কালিৰে পৰা একো খোৱা নাই। ৰাস্তা পানীত বুৰ গৈছে আৰু ত্ৰাণৰ গাড়ী আহিব পৰা নাই। অনুগ্ৰহ কৰি খাদ্যৰ পেকেট পঠিয়াওক।,food,বুৰ গৈছে;ত্ৰাণ;খাদ্য,গোলাঘাট,0,High,Community_Request
+FS_AS_007.png,AS,চিকিৎসা জৰুৰীকালীন অৱস্থা: জোনাইত এগৰাকী গৰ্ভৱতী মহিলাৰ প্ৰসৱ বেদনা উঠিছে আৰু ৰাস্তাত পানী জমা হৈছে। তৎক্ষণাত নাও আৰু এম্বুলেন্স লাগিব।,medical;rescue,চিকিৎসা;জৰুৰী;গৰ্ভৱতী;প্ৰসৱ বেদনা;নাও;এম্বুলেন্স,জোনাই,0,Critical,Phone_Screenshot
+FS_AS_008.png,AS,কোকৰাঝাৰলৈ যোৱা ৰাস্তাত পানী জমা হৈছে। গাড়ী যাব পৰা নাই। অনুগ্ৰহ কৰি এই বাটেৰে নাযাব।,information,,কোকৰাঝাৰ,0,Medium,Printed_Report
+FS_AS_009.png,AS,জাননী: বানপানীৰ পিছত তিনিচুকীয়াত নাও সেৱা ৰাতি 8 বজাৰ পৰা পুনৰ আৰম্ভ হৈছে। অনুগ্ৰহ কৰি সুৰক্ষা নিৰ্দেশনা পালন কৰক।,information,বানপানী;নাও,তিনিচুকীয়া,0,Informational,Public_Notice
+FS_AS_010.png,AS,জাননী: চিৰাংৰ ৰাহত শিবিৰত দেওবাৰে কম্বল আৰু কাপোৰ বিতৰণ কৰা হ'ব। অনুগ্ৰহ কৰি আপোনাৰ পৰিয়ালৰ কাৰ্ড লগত আনিব।,blankets_clothing,ৰাহত শিবিৰ;কম্বল;কাপোৰ,চিৰাং,0,Low,Public_Notice
+FS_AS_011.png,AS,জাননী: বানত ৰেচন কাৰ্ড হেৰুওৱা পৰিয়ালে শনিবাৰে ব্লক কাৰ্যালয়ত প্ৰতিলিপি কাৰ্ড পাব। ঠাই: জোনাই।,information,,জোনাই,0,Low,Public_Notice
+FS_AS_012.png,AS,"বানৰ তথ্য
+নলবাৰীত ব্ৰহ্মপুত্ৰৰ পানীৰ স্তৰ আজি সন্ধিয়া 6 বজাত স্থিৰ হৈ আছে। কোনো নতুন অঞ্চল প্ৰভাৱিত হোৱা নাই।",information,বানৰ;পানীৰ স্তৰ,নলবাৰী,0,Informational,Printed_Report
+FS_AS_013.png,AS,ডিমা হাছাওত দিহিংৰ পানীৰ স্তৰ দ্ৰুতগতিত বাঢ়ি আছে। পানী বিপদসীমা পাৰ হ'লে ঘৰ এৰিবলৈ সাজু থাকক।,evacuation,পানীৰ স্তৰ;বিপদসীমা;ঘৰ এৰ,ডিমা হাছাও,0,High,Phone_Screenshot
+FS_AS_014.png,AS,"ক্ষেত্ৰ প্ৰতিবেদন
+মাজুলীত পানী বাঢ়ি থকা বন্ধ হৈছে, কিন্তু এতিয়াও সাধাৰণতকৈ ওপৰত আছে। 150 জন মানুহ ৰাহত শিবিৰত আছে। অনুগ্ৰহ কৰি কিছু খাদ্য আৰু পানী পঠিয়াওক।",shelter;food;drinking_water,ৰাহত শিবিৰ;খাদ্য,মাজুলী,150,Medium,Printed_Report
+FS_AS_015.png,AS,কামৰূপত পুৱাৰে পৰা পানী কমিছে। উদ্ধাৰ বা ঘৰ এৰাৰ প্ৰয়োজন নাই। কিবা সলনি হ'লে আমি জনাম।,information,উদ্ধাৰ;ঘৰ এৰ,কামৰূপ,0,Low,Printed_Report
+FS_AS_016.png,AS,চিকিৎসা জৰুৰীকালীন অৱস্থা: নগাঁওত এগৰাকী গৰ্ভৱতী মহিলাৰ প্ৰসৱ বেদনা উঠিছে আৰু ৰাস্তাত পানী জমা হৈছে। তৎক্ষণাত নাও আৰু এম্বুলেন্স লাগিব।,medical;rescue,চিকিৎসা;জৰুৰী;গৰ্ভৱতী;প্ৰসৱ বেদনা;নাও;এম্বুলেন্স,নগাঁও,0,Critical,Phone_Screenshot
+FS_AS_017.png,AS,"ডিমা হাছাওৰ বেছিভাগ ঠাইৰ পানী নামি গৈছে, কিন্তু এখন গাঁৱত 150 জন মানুহ এতিয়াও আটকা পৰি আছে আৰু উদ্ধাৰৰ প্ৰয়োজন। অনুগ্ৰহ কৰি নাও পঠিয়াওক।",rescue,পানী নামি;আটকা পৰি;উদ্ধাৰ;নাও,ডিমা হাছাও,150,Critical,Emergency_Message
+FS_AS_018.png,AS,জাননী: কামৰূপত বৃহস্পতিবাৰে পুৱা 7 বজাৰ পৰা চিকিৎসা শিবিৰ অনুষ্ঠিত হ'ব। বানপ্ৰভাৱিত পৰিয়ালৰ বাবে বিনামূলীয়া পৰীক্ষা আৰু ঔষধ।,medical,চিকিৎসা শিবিৰ;ঔষধ,কামৰূপ,0,Low,Public_Notice
+FS_AS_019.png,AS,"বানৰ অৱস্থা প্ৰতিবেদন
+কোকৰাঝাৰৰ তলতীয়া ঘৰবোৰত পানী সোমাই আছে। 90 টা পৰিয়াল আত্মীয়ৰ ঘৰলৈ গৈছে। পানী আৰু দুদিন থাকিলে শুকান খাদ্য লাগিব।",food,বানৰ;শুকান খাদ্য,কোকৰাঝাৰ,0,Medium,Printed_Report
+FS_AS_020.png,AS,হোজাইত জ্বৰ আৰু ডায়েৰিয়াত ভুগি থকা এটা শিশু বানপানীৰ পানীত আটকা পৰি আছে। নাও নাই। তৎক্ষণাত চিকিৎসা আৰু উদ্ধাৰৰ প্ৰয়োজন।,medical;rescue,জ্বৰ;ডায়েৰিয়া;বানপানী;আটকা পৰি;নাও;চিকিৎসা;উদ্ধাৰ,হোজাই,0,Critical,Emergency_Message
+FS_AS_021.png,AS,জৰুৰী বাৰ্তা: নলবাৰীত পানী বিপদসীমাৰ ওপৰলৈ গৈছে আৰু ঘৰত সোমাইছে। 150 জন মানুহ খাদ্য আৰু খোৱা পানী নোহোৱাকৈ আটকা পৰি আছে। উদ্ধাৰকাৰী নাও পঠিয়াওক।,rescue;food;drinking_water,জৰুৰী;বিপদসীমা;খাদ্য;খোৱা পানী;আটকা পৰি;উদ্ধাৰকাৰী নাও,নলবাৰী,150,Critical,Phone_Screenshot
+FS_AS_022.png,AS,জাননী: বানপানীৰ পিছত ডিব্ৰুগড়ত নাও সেৱা পুৱা 11 বজাৰ পৰা পুনৰ আৰম্ভ হৈছে। অনুগ্ৰহ কৰি সুৰক্ষা নিৰ্দেশনা পালন কৰক।,information,বানপানী;নাও,ডিব্ৰুগড়,0,Informational,Public_Notice
+FS_AS_023.png,AS,গোলাঘাটত জ্বৰ আৰু ডায়েৰিয়াত ভুগি থকা এটা শিশু বানপানীৰ পানীত আটকা পৰি আছে। নাও নাই। তৎক্ষণাত চিকিৎসা আৰু উদ্ধাৰৰ প্ৰয়োজন।,medical;rescue,জ্বৰ;ডায়েৰিয়া;বানপানী;আটকা পৰি;নাও;চিকিৎসা;উদ্ধাৰ,গোলাঘাট,0,Critical,Emergency_Message
+FS_AS_024.png,AS,দৰংৰ কিছুমান পৰিয়ালক পুৰণি কাপোৰ আৰু কম্বল লাগে কাৰণ ৰাতি ঠাণ্ডা হৈছে। এতিয়া কাৰো বিপদ নাই।,blankets_clothing,কাপোৰ;কম্বল,দৰং,0,Medium,Community_Request
+FS_AS_025.png,AS,ধেমাজিৰ ওচৰৰ দলংখন ভাঙি গৈছে। 12 জন গাঁওবাসী নগৰৰ পৰা বিচ্ছিন্ন হৈ পৰিছে আৰু চিকিৎসালয়লৈ যাব পৰা নাই। অনুগ্ৰহ কৰি নাওৰ ব্যৱস্থা কৰক।,rescue;medical,দলং;চিকিৎসা;নাও,ধেমাজি,12,High,Phone_Screenshot
+FS_AS_026.png,AS,বানৰ তথ্যৰ বাবে জিলা নিয়ন্ত্ৰণ কক্ষ গোটেই দিনটো খোলা আছে। ডিব্ৰুগড়ৰ বাসিন্দাই নতুন তথ্যৰ বাবে যোগাযোগ কৰিব পাৰে।,information,বানৰ;জিলা নিয়ন্ত্ৰণ কক্ষ,ডিব্ৰুগড়,0,Informational,Printed_Report
+FS_AS_027.png,AS,"ধেমাজিৰ ৰাহত শিবিৰত 12 জন মানুহ আছে আৰু শিবিৰটো ভৰি পৰিছে। আমাক অধিক তম্বু, খাদ্য আৰু খোৱা পানী লাগিব।",shelter;food;drinking_water,ৰাহত শিবিৰ;তম্বু;খাদ্য;খোৱা পানী,ধেমাজি,12,High,Phone_Screenshot
+FS_AS_028.png,AS,ডিব্ৰুগড়ৰ বাবে স্থানান্তৰৰ নিৰ্দেশ: নদীৰ কাষত থকা মানুহে সন্ধিয়া 5:30 বজাৰ আগতে বিদ্যালয়ৰ ৰাহত শিবিৰলৈ আহক।,evacuation;shelter,স্থানান্তৰ;ৰাহত শিবিৰ,ডিব্ৰুগড়,0,High,Public_Notice
+FS_AS_029.png,AS,"বিশ্বনাথৰ বিদ্যালয় ভৱনটো বানৰ আশ্ৰয় হিচাপে ব্যৱহাৰ কৰা হৈছে। 40 জনৰ বাবে পাটি, বাল্টি আৰু খোৱা পানী লাগে।",shelter;drinking_water,বানৰ;আশ্ৰয়;খোৱা পানী,বিশ্বনাথ,40,Medium,Community_Request
+FS_AS_030.png,AS,"বানৰ তথ্য
+নগাঁওত ব্ৰহ্মপুত্ৰৰ পানীৰ স্তৰ আজি পুৱা 7 বজাত স্থিৰ হৈ আছে। কোনো নতুন অঞ্চল প্ৰভাৱিত হোৱা নাই।",information,বানৰ;পানীৰ স্তৰ,নগাঁও,0,Informational,Printed_Report
+FS_AS_031.png,AS,জাননী: বানত ৰেচন কাৰ্ড হেৰুওৱা পৰিয়ালে বৃহস্পতিবাৰে ব্লক কাৰ্যালয়ত প্ৰতিলিপি কাৰ্ড পাব। ঠাই: নগাঁও।,information,,নগাঁও,0,Low,Public_Notice
+FS_AS_032.png,AS,বানৰ তথ্যৰ বাবে জিলা নিয়ন্ত্ৰণ কক্ষ গোটেই দিনটো খোলা আছে। হোজাইৰ বাসিন্দাই নতুন তথ্যৰ বাবে যোগাযোগ কৰিব পাৰে।,information,বানৰ;জিলা নিয়ন্ত্ৰণ কক্ষ,হোজাই,0,Informational,Printed_Report
+FS_AS_033.png,AS,যোৰহাটৰ আমাৰ গাঁৱত বিদ্যুৎ নাই আৰু 60 জন মানুহ কম্বল নোহোৱাকৈ ৰাস্তাত শুই আছে। শিশুবোৰে ঠাণ্ডা পাইছে। কম্বল আৰু তিৰপলৰ বৰ প্ৰয়োজন।,blankets_clothing;shelter,কম্বল;তিৰপল,যোৰহাট,60,High,Community_Request
+FS_AS_034.png,AS,তিনিচুকীয়াৰ বাবে স্থানান্তৰৰ নিৰ্দেশ: নদীৰ কাষত থকা মানুহে পুৱা 7 বজাৰ আগতে বিদ্যালয়ৰ ৰাহত শিবিৰলৈ আহক।,evacuation;shelter,স্থানান্তৰ;ৰাহত শিবিৰ,তিনিচুকীয়া,0,High,Public_Notice
+FS_AS_035.png,AS,বতৰ বিভাগে জনাইছে যে গোলাঘাটত অহা দুদিন পাতলীয়া বৰষুণৰ সম্ভাৱনা আছে। অনুগ্ৰহ কৰি নতুন তথ্যৰ প্ৰতি লক্ষ্য ৰাখিব।,information,,গোলাঘাট,0,Informational,Printed_Report
+FS_AS_036.png,AS,তিনিচুকীয়াত খোৱা পানী শেষ হৈছে। নলকূপ পানীত বুৰ গৈছে আৰু 250 জন মানুহ বানপানীৰ লেতেৰা পানীৰ ওপৰত নিৰ্ভৰ কৰিছে। অনুগ্ৰহ কৰি পৰিষ্কাৰ খোৱা পানী পঠিয়াওক।,drinking_water,খোৱা পানী;বুৰ গৈছে;বানপানী,তিনিচুকীয়া,250,High,Community_Request
+FS_AS_037.png,AS,"তিনিচুকীয়াৰ বেছিভাগ ঠাইৰ পানী নামি গৈছে, কিন্তু এখন গাঁৱত 60 জন মানুহ এতিয়াও আটকা পৰি আছে আৰু উদ্ধাৰৰ প্ৰয়োজন। অনুগ্ৰহ কৰি নাও পঠিয়াওক।",rescue,পানী নামি;আটকা পৰি;উদ্ধাৰ;নাও,তিনিচুকীয়া,60,Critical,Emergency_Message
+FS_AS_038.png,AS,বতৰ বিভাগে জনাইছে যে চিৰাংত অহা দুদিন পাতলীয়া বৰষুণৰ সম্ভাৱনা আছে। অনুগ্ৰহ কৰি নতুন তথ্যৰ প্ৰতি লক্ষ্য ৰাখিব।,information,,চিৰাং,0,Informational,Printed_Report
+FS_AS_039.png,AS,"ক্ষতিৰ প্ৰতিবেদন
+বোকা আৰু বানৰ পানীৰ ফলত বিশ্বনাথৰ ৰাস্তা ক্ষতিগ্ৰস্ত হৈছে। গধুৰ গাড়ী চলাৰ আগতে দলংখন পৰীক্ষা কৰিবলৈ এটা দল পঠিয়াওক।",information,বানৰ;দলং,বিশ্বনাথ,0,Medium,Printed_Report
+FS_AS_040.png,AS,লখিমপুৰলৈ যোৱা ৰাস্তাত পানী জমা হৈছে। গাড়ী যাব পৰা নাই। অনুগ্ৰহ কৰি এই বাটেৰে নাযাব।,information,,লখিমপুৰ,0,Medium,Printed_Report
+FS_AS_041.png,AS,জৰুৰী সহায় লাগে! কামৰূপত 40 জন মানুহ ঘৰৰ চালত আটকা পৰি আছে আৰু পানী লাগাতাৰে বাঢ়ি আছে। অনুগ্ৰহ কৰি উদ্ধাৰকাৰী নাও পঠিয়াওক।,rescue,জৰুৰী;সহায়;আটকা পৰি;উদ্ধাৰকাৰী নাও,কামৰূপ,40,Critical,Emergency_Message
+FS_AS_042.png,AS,"অনুৰোধ: বঙাইগাঁওত 150 জন বানপীড়িতৰ জ্বৰ, ডায়েৰিয়া আৰু ছালৰ সংক্ৰমণৰ ঔষধ লাগে। অনুগ্ৰহ কৰি চিকিৎসক পঠিয়াওক।",medical,জ্বৰ;ডায়েৰিয়া;ঔষধ;চিকিৎসক,বঙাইগাঁও,150,High,Community_Request
+FS_AS_043.png,AS,জাননী: মৰিগাঁওৰ ৰাহত শিবিৰত 15 জুলাইত কম্বল আৰু কাপোৰ বিতৰণ কৰা হ'ব। অনুগ্ৰহ কৰি আপোনাৰ পৰিয়ালৰ কাৰ্ড লগত আনিব।,blankets_clothing,ৰাহত শিবিৰ;কম্বল;কাপোৰ,মৰিগাঁও,0,Low,Public_Notice
+FS_AS_044.png,AS,জাননী: গোলাঘাটত ৰাস্তাত বানৰ পানী থকাৰ বাবে মঙ্গলবাৰে বিদ্যালয় বন্ধ থাকিব।,information,বানৰ,গোলাঘাট,0,Informational,Public_Notice
+FS_AS_045.png,AS,"জাননী: কামৰূপত শুক্ৰবাৰে সন্ধিয়া 5:30 বজাত ত্ৰাণ বিতৰণ কৰা হ'ব। প্ৰতিটো পৰিয়ালে চাউল, দাইল আৰু তেল পাব। কোনো জৰুৰী অৱস্থা নাই।",food,ত্ৰাণ বিতৰণ;জৰুৰী,কামৰূপ,0,Low,Public_Notice
+FS_AS_046.png,AS,"স্বাস্থ্য শিবিৰৰ অনুৰোধ: বানপানীৰ পিছত ধুবুৰীত 12 জনৰ জ্বৰ আৰু কাহ হৈছে। জৰুৰী অৱস্থা নহয়, কিন্তু এই সপ্তাহতে চিকিৎসক লাগিব।",medical,স্বাস্থ্য শিবিৰ;বানপানী;জ্বৰ;জৰুৰী;চিকিৎসক,ধুবুৰী,12,Medium,Community_Request
+FS_AS_047.png,AS,"স্বাস্থ্য শিবিৰৰ অনুৰোধ: বানপানীৰ পিছত দৰংত 60 জনৰ জ্বৰ আৰু কাহ হৈছে। জৰুৰী অৱস্থা নহয়, কিন্তু এই সপ্তাহতে চিকিৎসক লাগিব।",medical,স্বাস্থ্য শিবিৰ;বানপানী;জ্বৰ;জৰুৰী;চিকিৎসক,দৰং,60,Medium,Community_Request
+FS_AS_048.png,AS,গোৱালপাৰাৰ কিছুমান পৰিয়ালক পুৰণি কাপোৰ আৰু কম্বল লাগে কাৰণ ৰাতি ঠাণ্ডা হৈছে। এতিয়া কাৰো বিপদ নাই।,blankets_clothing,কাপোৰ;কম্বল,গোৱালপাৰা,0,Medium,Community_Request
+FS_AS_049.png,AS,বানৰ তথ্যৰ বাবে জিলা নিয়ন্ত্ৰণ কক্ষ গোটেই দিনটো খোলা আছে। গোলাঘাটৰ বাসিন্দাই নতুন তথ্যৰ বাবে যোগাযোগ কৰিব পাৰে।,information,বানৰ;জিলা নিয়ন্ত্ৰণ কক্ষ,গোলাঘাট,0,Informational,Printed_Report
+FS_AS_050.png,AS,হোজাইত 40 টা পৰিয়ালে কালিৰে পৰা একো খোৱা নাই। ৰাস্তা পানীত বুৰ গৈছে আৰু ত্ৰাণৰ গাড়ী আহিব পৰা নাই। অনুগ্ৰহ কৰি খাদ্যৰ পেকেট পঠিয়াওক।,food,বুৰ গৈছে;ত্ৰাণ;খাদ্য,হোজাই,0,High,Community_Request
+FS_AS_051.png,AS,জাননী: হোজাইত ৰাস্তাত বানৰ পানী থকাৰ বাবে শনিবাৰে বিদ্যালয় বন্ধ থাকিব।,information,বানৰ,হোজাই,0,Informational,Public_Notice
+FS_AS_052.png,AS,তিনিচুকীয়াত দিহিংৰ পানীৰ স্তৰ দ্ৰুতগতিত বাঢ়ি আছে। পানী বিপদসীমা পাৰ হ'লে ঘৰ এৰিবলৈ সাজু থাকক।,evacuation,পানীৰ স্তৰ;বিপদসীমা;ঘৰ এৰ,তিনিচুকীয়া,0,High,Phone_Screenshot
+FS_AS_053.png,AS,নলবাৰীত জ্বৰ আৰু ডায়েৰিয়াত ভুগি থকা এটা শিশু বানপানীৰ পানীত আটকা পৰি আছে। নাও নাই। তৎক্ষণাত চিকিৎসা আৰু উদ্ধাৰৰ প্ৰয়োজন।,medical;rescue,জ্বৰ;ডায়েৰিয়া;বানপানী;আটকা পৰি;নাও;চিকিৎসা;উদ্ধাৰ,নলবাৰী,0,Critical,Emergency_Message
+FS_AS_054.png,AS,জাননী: বানত ৰেচন কাৰ্ড হেৰুওৱা পৰিয়ালে 3 ছেপ্তেম্বৰত ব্লক কাৰ্যালয়ত প্ৰতিলিপি কাৰ্ড পাব। ঠাই: মৰিগাঁও।,information,,মৰিগাঁও,0,Low,Public_Notice
+FS_AS_055.png,AS,"স্বাস্থ্য শিবিৰৰ অনুৰোধ: বানপানীৰ পিছত মাজুলীত 150 জনৰ জ্বৰ আৰু কাহ হৈছে। জৰুৰী অৱস্থা নহয়, কিন্তু এই সপ্তাহতে চিকিৎসক লাগিব।",medical,স্বাস্থ্য শিবিৰ;বানপানী;জ্বৰ;জৰুৰী;চিকিৎসক,মাজুলী,150,Medium,Community_Request
+FS_AS_056.png,AS,"কোকৰাঝাৰৰ ৰাহত শিবিৰত 90 জন মানুহ আছে আৰু শিবিৰটো ভৰি পৰিছে। আমাক অধিক তম্বু, খাদ্য আৰু খোৱা পানী লাগিব।",shelter;food;drinking_water,ৰাহত শিবিৰ;তম্বু;খাদ্য;খোৱা পানী,কোকৰাঝাৰ,90,High,Phone_Screenshot
+FS_AS_057.png,AS,"শিৱসাগৰৰ ৰাহত শিবিৰত 40 জন মানুহ আছে আৰু শিবিৰটো ভৰি পৰিছে। আমাক অধিক তম্বু, খাদ্য আৰু খোৱা পানী লাগিব।",shelter;food;drinking_water,ৰাহত শিবিৰ;তম্বু;খাদ্য;খোৱা পানী,শিৱসাগৰ,40,High,Phone_Screenshot
+FS_AS_058.png,AS,লখিমপুৰৰ কিছুমান পৰিয়ালক পুৰণি কাপোৰ আৰু কম্বল লাগে কাৰণ ৰাতি ঠাণ্ডা হৈছে। এতিয়া কাৰো বিপদ নাই।,blankets_clothing,কাপোৰ;কম্বল,লখিমপুৰ,0,Medium,Community_Request
+FS_AS_059.png,AS,"বানৰ অৱস্থা প্ৰতিবেদন
+শিৱসাগৰৰ তলতীয়া ঘৰবোৰত পানী সোমাই আছে। 40 টা পৰিয়াল আত্মীয়ৰ ঘৰলৈ গৈছে। পানী আৰু দুদিন থাকিলে শুকান খাদ্য লাগিব।",food,বানৰ;শুকান খাদ্য,শিৱসাগৰ,0,Medium,Printed_Report
+FS_AS_060.png,AS,যোৰহাটত দিহিংৰ পানীৰ স্তৰ দ্ৰুতগতিত বাঢ়ি আছে। পানী বিপদসীমা পাৰ হ'লে ঘৰ এৰিবলৈ সাজু থাকক।,evacuation,পানীৰ স্তৰ;বিপদসীমা;ঘৰ এৰ,যোৰহাট,0,High,Phone_Screenshot
+FS_AS_061.png,AS,বঙাইগাঁওৰ আমাৰ গাঁৱত বিদ্যুৎ নাই আৰু 150 জন মানুহ কম্বল নোহোৱাকৈ ৰাস্তাত শুই আছে। শিশুবোৰে ঠাণ্ডা পাইছে। কম্বল আৰু তিৰপলৰ বৰ প্ৰয়োজন।,blankets_clothing;shelter,কম্বল;তিৰপল,বঙাইগাঁও,150,High,Community_Request
+FS_AS_062.png,AS,সহায় কৰক! কামৰূপত আমাৰ ঘৰ পানীত বুৰ গৈছে আৰু পৰিয়ালৰ 7 জন সদস্য প্ৰথম মহলাত আটকা পৰি আছে। তৎক্ষণাত উদ্ধাৰ দল পঠিয়াওক।,rescue,সহায়;বুৰ গৈছে;আটকা পৰি;উদ্ধাৰ দল,কামৰূপ,7,Critical,Community_Request
+FS_AS_063.png,AS,জাননী: নগাঁওৰ ৰাহত শিবিৰত বুধবাৰে কম্বল আৰু কাপোৰ বিতৰণ কৰা হ'ব। অনুগ্ৰহ কৰি আপোনাৰ পৰিয়ালৰ কাৰ্ড লগত আনিব।,blankets_clothing,ৰাহত শিবিৰ;কম্বল;কাপোৰ,নগাঁও,0,Low,Public_Notice
+FS_AS_064.png,AS,নগাঁওত 10 জন বয়সীয়াল ঔষধ নোহোৱাকৈ আটকা পৰি আছে। এজনৰ বুকুত বিষ হৈছে। অনুগ্ৰহ কৰি তৎক্ষণাত চিকিৎসক দল আৰু উদ্ধাৰ নাও পঠিয়াওক।,medical;rescue,ঔষধ;আটকা পৰি;বুকুত বিষ;চিকিৎসক;উদ্ধাৰ;নাও,নগাঁও,10,Critical,Emergency_Message
+FS_AS_065.png,AS,তিনিচুকীয়াৰ পৰা বানৰ পানী সম্পূৰ্ণৰূপে নামি গৈছে। চাফ-চিফাইৰ কাম আৰম্ভ হৈছে আৰু এতিয়া কোনো সহায়ৰ প্ৰয়োজন নাই।,information,বানৰ;সহায়,তিনিচুকীয়া,0,Informational,Phone_Screenshot
+FS_AS_066.png,AS,চিৰাংৰ ওচৰত বান্ধ ভাঙিছে। গাঁৱৰ মানুহে তৎক্ষণাত ওখ ঠাইলৈ যাওক। গাঁৱৰ ভিতৰত এতিয়াও প্ৰায় 60 জন মানুহ আছে।,evacuation,বান্ধ;ওখ ঠাই,চিৰাং,60,Critical,Emergency_Message
+FS_AS_067.png,AS,"ক্ষেত্ৰ প্ৰতিবেদন
+দৰংত পানী বাঢ়ি থকা বন্ধ হৈছে, কিন্তু এতিয়াও সাধাৰণতকৈ ওপৰত আছে। 60 জন মানুহ ৰাহত শিবিৰত আছে। অনুগ্ৰহ কৰি কিছু খাদ্য আৰু পানী পঠিয়াওক।",shelter;food;drinking_water,ৰাহত শিবিৰ;খাদ্য,দৰং,60,Medium,Printed_Report
+FS_AS_068.png,AS,সহায় কৰক! জোনাইত আমাৰ ঘৰ পানীত বুৰ গৈছে আৰু পৰিয়ালৰ 5 জন সদস্য প্ৰথম মহলাত আটকা পৰি আছে। তৎক্ষণাত উদ্ধাৰ দল পঠিয়াওক।,rescue,সহায়;বুৰ গৈছে;আটকা পৰি;উদ্ধাৰ দল,জোনাই,5,Critical,Community_Request
+FS_AS_069.png,AS,ডিব্ৰুগড়ৰ পৰা বানৰ পানী সম্পূৰ্ণৰূপে নামি গৈছে। চাফ-চিফাইৰ কাম আৰম্ভ হৈছে আৰু এতিয়া কোনো সহায়ৰ প্ৰয়োজন নাই।,information,বানৰ;সহায়,ডিব্ৰুগড়,0,Informational,Phone_Screenshot
+FS_AS_070.png,AS,"ক্ষতিৰ প্ৰতিবেদন
+বোকা আৰু বানৰ পানীৰ ফলত ধুবুৰীৰ ৰাস্তা ক্ষতিগ্ৰস্ত হৈছে। গধুৰ গাড়ী চলাৰ আগতে দলংখন পৰীক্ষা কৰিবলৈ এটা দল পঠিয়াওক।",information,বানৰ;দলং,ধুবুৰী,0,Medium,Printed_Report
+FS_AS_071.png,AS,বঙাইগাঁওৰ ওচৰৰ দলংখন ভাঙি গৈছে। 150 জন গাঁওবাসী নগৰৰ পৰা বিচ্ছিন্ন হৈ পৰিছে আৰু চিকিৎসালয়লৈ যাব পৰা নাই। অনুগ্ৰহ কৰি নাওৰ ব্যৱস্থা কৰক।,rescue;medical,দলং;চিকিৎসা;নাও,বঙাইগাঁও,150,High,Phone_Screenshot
+FS_AS_072.png,AS,নলবাৰীৰ ওচৰত বান্ধ ভাঙিছে। গাঁৱৰ মানুহে তৎক্ষণাত ওখ ঠাইলৈ যাওক। গাঁৱৰ ভিতৰত এতিয়াও প্ৰায় 150 জন মানুহ আছে।,evacuation,বান্ধ;ওখ ঠাই,নলবাৰী,150,Critical,Emergency_Message
+FS_AS_073.png,AS,"জাননী: বিশ্বনাথত দেওবাৰে ৰাতি 8 বজাত ত্ৰাণ বিতৰণ কৰা হ'ব। প্ৰতিটো পৰিয়ালে চাউল, দাইল আৰু তেল পাব। কোনো জৰুৰী অৱস্থা নাই।",food,ত্ৰাণ বিতৰণ;জৰুৰী,বিশ্বনাথ,0,Low,Public_Notice
+FS_AS_074.png,AS,যোৰহাটৰ ওচৰৰ দলংখন ভাঙি গৈছে। 60 জন গাঁওবাসী নগৰৰ পৰা বিচ্ছিন্ন হৈ পৰিছে আৰু চিকিৎসালয়লৈ যাব পৰা নাই। অনুগ্ৰহ কৰি নাওৰ ব্যৱস্থা কৰক।,rescue;medical,দলং;চিকিৎসা;নাও,যোৰহাট,60,High,Phone_Screenshot
+FS_AS_075.png,AS,জৰুৰী সহায় লাগে! জোনাইত 18 জন মানুহ ঘৰৰ চালত আটকা পৰি আছে আৰু পানী লাগাতাৰে বাঢ়ি আছে। অনুগ্ৰহ কৰি উদ্ধাৰকাৰী নাও পঠিয়াওক।,rescue,জৰুৰী;সহায়;আটকা পৰি;উদ্ধাৰকাৰী নাও,জোনাই,18,Critical,Emergency_Message
+FS_AS_076.png,AS,ডিব্ৰুগড়ত খোৱা পানী শেষ হৈছে। নলকূপ পানীত বুৰ গৈছে আৰু 90 জন মানুহ বানপানীৰ লেতেৰা পানীৰ ওপৰত নিৰ্ভৰ কৰিছে। অনুগ্ৰহ কৰি পৰিষ্কাৰ খোৱা পানী পঠিয়াওক।,drinking_water,খোৱা পানী;বুৰ গৈছে;বানপানী,ডিব্ৰুগড়,90,High,Community_Request
+FS_AS_077.png,AS,"ক্ষেত্ৰ প্ৰতিবেদন
+গোৱালপাৰাত পানী বাঢ়ি থকা বন্ধ হৈছে, কিন্তু এতিয়াও সাধাৰণতকৈ ওপৰত আছে। 25 জন মানুহ ৰাহত শিবিৰত আছে। অনুগ্ৰহ কৰি কিছু খাদ্য আৰু পানী পঠিয়াওক।",shelter;food;drinking_water,ৰাহত শিবিৰ;খাদ্য,গোৱালপাৰা,25,Medium,Printed_Report
+FS_AS_078.png,AS,মৰিগাঁওত 15 জন বয়সীয়াল ঔষধ নোহোৱাকৈ আটকা পৰি আছে। এজনৰ বুকুত বিষ হৈছে। অনুগ্ৰহ কৰি তৎক্ষণাত চিকিৎসক দল আৰু উদ্ধাৰ নাও পঠিয়াওক।,medical;rescue,ঔষধ;আটকা পৰি;বুকুত বিষ;চিকিৎসক;উদ্ধাৰ;নাও,মৰিগাঁও,15,Critical,Emergency_Message
+FS_AS_079.png,AS,মৰিগাঁওত পুৱাৰে পৰা পানী কমিছে। উদ্ধাৰ বা ঘৰ এৰাৰ প্ৰয়োজন নাই। কিবা সলনি হ'লে আমি জনাম।,information,উদ্ধাৰ;ঘৰ এৰ,মৰিগাঁও,0,Low,Printed_Report
+FS_AS_080.png,AS,জাননী: জোনাইত 12 আগষ্টত দুপৰীয়া 4 বজাৰ পৰা চিকিৎসা শিবিৰ অনুষ্ঠিত হ'ব। বানপ্ৰভাৱিত পৰিয়ালৰ বাবে বিনামূলীয়া পৰীক্ষা আৰু ঔষধ।,medical,চিকিৎসা শিবিৰ;ঔষধ,জোনাই,0,Low,Public_Notice
+FS_AS_081.png,AS,"বানৰ তথ্য
+চিৰাংত ব্ৰহ্মপুত্ৰৰ পানীৰ স্তৰ আজি দুপৰীয়া 4 বজাত স্থিৰ হৈ আছে। কোনো নতুন অঞ্চল প্ৰভাৱিত হোৱা নাই।",information,বানৰ;পানীৰ স্তৰ,চিৰাং,0,Informational,Printed_Report
+FS_AS_082.png,AS,জৰুৰী বাৰ্তা: গোলাঘাটত পানী বিপদসীমাৰ ওপৰলৈ গৈছে আৰু ঘৰত সোমাইছে। 12 জন মানুহ খাদ্য আৰু খোৱা পানী নোহোৱাকৈ আটকা পৰি আছে। উদ্ধাৰকাৰী নাও পঠিয়াওক।,rescue;food;drinking_water,জৰুৰী;বিপদসীমা;খাদ্য;খোৱা পানী;আটকা পৰি;উদ্ধাৰকাৰী নাও,গোলাঘাট,12,Critical,Phone_Screenshot
+FS_AS_083.png,AS,"ক্ষতিৰ প্ৰতিবেদন
+বোকা আৰু বানৰ পানীৰ ফলত বৰপেটাৰ ৰাস্তা ক্ষতিগ্ৰস্ত হৈছে। গধুৰ গাড়ী চলাৰ আগতে দলংখন পৰীক্ষা কৰিবলৈ এটা দল পঠিয়াওক।",information,বানৰ;দলং,বৰপেটা,0,Medium,Printed_Report
+FS_AS_084.png,AS,"বানৰ অৱস্থা প্ৰতিবেদন
+লখিমপুৰৰ তলতীয়া ঘৰবোৰত পানী সোমাই আছে। 250 টা পৰিয়াল আত্মীয়ৰ ঘৰলৈ গৈছে। পানী আৰু দুদিন থাকিলে শুকান খাদ্য লাগিব।",food,বানৰ;শুকান খাদ্য,লখিমপুৰ,0,Medium,Printed_Report
+FS_AS_085.png,AS,ডিব্ৰুগড়ত 90 টা পৰিয়ালে কালিৰে পৰা একো খোৱা নাই। ৰাস্তা পানীত বুৰ গৈছে আৰু ত্ৰাণৰ গাড়ী আহিব পৰা নাই। অনুগ্ৰহ কৰি খাদ্যৰ পেকেট পঠিয়াওক।,food,বুৰ গৈছে;ত্ৰাণ;খাদ্য,ডিব্ৰুগড়,0,High,Community_Request
+FS_AS_086.png,AS,চিৰাংত 6 জন বয়সীয়াল ঔষধ নোহোৱাকৈ আটকা পৰি আছে। এজনৰ বুকুত বিষ হৈছে। অনুগ্ৰহ কৰি তৎক্ষণাত চিকিৎসক দল আৰু উদ্ধাৰ নাও পঠিয়াওক।,medical;rescue,ঔষধ;আটকা পৰি;বুকুত বিষ;চিকিৎসক;উদ্ধাৰ;নাও,চিৰাং,6,Critical,Emergency_Message
+FS_AS_087.png,AS,গোৱালপাৰালৈ যোৱা ৰাস্তাত পানী জমা হৈছে। গাড়ী যাব পৰা নাই। অনুগ্ৰহ কৰি এই বাটেৰে নাযাব।,information,,গোৱালপাৰা,0,Medium,Printed_Report
+FS_AS_088.png,AS,জৰুৰী বাৰ্তা: চিৰাংত পানী বিপদসীমাৰ ওপৰলৈ গৈছে আৰু ঘৰত সোমাইছে। 60 জন মানুহ খাদ্য আৰু খোৱা পানী নোহোৱাকৈ আটকা পৰি আছে। উদ্ধাৰকাৰী নাও পঠিয়াওক।,rescue;food;drinking_water,জৰুৰী;বিপদসীমা;খাদ্য;খোৱা পানী;আটকা পৰি;উদ্ধাৰকাৰী নাও,চিৰাং,60,Critical,Phone_Screenshot
+FS_AS_089.png,AS,সহায় কৰক! মৰিগাঁওত আমাৰ ঘৰ পানীত বুৰ গৈছে আৰু পৰিয়ালৰ 3 জন সদস্য প্ৰথম মহলাত আটকা পৰি আছে। তৎক্ষণাত উদ্ধাৰ দল পঠিয়াওক।,rescue,সহায়;বুৰ গৈছে;আটকা পৰি;উদ্ধাৰ দল,মৰিগাঁও,3,Critical,Community_Request
+FS_AS_090.png,AS,ডিমা হাছাওৰ বাবে স্থানান্তৰৰ নিৰ্দেশ: নদীৰ কাষত থকা মানুহে দুপৰীয়া 4 বজাৰ আগতে বিদ্যালয়ৰ ৰাহত শিবিৰলৈ আহক।,evacuation;shelter,স্থানান্তৰ;ৰাহত শিবিৰ,ডিমা হাছাও,0,High,Public_Notice
+FS_AS_091.png,AS,বতৰ বিভাগে জনাইছে যে নলবাৰীত অহা দুদিন পাতলীয়া বৰষুণৰ সম্ভাৱনা আছে। অনুগ্ৰহ কৰি নতুন তথ্যৰ প্ৰতি লক্ষ্য ৰাখিব।,information,,নলবাৰী,0,Informational,Printed_Report
+FS_AS_092.png,AS,জাননী: নলবাৰীত ৰাস্তাত বানৰ পানী থকাৰ বাবে 12 আগষ্টত বিদ্যালয় বন্ধ থাকিব।,information,বানৰ,নলবাৰী,0,Informational,Public_Notice
+FS_AS_093.png,AS,জোনাইত পুৱাৰে পৰা পানী কমিছে। উদ্ধাৰ বা ঘৰ এৰাৰ প্ৰয়োজন নাই। কিবা সলনি হ'লে আমি জনাম।,information,উদ্ধাৰ;ঘৰ এৰ,জোনাই,0,Low,Printed_Report
+FS_AS_094.png,AS,"অনুৰোধ: ধেমাজিত 12 জন বানপীড়িতৰ জ্বৰ, ডায়েৰিয়া আৰু ছালৰ সংক্ৰমণৰ ঔষধ লাগে। অনুগ্ৰহ কৰি চিকিৎসক পঠিয়াওক।",medical,জ্বৰ;ডায়েৰিয়া;ঔষধ;চিকিৎসক,ধেমাজি,12,High,Community_Request
+FS_AS_095.png,AS,হোজাইৰ পৰা বানৰ পানী সম্পূৰ্ণৰূপে নামি গৈছে। চাফ-চিফাইৰ কাম আৰম্ভ হৈছে আৰু এতিয়া কোনো সহায়ৰ প্ৰয়োজন নাই।,information,বানৰ;সহায়,হোজাই,0,Informational,Phone_Screenshot
+FS_AS_096.png,AS,"মাজুলীৰ বিদ্যালয় ভৱনটো বানৰ আশ্ৰয় হিচাপে ব্যৱহাৰ কৰা হৈছে। 150 জনৰ বাবে পাটি, বাল্টি আৰু খোৱা পানী লাগে।",shelter;drinking_water,বানৰ;আশ্ৰয়;খোৱা পানী,মাজুলী,150,Medium,Community_Request
+FS_AS_097.png,AS,জৰুৰী সহায় লাগে! বৰপেটাত 12 জন মানুহ ঘৰৰ চালত আটকা পৰি আছে আৰু পানী লাগাতাৰে বাঢ়ি আছে। অনুগ্ৰহ কৰি উদ্ধাৰকাৰী নাও পঠিয়াওক।,rescue,জৰুৰী;সহায়;আটকা পৰি;উদ্ধাৰকাৰী নাও,বৰপেটা,12,Critical,Emergency_Message
+FS_AS_098.png,AS,"ধুবুৰীৰ বিদ্যালয় ভৱনটো বানৰ আশ্ৰয় হিচাপে ব্যৱহাৰ কৰা হৈছে। 12 জনৰ বাবে পাটি, বাল্টি আৰু খোৱা পানী লাগে।",shelter;drinking_water,বানৰ;আশ্ৰয়;খোৱা পানী,ধুবুৰী,12,Medium,Community_Request
+FS_AS_099.png,AS,"জাননী: বৰপেটাত সোমবাৰে পুৱা 9:30 বজাত ত্ৰাণ বিতৰণ কৰা হ'ব। প্ৰতিটো পৰিয়ালে চাউল, দাইল আৰু তেল পাব। কোনো জৰুৰী অৱস্থা নাই।",food,ত্ৰাণ বিতৰণ;জৰুৰী,বৰপেটা,0,Low,Public_Notice
+FS_AS_100.png,AS,হোজাইত খোৱা পানী শেষ হৈছে। নলকূপ পানীত বুৰ গৈছে আৰু 40 জন মানুহ বানপানীৰ লেতেৰা পানীৰ ওপৰত নিৰ্ভৰ কৰিছে। অনুগ্ৰহ কৰি পৰিষ্কাৰ খোৱা পানী পঠিয়াওক।,drinking_water,খোৱা পানী;বুৰ গৈছে;বানপানী,হোজাই,40,High,Community_Request

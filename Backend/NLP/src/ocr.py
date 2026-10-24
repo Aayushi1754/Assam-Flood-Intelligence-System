@@ -1,31 +1,54 @@
-from importlib import import_module
-import cv2
+# Install the Assamese Tesseract language data separately if needed:
+# apt-get install -y -qq tesseract-ocr-asm
+# pip install langdetect
+import re
 import os
+import cv2
 import pytesseract
-pytesseract.pytesseract.tesseract_cmd = (r"C:\Program Files\Tesseract-OCR\tesseract.exe")
+import pandas as pd
+from difflib import SequenceMatcher
+from langDetect import detect
+from langdetect.lang_detect_exception import LangDetectException
 
-LANGUAGE_MAP={
-    "EN":["eng"],
-    "HI":["hin"],
-    "AS":["asm"],
-    "CM":["eng+hind","hin+eng"],
-    "AS_EN":["eng+asm","asm+eng"],
+def normalize_text(text):
+    text = str(text).lower()
+    text = re.sub(r"\s+", " ", text)
+    return text.strip()
+
+
+def similarity_score(expected, extracted):
+    expected = normalize_text(expected)
+    extracted = normalize_text(extracted)
+
+    if not expected:
+        return 100.0 if not extracted else 0.0
+
+    return round(
+        SequenceMatcher(
+            None,
+            expected,
+            extracted
+        ).ratio() * 100,
+        2
+    )
+LANGUAGE_MAP = {
+    "EN": ["eng"],
+    "HI": ["hin"],
+    "AS": ["asm"]
 }
-def get_image_language(image_name):
-    name = image_name.upper()
 
-    if "_AS_EN_" in name:
-        return LANGUAGE_MAP["AS_EN"]
-    elif "_CM_" in name:
-        return LANGUAGE_MAP["CM"]
-    elif "_EN_" in name:
-        return LANGUAGE_MAP["EN"]
-    elif "_HI_" in name:
-        return LANGUAGE_MAP["HI"]
-    elif "_AS_" in name:
-        return LANGUAGE_MAP["AS"]
 
-    return ["eng", "hin", "asm"]
+def detect_language(text):
+  text=str(text).strip()
+  if len(text) <10:
+    return "unknown"
+  try:
+    detected_code=detect(text)
+    return detected_code
+  except LangDetectException:
+    return "unknown"
+
+
 def preprocess_image(gray, method):
     if method == "original":
         return gray
@@ -58,6 +81,8 @@ def preprocess_image(gray, method):
         )
 
     raise ValueError(f"Unknown preprocessing method: {method}")
+
+
 def run_tesseract(image, language, psm):
     config = f"--oem 3 --psm {psm}"
 
@@ -66,6 +91,13 @@ def run_tesseract(image, language, psm):
         lang=language,
         config=config
     ).strip()
+LANGUAGE_CODE_MAP = {
+    "en": "eng",
+    "hi": "hin",
+    "as": "asm",
+    "unknown": "unknown"
+}
+
 def adaptive_ocr(image_path, language_options):
     image = cv2.imread(image_path)
 
@@ -97,10 +129,13 @@ def adaptive_ocr(image_path, language_options):
                         psm
                     )
 
+                    detected_language = detect_language(text)
+
                     candidates.append({
                         "Layout": "full_image",
                         "Preprocessing": method,
                         "Language": language,
+                        "Detected_Language": detected_language,
                         "PSM": psm,
                         "Extracted_Text": text
                     })
@@ -137,14 +172,19 @@ def adaptive_ocr(image_path, language_options):
                         6
                     )
 
+                    text = (
+                        left_text + "\n" + right_text
+                    ).strip()
+
+                    detected_language = detect_language(text)
+
                     candidates.append({
                         "Layout": "two_columns",
                         "Preprocessing": method,
                         "Language": language,
+                        "Detected_Language": detected_language,
                         "PSM": 6,
-                        "Extracted_Text": (
-                            left_text + "\n" + right_text
-                        ).strip()
+                        "Extracted_Text": text
                     })
 
                 except pytesseract.TesseractError as error:
@@ -153,3 +193,45 @@ def adaptive_ocr(image_path, language_options):
                     )
 
     return candidates
+
+def extract_text_from_image(image_path, languages=None):
+    if languages is None:
+        languages = ["eng", "hin", "asm"]
+
+    candidates = adaptive_ocr(image_path, languages)
+
+    if not candidates:
+        return {
+        "success": False,
+        "text": "",
+        "language": "unknown",
+        "message": "No text could be extracted from the image."
+    }
+
+# Without ground-truth text, choose the candidate with
+# the most non-whitespace characters as a simple heuristic.
+    best = max(
+    candidates,
+    key=lambda item: len(item["Extracted_Text"].strip())
+)
+
+    extracted_text = best["Extracted_Text"].strip()
+
+    if not extracted_text:
+        return {
+        "success": False,
+        "text": "",
+        "language": "unknown",
+        "message": "No readable text was found in the image."
+    }
+
+    return {
+    "success": True,
+    "text": extracted_text,
+    "language": best["Detected_Language"],
+    "ocr_language": best["Language"],
+    "preprocessing": best["Preprocessing"],
+    "layout": best["Layout"],
+    "psm": best["PSM"],
+    "message": "Text extracted successfully."
+}

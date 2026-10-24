@@ -213,7 +213,7 @@ def allocate_resource(request_id, resource_name, quantity):
                 SET status = 'allocated'
                 WHERE request_id = %s;
             """, (request_id,))
-
+            conn.commit()
             return {
                 "request_id": request_id,
                 "resource": resource_name,

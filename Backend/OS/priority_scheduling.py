@@ -1,44 +1,68 @@
 def priority_scheduling(requests):
     remaining = requests.copy()
     scheduled = []
-    current_time = 0
+
+    if not remaining:
+        return scheduled
+
+    current_time = min(
+        request.arrival_time for request in remaining
+    )
 
     while remaining:
 
-        # Finding arrived requests
+        # Find requests that have already arrived
         available = []
 
         for request in remaining:
             if request.arrival_time <= current_time:
                 available.append(request)
 
-        # No request has arrived
+        # Move time forward if no request has arrived yet
         if not available:
-            current_time += 1
+            current_time = min(
+                request.arrival_time for request in remaining
+            )
             continue
 
-        # Find the request with highest urgency
+        # Select the request with the highest effective priority
         selected = available[0]
+        selected_waiting_time = (
+            current_time - selected.arrival_time
+        )
+        highest_priority = (
+            selected.urgency_score * 10
+            + selected_waiting_time
+        )
 
-        for request in available:
-            if request.urgency_score > selected.urgency_score:
+        for request in available[1:]:
+            waiting_time = current_time - request.arrival_time
+
+            # Aging: priority increases as waiting time increases
+            priority_score = (
+                request.urgency_score * 10
+                + waiting_time
+            )
+
+            if priority_score > highest_priority:
                 selected = request
+                selected_waiting_time = waiting_time
+                highest_priority = priority_score
 
-        waiting_time = current_time - selected.arrival_time
-        priority_score = (selected.urgency_score * 10) + waiting_time
-
+        # Add the selected request to the schedule
         scheduled.append({
             "request_id": selected.request_id,
             "location": selected.location,
             "need": selected.need,
             "urgency_score": selected.urgency_score,
-            "priority_score": priority_score,
-            "waiting_time": waiting_time
+            "priority_score": highest_priority,
+            "waiting_time": selected_waiting_time
         })
 
+        # Process one request in this simplified simulation
         current_time += 1
 
-        # Remove completed request
+        # Remove the completed request
         remaining.remove(selected)
 
     return scheduled

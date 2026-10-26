@@ -10,7 +10,7 @@ from Backend.NLP.src.keyword_extraction import(
 )
 from fastapi import FastAPI
 from pydantic import BaseModel, Field
-
+from fastapi import FastAPI,UploadFile,File
 from Backend.OS.models import ReliefRequest
 from Backend.OS.scheduler import schedule_requests
 from Backend.OS.metrics import (
@@ -23,13 +23,23 @@ from Backend.NLP.src.ocr import extract_text_from_image
 from fastapi import UploadFile,File,HTTPException
 import os
 import uuid
+from fastapi.middleware.cors import CORSMiddleware
+app = FastAPI(title="FloodSense")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://localhost:3000"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"]
+)
 UPLOAD_DIR = "uploads"
 MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB per image
 MAX_IMAGES = 50
 
 os.makedirs(UPLOAD_DIR, exist_ok=True)
-
-app = FastAPI(title="FloodSense")
 
 @app.post("/extract-image-text")
 async def extract_multiple_image_text(

@@ -5,9 +5,12 @@ import re
 import os
 import cv2
 import pytesseract
+pytesseract.pytesseract.tesseract_cmd = (
+    r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+)
 import pandas as pd
 from difflib import SequenceMatcher
-from langDetect import detect
+from langdetect import detect
 from langdetect.lang_detect_exception import LangDetectException
 
 def normalize_text(text):

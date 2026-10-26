@@ -2,239 +2,310 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { submitReliefRequest } from "../api/floodSenseApi";
 
+const API_URL = "http://127.0.0.1:8000";
+
 function SubmitRequest() {
-  // Allow navigation to the Results page
-  const navigate = useNavigate();
+const navigate = useNavigate();
 
-  // Store which input mode the user has selected
-  const [mode, setMode] = useState("text");
+const [mode, setMode] = useState("text");
+const [location, setLocation] = useState("");
+const [text, setText] = useState("");
+const [image, setImage] = useState(null);
+const [message, setMessage] = useState("");
+const [loading, setLoading] = useState(false);
+const fileInputRef = useRef(null);
+const [imagePreview, setImagePreview] = useState("");
 
-  // Store the affected location and relief description
-  const [location, setLocation] = useState("");
-  const [text, setText] = useState("");
+useEffect(() => {
+if (!image) {
+setImagePreview("");
+return;
+}
 
-  // Store the selected image and submission message
-  const [image, setImage] = useState(null);
-  const [message, setMessage] = useState("");
+const previewURL = URL.createObjectURL(image);
+setImagePreview(previewURL);
 
-  // Create a reference to access the hidden file input
-  const fileInputRef = useRef(null);
+return () => URL.revokeObjectURL(previewURL);
 
-  // Store the URL used to display the selected image preview
-  const [imagePreview, setImagePreview] = useState("");
+}, [image]);
 
-  // Update the image preview whenever the selected image changes
-  useEffect(() => {
-    // Clear the preview if no image is selected
+async function handleSubmit(event) {
+event.preventDefault();
+setMessage("");
+setLoading(true);
+
+try {
+  // IMAGE MODE: extract text, then analyze the extracted report.
+  if (mode === "image") {
     if (!image) {
-      setImagePreview("");
+      setMessage("Please select an image first.");
       return;
     }
 
-    // Create a temporary URL for displaying the image
-    const previewURL = URL.createObjectURL(image);
-    setImagePreview(previewURL);
+    const formData = new FormData();
+    formData.append("files", image);
 
-    // Release the temporary URL when the image changes
-    return () => URL.revokeObjectURL(previewURL);
-  }, [image]);
-
-  // Handle submission of the relief request form
-  async function handleSubmit(event) {
-    // Prevent the browser from refreshing the page
-    event.preventDefault();
-
-    // Image analysis is not connected yet
-    if (mode === "image") {
-      setMessage("Image analysis will be added later.");
-      return;
-    }
-
-    try {
-      // Send the location and description to the FastAPI backend
-      const result = await submitReliefRequest(location, text);
-
-      // Open Results only when the backend confirms saving
-      if (result.saved_to_database) {
-        // Pass the backend response to the Results page
-        navigate("/results", {
-          state: { result: result },
-        });
-      } else {
-        // Show a message if saving was not confirmed
-        setMessage("Request analyzed, but saving was not confirmed.");
+    const ocrResponse = await fetch(
+      `${API_URL}/extract-image-text`,
+      {
+        method: "POST",
+        body: formData,
       }
-    } catch (error) {
-      // Display a friendly message if the backend connection fails
-      setMessage(
-        "Unable to submit your request right now. Please try again later."
+    );
+
+    const ocrData = await ocrResponse.json();
+
+    if (!ocrResponse.ok) {
+      throw new Error(
+        ocrData.detail || "Unable to extract text from the image."
       );
     }
-  }
 
-  // Handle selection of an image from the user's device
-  function handleImageChange(event) {
-    // Store the selected image file
-    setImage(event.target.files[0] || null);
+    const extractedResult = ocrData.results?.find(
+      (item) => item.success && item.text?.trim()
+    );
 
-    // Clear any previous message
-    setMessage("");
-  }
-
-  // Remove the selected image from the form
-  function handleRemoveImage() {
-    // Clear the image and its preview
-    setImage(null);
-
-    // Reset the file input so the same image can be selected again
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+    if (!extractedResult) {
+      setMessage("No readable text was found. Try a clearer image.");
+      return;
     }
+
+    // Display the extracted text in the form.
+    setText(extractedResult.text);
+
+    // Send the extracted text to the bulk-analysis endpoint.
+    const analysisResponse = await fetch(
+      `${API_URL}/analyze-flood-bulk`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          messages: [
+            {
+              text: extractedResult.text,
+              location: location.trim(),
+            },
+          ],
+        }),
+      }
+    );
+
+    const analysisData = await analysisResponse.json();
+
+    if (!analysisResponse.ok) {
+      throw new Error(
+        analysisData.detail || "Flood report analysis failed."
+      );
+    }
+
+    const result = analysisData.results?.[0];
+
+    if (!result) {
+      throw new Error("The backend returned no analysis result.");
+    }
+
+    if (!result.saved_to_database) {
+      throw new Error(
+        result.error || "The report could not be saved to the database."
+      );
+    }
+
+    // Open the Results page with the analysis returned by FastAPI.
+    navigate("/results", {
+      state: {
+        result: {
+          ...result,
+          extracted_text: extractedResult.text,
+          filename: image.name,
+        },
+      },
+    });
+
+    return;
   }
 
-  return (
-    <div className="mx-auto max-w-2xl p-8">
-      {/* Display the page title */}
-      <h1 className="text-3xl font-bold">
-        Submit a Relief Request
-      </h1>
+  // TEXT MODE: keep your existing text submission flow.
+  if (!text.trim()) {
+    setMessage("Please describe the relief needs.");
+    return;
+  }
 
-      {/* Briefly explain the purpose of the page */}
-      <p className="mt-2 text-gray-600">
-        Upload a flood news image or describe the relief needs.
-      </p>
+  const result = await submitReliefRequest(location, text);
 
-      {/* Let the user choose between image and text input */}
-      <div className="mt-6 flex gap-4">
-        {/* Button for selecting image upload mode */}
-        <button
-          type="button"
-          onClick={() => {
-            setMode("image");
-            setMessage("");
-          }}
-          className={`rounded border p-3 ${
-            mode === "image"
-              ? "border-teal-700 bg-teal-100"
-              : "border-gray-300"
-          }`}
-        >
-          Upload Image
-        </button>
+  if (result.saved_to_database) {
+    navigate("/results", {
+      state: { result },
+    });
+  } else {
+    setMessage("Request analyzed, but saving was not confirmed.");
+  }
+} catch (error) {
+  setMessage(
+    error.message ||
+      "Unable to submit your request right now. Please try again."
+  );
+} finally {
+  setLoading(false);
+}
 
-        {/* Button for selecting text input mode */}
-        <button
-          type="button"
-          onClick={() => {
-            setMode("text");
-            setMessage("");
-          }}
-          className={`rounded border p-3 ${
-            mode === "text"
-              ? "border-teal-700 bg-teal-100"
-              : "border-gray-300"
-          }`}
-        >
-          Enter Need
-        </button>
-      </div>
+}
 
-      {/* Form containing the location and input fields */}
-      <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-        {/* Input field for the affected location */}
+function handleImageChange(event) {
+const selectedImage = event.target.files?.[0] || null;
+setImage(selectedImage);
+setMessage("");
+}
+
+function handleRemoveImage() {
+setImage(null);
+
+if (fileInputRef.current) {
+  fileInputRef.current.value = "";
+}
+
+}
+
+return (
+<div className="mx-auto max-w-2xl p-8">
+<h1 className="text-3xl font-bold">
+Submit a Relief Request
+</h1>
+
+  <p className="mt-2 text-gray-600">
+    Upload a flood news image or describe the relief needs.
+  </p>
+
+  <div className="mt-6 flex gap-4">
+    <button
+      type="button"
+      onClick={() => {
+        setMode("image");
+        setMessage("");
+      }}
+      className={`rounded border p-3 ${
+        mode === "image"
+          ? "border-teal-700 bg-teal-100"
+          : "border-gray-300"
+      }`}
+    >
+      Upload Image
+    </button>
+
+    <button
+      type="button"
+      onClick={() => {
+        setMode("text");
+        setMessage("");
+      }}
+      className={`rounded border p-3 ${
+        mode === "text"
+          ? "border-teal-700 bg-teal-100"
+          : "border-gray-300"
+      }`}
+    >
+      Enter Need
+    </button>
+  </div>
+
+  <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+    <input
+      type="text"
+      placeholder="Affected location"
+      value={location}
+      onChange={(event) => setLocation(event.target.value)}
+      required
+      className="w-full rounded border p-3"
+    />
+
+    {mode === "text" ? (
+      <textarea
+        placeholder="Describe the relief needs..."
+        value={text}
+        onChange={(event) => setText(event.target.value)}
+        required
+        maxLength={5000}
+        rows={5}
+        className="w-full rounded border p-3"
+      />
+    ) : (
+      <div>
         <input
-          type="text"
-          placeholder="Affected location"
-          value={location}
-          onChange={(event) => setLocation(event.target.value)}
+          ref={fileInputRef}
+          id="image-upload"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
           required
-          className="w-full rounded border p-3"
+          onChange={handleImageChange}
+          className="hidden"
         />
 
-        {/* Display the appropriate input based on the selected mode */}
-        {mode === "text" ? (
-          // Text area for describing the relief requirements
-          <textarea
-            placeholder="Describe the relief needs..."
-            value={text}
-            onChange={(event) => setText(event.target.value)}
-            required
-            maxLength={5000}
-            rows={5}
-            className="w-full rounded border p-3"
-          />
-        ) : (
-          // Image upload section
-          <div>
-            {/* Hidden file input opened by the Choose Image button */}
-            <input
-              ref={fileInputRef}
-              id="image-upload"
-              type="file"
-              accept="image/*"
-              required
-              onChange={handleImageChange}
-              className="hidden"
+        <div className="flex items-center gap-3">
+          <label
+            htmlFor="image-upload"
+            className="cursor-pointer rounded border border-teal-700 px-4 py-2 text-sm text-teal-700 hover:bg-teal-50"
+          >
+            Choose Image
+          </label>
+
+          {image && (
+            <button
+              type="button"
+              onClick={handleRemoveImage}
+              className="rounded border border-red-500 px-4 py-2 text-sm text-red-600 hover:bg-red-50"
+            >
+              Remove Image
+            </button>
+          )}
+        </div>
+
+        {image && (
+          <div className="mt-3">
+            <img
+              src={imagePreview}
+              alt="Selected flood news report"
+              className="max-h-60 rounded object-contain"
             />
 
-            {/* Display the image selection and removal buttons */}
-            <div className="flex items-center gap-3">
-              {/* Open the file picker to select an image */}
-              <label
-                htmlFor="image-upload"
-                className="cursor-pointer rounded border border-teal-700 px-4 py-2 text-sm text-teal-700 hover:bg-teal-50"
-              >
-                Choose Image
-              </label>
-
-              {/* Show Remove Image only when an image is selected */}
-              {image && (
-                <button
-                  type="button"
-                  onClick={handleRemoveImage}
-                  className="rounded border border-red-500 px-4 py-2 text-sm text-red-600 hover:bg-red-50"
-                >
-                  Remove Image
-                </button>
-              )}
-            </div>
-
-            {/* Show the selected image preview and filename */}
-            {image && (
-              <div className="mt-3">
-                {/* Display a preview of the selected image */}
-                <img
-                  src={imagePreview}
-                  alt="Selected flood news report"
-                  className="max-h-60 rounded object-contain"
-                />
-
-                {/* Display the selected file's name */}
-                <p className="mt-2 text-sm text-gray-600">
-                  {image.name}
-                </p>
-              </div>
-            )}
+            <p className="mt-2 text-sm text-gray-600">
+              {image.name}
+            </p>
           </div>
         )}
+      </div>
+    )}
 
-        {/* Button to submit the form */}
-        <button
-          type="submit"
-          className="w-full rounded bg-teal-700 p-3 text-white hover:bg-teal-800"
-        >
-          Submit Request
-        </button>
-      </form>
+    <button
+      type="submit"
+      disabled={loading}
+      className="w-full rounded bg-teal-700 p-3 text-white hover:bg-teal-800 disabled:cursor-not-allowed disabled:opacity-60"
+    >
+      {loading
+        ? mode === "image"
+          ? "Extracting text and analyzing..."
+          : "Submitting..."
+        : "Submit Request"}
+    </button>
+  </form>
 
-      {/* Display success, error, or informational messages */}
-      {message && (
-        <p role="status" className="mt-4 text-sm">
-          {message}
-        </p>
-      )}
+  {message && (
+    <p role="status" className="mt-4 text-sm text-red-600">
+      {message}
+    </p>
+  )}
+
+  {mode === "image" && text && (
+    <div className="mt-6 rounded border bg-white p-4">
+      <h2 className="font-semibold">Extracted Text</h2>
+      <p className="mt-2 whitespace-pre-wrap text-gray-700">
+        {text}
+      </p>
     </div>
-  );
+  )}
+</div>
+
+);
 }
 
 export default SubmitRequest;

@@ -20,6 +20,7 @@ from Backend.OS.metrics import (
 
 from Backend.NLP.src.urgency_score import analyze_flood_message
 from Backend.NLP.src.ocr import extract_text_from_image
+from Backend.cache import request_cache
 from fastapi import UploadFile,File,HTTPException
 import os
 import uuid
@@ -792,9 +793,23 @@ def allocate_resources_by_schedule(algorithm: str = "Priority"):
     }
 @app.post("/analyze-flood")
 def analyze_flood(message: FloodMessage):
-    result = analyze_flood_message(message.text)
-    request_id = str(uuid.uuid4())
     location = message.location.strip()
+
+    if not request_cache.claim_request(message.text, location):
+        return {
+            "request_id": None,
+            "message": message.text,
+            "saved_to_database": False,
+            "duplicate": True,
+            "detail": "This flood report was already submitted recently."
+        }
+
+    try:
+        result = analyze_flood_message(message.text)
+    except Exception:
+        request_cache.forget_request(message.text, location)
+        raise
+    request_id = str(uuid.uuid4())
     need = classify_relief_need(message.text)
     relief_result = classify_relief_need(message.text)
 
@@ -834,6 +849,7 @@ def analyze_flood(message: FloodMessage):
 
     people_affected = extract_people_affected(message.text)
     arrival_time = 0
+
     try:
         saved_request_id = add_relief_request(
             request_id=request_id,
@@ -847,6 +863,7 @@ def analyze_flood(message: FloodMessage):
             urgency_level=result["urgency_level"],
         )
     except Exception as e:
+        request_cache.forget_request(message.text, location)
         raise HTTPException(
             status_code=500,
             detail="Flood message was analyzed but could not save to the database",
@@ -856,5 +873,6 @@ def analyze_flood(message: FloodMessage):
         "request_id": saved_request_id,
         "message": message.text,
         "saved_to_database": True,
+        "duplicate": False,
         **result,
     }

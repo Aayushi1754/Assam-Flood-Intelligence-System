@@ -233,8 +233,9 @@ def is_non_emergency_update(text):
         contains_phrase(text, phrase)
         for phrase in non_emergency_phrases
     )
+
 def calculate_urgency(text):
-    """Calculate urgency from 1 to 5 using categories and message context."""
+    """Calculate flood-report urgency from 1 to 5 using categories and context."""
 
     if not isinstance(text, str) or not text.strip():
         return {
@@ -243,23 +244,41 @@ def calculate_urgency(text):
             "matched_categories": [],
         }
 
-    matched_categories = detect_urgency_categories(text)
     normalized_text = text.casefold()
 
-    # Detect a genuine emergency before applying a non-emergency rule.
+    # Detect categories using your existing category detector.
+    matched_categories = detect_urgency_categories(text)
+
+    # Phrases that indicate a genuine emergency.
     genuine_emergency_phrases = [
         # English
         "people are trapped",
         "people remain trapped",
         "trapped on rooftops",
+        "trapped on a rooftop",
         "stranded people",
         "immediate rescue",
         "urgent rescue",
+        "urgent flood rescue",
+        "urgent flood rescue needed",
+        "flood rescue needed",
+        "rescue needed",
+        "need rescue",
+        "needs rescue",
+        "people need rescue",
+        "families need rescue",
         "rescue boat needed",
+        "boat needed immediately",
         "ambulance needed",
         "medical emergency",
         "evacuate immediately",
         "mandatory evacuation",
+        "water has entered house",
+        "water has entered houses",
+        "flood water has entered",
+        "people are in danger",
+        "life-threatening",
+        "life threatening",
 
         # Hindi
         "लोग फँसे हुए हैं",
@@ -267,6 +286,8 @@ def calculate_urgency(text):
         "तुरंत बचाव",
         "रेस्क्यू बोट चाहिए",
         "तत्काल चिकित्सा सहायता",
+        "बचाव की जरूरत",
+        "बचाव की आवश्यकता",
 
         # Assamese
         "লোক আবদ্ধ হৈ আছে",
@@ -280,6 +301,8 @@ def calculate_urgency(text):
         for phrase in genuine_emergency_phrases
     )
 
+    # Routine updates should not be emergencies unless they also
+    # contain an explicit emergency indicator.
     if (
         is_non_emergency_update(normalized_text)
         and not has_genuine_emergency
@@ -289,28 +312,24 @@ def calculate_urgency(text):
             "urgency_level": "Informational",
             "matched_categories": matched_categories,
         }
-    normalized_text = text.casefold()
 
-    # Start with the average weight of matched categories.
-    if matched_categories:
-        normalized_text = text.casefold()
-
+    # Planned activities should normally have low urgency.
     planned_phrases = [
-        # English
         "will be distributed",
         "distribution on saturday",
         "scheduled relief distribution",
         "relief distribution",
         "relief camp will be held",
         "medical camp",
-
-        # Hindi
+        "scheduled medical camp",
+        "free medical camp",
+        "planned relief distribution",
+        "distribution will take place",
+        "relief distribution on saturday",
         "बाँटे जाएँगे",
         "बांटे जाएंगे",
         "राहत शिविर सूचना",
         "शनिवार सुबह",
-
-        # Assamese
         "বিতৰণ কৰা হ'ব",
         "ত্ৰাণ বিতৰণৰ বিজ্ঞপ্তি",
     ]
@@ -320,62 +339,53 @@ def calculate_urgency(text):
         for phrase in planned_phrases
     )
 
+    # Categories that represent high-priority emergencies.
+    priority_categories = {
+        "rescue_emergency",
+        "medical_emergency",
+        "evacuation",
+    }
+
+    # Calculate an initial score from matched categories.
     if matched_categories:
         weights = [
             URGENCY_CATEGORIES[category]["weight"]
             for category in matched_categories
+            if category in URGENCY_CATEGORIES
         ]
-
-        priority_categories = {
-            "rescue_emergency",
-            "medical_emergency",
-            "evacuation",
-        }
 
         has_priority_category = any(
             category in priority_categories
             for category in matched_categories
         )
 
-        if is_planned:
-            score=2.0
-        elif has_priority_category:
+        if has_priority_category and weights:
             score = max(weights)
-        else:
+        elif weights:
             score = sum(weights) / len(weights)
+        else:
+            score = 1.0
     else:
         score = 1.0
 
-    # Context indicating that the situation is currently safe.
-    safe_phrases = [
-        "everyone is safe",
-        "everyone safe",
-        "no ambulance is needed",
-        "no ambulance needed",
-        "no one is injured",
-        "no injuries",
-        "sab safe hain",
-        "koi injured nahi",
-        "koi ghayal nahi",
-    ]
-
-    # Context indicating a planned activity rather than an active emergency.
-    planned_phrases = [
-        "scheduled relief distribution",
-        "relief distribution on saturday",
-        "planned relief distribution",
-        "scheduled medical camp",
-        "free medical camp",
-        "distribution will take place",
-        "relief camp will be held",
-    ]
-
-    # Context indicating an immediate emergency.
+    # Explicit signs of an immediate emergency.
     immediate_phrases = [
+        # English
         "trapped",
         "stranded",
         "needs immediate rescue",
         "urgent rescue",
+        "urgent flood rescue",
+        "urgent flood rescue needed",
+        "flood rescue needed",
+        "need rescue",
+        "needs rescue",
+        "rescue needed",
+        "people need rescue",
+        "families need rescue",
+        "immediate rescue needed",
+        "rescue boats needed",
+        "rescue boat needed",
         "ambulance needed",
         "medical emergency",
         "evacuate immediately",
@@ -391,50 +401,74 @@ def calculate_urgency(text):
         "need urgent rescue",
         "severe flooding",
         "water has entered house",
-        "people need rescue",
+        "water has entered houses",
+        "flood water has entered",
+        "people are in danger",
+        "life-threatening",
+        "life threatening",
+
         # Hindi
         "निकासी सूचना",
         "खतरे के निशान से ऊपर",
         "स्थानांतरित होना होगा",
         "सुरक्षित स्थान पर पहुँचें",
         "नावों से निकाला जाएगा",
+        "तुरंत बचाव",
+        "बचाव की जरूरत",
+        "बचाव की आवश्यकता",
 
         # Assamese
         "বিপদসীমাৰ ওপৰত",
         "স্থানান্তৰৰ নিৰ্দেশ",
         "নিৰাপদ স্থানলৈ স্থানান্তৰ",
         "নাৱেৰে উদ্ধাৰ কৰা হ'ব",
+        "জৰুৰী চিকিৎসা",
 
         # Roman Hindi
         "turant evacuation",
         "danger mark se upar",
-        "sabhi log",
-        "pehle boats se nikala jayega",
         "boat bhejiye",
     ]
 
-    is_safe = any(
-        phrase in normalized_text for phrase in safe_phrases
-    )
-
-    is_planned = any(
-        phrase in normalized_text for phrase in planned_phrases
-    )
-
     is_immediate = any(
-        phrase in normalized_text for phrase in immediate_phrases
+        contains_phrase(normalized_text, phrase)
+        for phrase in immediate_phrases
     )
 
-    # Planned activities should not be classified as emergencies
-    # merely because they mention relief, food, or medical services.
+    # Context indicating that the situation is currently safe.
+    safe_phrases = [
+        "everyone is safe",
+        "everyone safe",
+        "no ambulance is needed",
+        "no ambulance needed",
+        "no one is injured",
+        "no injuries",
+        "sab safe hain",
+        "koi injured nahi",
+        "koi ghayal nahi",
+    ]
+
+    is_safe = any(
+        contains_phrase(normalized_text, phrase)
+        for phrase in safe_phrases
+    )
+
+    # Planned activities should not be treated as emergencies
+    # unless an immediate emergency is also reported.
     if is_planned and not is_immediate:
         score = min(score, 2.0)
 
-    # When everyone is safe and no immediate emergency is reported,
-    # reduce urgency slightly rather than treating supply requests
-    # as active rescue emergencies.
+    # Reduce urgency slightly when the message clearly says
+    # everyone is safe and no immediate emergency is present.
     elif is_safe and not is_immediate:
         score = min(score, 3.0)
+
+    # Immediate rescue or emergency reports must score at least 4.
+    if is_immediate:
+        score = max(score, 4.0)
+
+    # Keep scores within the supported 1–5 range.
+    score = max(1.0, min(float(score), 5.0))
 
     # Convert the numerical score to an urgency level.
     if score >= 4.5:
